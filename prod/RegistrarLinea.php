@@ -43,6 +43,7 @@
 	if(!isset($_GET["edit"])){
 		//accept es igual al estado 
 		$accept = Produccion::agregar($linea, $encargado, $producto, $cantidad, $elaboracion, $caducidad);
+		//echo "ACCEPT: ".$accept."<br />";
 	}
 	else if(isset($_GET['folio'])){
 		//echo "folio";
@@ -57,6 +58,9 @@
 	//Resultado de la operacion
 	if(!$accept){
 		echo "DATABASE_PROBLEM";
+	}
+	else if($accept == "FECHA"){
+		echo "DATE_PROBLEM";
 	}
 	else{
 		echo "OK";

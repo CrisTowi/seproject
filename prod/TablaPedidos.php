@@ -5,8 +5,8 @@
 	<tr class='tr-header'>
 		<td>Folio</td>   
 		<td>Identificador de Lote</td>                
+		<td>Producto Asociado</td>   
 		<td>Estado</td>
-		<td>Producto Asociado</td>        
 		<td colspan="2">Opciones</td>
 	</tr>
 <?php
@@ -21,7 +21,7 @@
 	WHERE a.folio = v.folio
 	AND v.estado !=  'cancelada'
 */	
-	$qry = "SELECT v.folio, a.idLote, a.estado, cp.nombreProducto
+	$qry = "SELECT v.folio, a.idLote, cp.nombreProducto, a.estado
 	FROM articuloventa a, venta v, lote l, catalogoproductos cp 
 	WHERE a.folio = v.folio AND v.estado != 'cancelada' AND a.idLote = l.noLote AND l.productoAsociado = cp.idProducto ";
 	// Añade parametros de búsqueda
@@ -40,8 +40,9 @@
 		while($fila = mysql_fetch_array($result)){		
 			$folio = $fila["folio"];
 			$idlote = $fila['idLote'];	
+			$prod = $fila['nombreProducto'];				
 			$edo = $fila['estado'];
-			$prod = $fila['nombreProducto'];			
+		
 /*			
 			if($edo == "NULL"){
 				$estado = "pendiente";
@@ -53,11 +54,13 @@
 			echo ("<tr class='tr-cont' id='".$folio."' name='".$folio."'>
 				<td>".$folio."</td>
 				<td>LO-".$idlote."</td>
-				<td>".$edo."</td>				
-				<td>".$prod."</td>								
-				<td>
-				<img src='../img/notepad.png' 
-				onclick='enviarProduccion(\"".$folio."\")' alt='Producir' class='clickable'/></td>");
+				<td>".$prod."</td>												
+				<td>".$edo."</td>");
+			//if($edo != "produccion"){
+				echo ("<td>
+					<img src='../img/notepad.png' 
+					onclick='enviarProduccion(\"".$folio."\")' alt='Producir' class='clickable'/></td>");
+			//}
 			$milote = Lote::findById($idlote);
 			echo ("<td>
 					<img src='../img/search.png'

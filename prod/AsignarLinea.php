@@ -122,7 +122,8 @@
 										$codigo = "<tr>
 											<td>Estado del Lote:</td>
 											<td>
-												<select id='estado' name='estado'>
+												<select id='estado' name='estado'
+												onblur=\"valida(this.value,'msgEstado','estado');\">
 													<option value='0'>Seleccionar estado: </option>
 													<option value='pendiente'>Pendiente</option>
 													<option value='produccion'>En producción</option>																										
@@ -388,6 +389,9 @@
 		else if ( returnedValue == "DATABASE_PROBLEM"){
 			alert("Error en la base de datos");
 		}
+		else if(returnedValue == "DATE_PROBLEM"){
+			alert("La fecha seleccionada ya se encuentra asignada.");
+		}
 		else if ( returnedValue == "INPUT_PROBLEM"){
 			alert("Datos con formato inválido");
 		} else {
@@ -399,6 +403,7 @@
 			}
 			window.location = "./GestionarLineas.php";	
 		}
+
 	}//funcion
 
 	/*Funcion para validar los campos*/
@@ -462,6 +467,21 @@
 				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
 			}
 		}//elaboracion			
+		<?php
+			if(isset($_GET['numprod']) || isset($_GET['folio'])){
+				?>
+		else if(validate == 'estado'){
+			if(str == 0){
+				document.getElementById(target).innerHTML = "<img src='../img/error.png' />" + 
+				"Debes realizar un cambio en el estado!";					
+			}
+			else{
+				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
+			}
+		}//elaboracion							
+				<?php
+			}
+		?>
 	}
 	
 </script>

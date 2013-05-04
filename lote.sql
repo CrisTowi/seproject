@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 04-05-2013 a las 12:47:46
+-- Tiempo de generación: 04-05-2013 a las 16:17:49
 -- Versión del servidor: 5.5.8
 -- Versión de PHP: 5.3.5
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `lote` (
   `fechaElaboracion` date NOT NULL,
   `fechaCaducidad` date NOT NULL,
   PRIMARY KEY (`noLote`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=66 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=130 ;
 
 --
 -- Volcar la base de datos para la tabla `lote`
@@ -47,4 +47,5 @@ INSERT INTO `lote` (`noLote`, `productoAsociado`, `cantidadProducto`, `fechaElab
 (62, '2', 2000, '2013-05-15', '2013-08-27'),
 (63, '6', 2000, '2013-05-16', '2013-08-21'),
 (64, '6', 2000, '2013-05-16', '2013-08-21'),
-(65, '4', 4000, '2013-05-22', '2013-08-27');
+(65, '4', 4000, '2013-05-22', '2013-08-27'),
+(129, '1', 1000, '2013-05-15', '2013-08-25');
