@@ -55,7 +55,7 @@ function AddMP()
 	
 	if(selector.value=='nuevo')
 	{
-		window.location='GestionProducto.php'
+		window.location='AgregarIngrediente.php'
 	}
 	else
 	{

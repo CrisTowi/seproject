@@ -5,7 +5,7 @@
 	$result = $db->executeQuery("SELECT * FROM materiaprima ORDER BY Nombre ASC");
 	$name="SelIngrediente";
 	echo "<select id='".$name."' name='".$name."'>";
-	
+	echo "<option value='nuevo'>Nuevo Ingrediente</option>";	
 	while( $dato = mysql_fetch_assoc($result) ){
 		echo "<option value='".$dato["idMateriaPrima"]."'>".$dato["Nombre"]."</option>";		
 	}
