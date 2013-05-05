@@ -45,7 +45,7 @@
                     
                     <div class="box">
 						<div id="buttonOK" class="form-button" onclick="agregarIngrediente();">Agregar</div>
-                        <div class="form-button" onclick="cancelar();">Cancelar</div>	
+                        <div class="form-button" onclick="redirect('Administrador.php')">Cancelar</div>	
                     </div>
                 </div>
 				</form>
@@ -123,9 +123,7 @@
 	}
 	
 	
-	function cancelar(){
-				history.back()
-	}
+	
 	function valida( str, target, validate ){
 		if ( validate == "nombre" ){
 			str = str.trim();
