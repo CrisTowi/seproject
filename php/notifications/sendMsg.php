@@ -1,9 +1,9 @@
-<?php header('Content-Type: text/html; charset=iso-8859-1'); ?>
+<?php header('Content-Type: text/html; charset=utf-8'); ?>
 <table id="msg">
 <?php	
-	include("../php/DataConnection.class.php");	
-	include("../php/AccessControl.php");	
-	include("../php/Validations.class.php");
+	include("../DataConnection.class.php");	
+	include("../AccessControl.php");	
+	include("../Validations.class.php");
 	
 	$db = new DataConnection();
 	$result = $db->executeQuery("SELECT * FROM Area");

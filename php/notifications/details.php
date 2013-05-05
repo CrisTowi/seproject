@@ -1,8 +1,8 @@
 <?php header('Content-Type: text/html; charset=iso-8859-1'); ?>
 <table style="width: 500px; margin-left:10px;">
 <?php	
-	include("../php/DataConnection.class.php");	
-	include("../php/AccessControl.php");	
+	include("../DataConnection.class.php");	
+	include("../AccessControl.php");	
 	$db = new DataConnection();
 	$qry = "SELECT * FROM Mensajes,Empleado WHERE Mensajes.remitente=Empleado.CURP and Mensajes.destinatario='".$sesion->getEmpleado()->getArea()."' AND Mensajes.id=".$_GET["id"];
 	$result = $db->executeQuery($qry);

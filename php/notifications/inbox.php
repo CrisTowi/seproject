@@ -1,4 +1,4 @@
-<?php header('Content-Type: text/html; charset=iso-8859-1'); ?>
+<?php header('Content-Type: text/html; charset=utf-8'); ?>
 <table style="margin-left: 10px">
 	<tr style='background-color:#333333; color: white;'>
 		<td style="width: 100px;"><h2>Fecha</h2></td>
@@ -6,11 +6,15 @@
 		<td style="width: 270px;"><h2>Asunto</h2></td>
 	</tr>
 <?php	
-	include("../php/DataConnection.class.php");	
-	include("../php/AccessControl.php");	
-	$flt = $_GET["archivado"];
+	include("../DataConnection.class.php");	
+	include("../AccessControl.php");	
 	$db = new DataConnection();
-	$qry = "SELECT * FROM Mensajes,Empleado WHERE Mensajes.archivado = ".$flt." and Mensajes.remitente=Empleado.CURP and Mensajes.destinatario='".$sesion->getEmpleado()->getArea()."' ORDER BY id DESC";
+	if ( isset($_GET["archivado"]) ){
+		$flt = $_GET["archivado"];	
+		$qry = "SELECT * FROM Mensajes,Empleado WHERE Mensajes.archivado = ".$flt." and Mensajes.remitente=Empleado.CURP and Mensajes.destinatario='".$sesion->getEmpleado()->getArea()."' ORDER BY id DESC";
+	} else {
+		$qry = "SELECT * FROM Mensajes,Empleado WHERE Mensajes.remitente='".$sesion->getEmpleado()->getCurp()."' and Mensajes.remitente=Empleado.CURP ORDER BY id DESC";
+	}
 	$result = $db->executeQuery($qry);
 	$cont = 0;
 	while($fila = mysql_fetch_array($result))
@@ -29,6 +33,5 @@
 		echo "</tr>";
 	}
 ?>
-
 </table>
 

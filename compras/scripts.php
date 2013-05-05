@@ -15,6 +15,7 @@
 <script type="text/javascript" src="../js/jquery.ui.widget.js"></script>
 <script type="text/javascript" src="../js/jquery.ui.datepicker.js"></script>
 <script type="text/javascript" src="../js/navigation.js"></script>        
+<script type="text/javascript" src="../js/mensajes.js"></script>        
 <script type="text/javascript">
 	$(function () {
 		var dates = $("#from, #to").datepicker
@@ -37,11 +38,9 @@
 			}
 		);
 	});
-</script> 
-<script type="text/javascript">
+
 function validarReporte()
 {
-
 	if(document.SolicitarRepo.tipo_reporte.selectedIndex==0)
 	{
 		alert("El tipo de reporte es un campo obligatorio")
@@ -55,8 +54,6 @@ function validarReporte()
 			window.location='ReporteVentas.php'
 		}
 	}
-	
-	
 }
 
 function isNew()
@@ -68,7 +65,6 @@ function isNew()
 	else
 	{
 		encontrado=document.getElementById(document.cambioBox.ingrediente.selectedIndex); 
-	
 		if(encontrado==undefined && document.cambioBox.ingrediente.selectedIndex!=0)
 		{
 			field = document.getElementById('cuerpoT'); 
@@ -121,9 +117,10 @@ function isNew()
 }
 
 function quitarIngrediente(obj) {
-  field = document.getElementById('cuerpoT'); 
-  field.removeChild(document.getElementById(obj)); 
+	field = document.getElementById('cuerpoT'); 
+	field.removeChild(document.getElementById(obj)); 
 }
+
 function validarReceta()
 {		
 		var RegExPattern = /^(?:\+|-)?\d+$/;
@@ -148,10 +145,7 @@ function validarReceta()
 			
 			
 		}
-		
 		document.altasReceta.submit();
-		
-			
 }
 
 
@@ -227,10 +221,7 @@ function eli(renglon){
 	}
 }
 
-function modificarProducto(renglon){
-	
-	
-		
+function modificarProducto(renglon){		
 	form=document.createElement('form');
 	form.id='modificar';
 	form.name='modificar';
@@ -244,9 +235,8 @@ function modificarProducto(renglon){
 	texto.value=renglon;
 	form.appendChild(texto);
 	form.submit();
-		
-	
 }
+
 function modificarProveedor(renglon){
 
 	form=document.createElement('form');
@@ -262,10 +252,6 @@ function modificarProveedor(renglon){
 	texto.value=renglon;
 	form.appendChild(texto);
 	form.submit();
-
 }
-
 </script> 
-
-
 <!-- end of scripts -->

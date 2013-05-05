@@ -10,13 +10,18 @@ function closeInbox() {
 }
 
 function loadMessagesArchived() {
-    sendPetitionSync("../php/inbox.php?archivado=1","messages",document);
+    sendPetitionSync("../php/notifications/inbox.php?archivado=1","messages",document);
 	document.getElementById("banner").innerHTML = "Mensajes archivados";
 }
 
 function loadMessages() {
-    sendPetitionSync("../php/inbox.php?archivado=0","messages",document);
+    sendPetitionSync("../php/notifications/inbox.php?archivado=0","messages",document);
 	document.getElementById("banner").innerHTML = "Bandeja de entrada";
+}
+
+function loadSentMessages() {
+    sendPetitionSync("../php/notifications/inbox.php?sent","messages",document);
+	document.getElementById("banner").innerHTML = "Bandeja de salida";
 }
 
 function viewDetails(id){
@@ -31,7 +36,7 @@ function viewDetails(id){
 	}
 }
 function loadDetails(id){
-	sendPetitionSync("../php/details.php?id=" + id,"msgDetail",document);
+	sendPetitionSync("../php/notifications/details.php?id=" + id,"msgDetail",document);
 }
 
 function closeDetails() {
@@ -45,7 +50,7 @@ function sendMsg(){
     loadSender();
 }
 function loadSender(){
-	sendPetitionSync("../php/sendMsg.php","msgSend",document);
+	sendPetitionSync("../php/notifications/sendMsg.php","msgSend",document);
 }
 
 function closeSend() {
@@ -55,9 +60,9 @@ function closeSend() {
 function archivarMsg(){	
 	id = document.getElementById("id").value;	
 	if ( document.getElementById("archivado").value == 1 ){
-		sendPetitionQuery("../php/archivaMensaje.php?id=" + id + "&reverse=true"); // Desarchivar
+		sendPetitionQuery("../php/notifications/archivaMensaje.php?id=" + id + "&reverse=true"); // Desarchivar
 	}else{
-		sendPetitionQuery("../php/archivaMensaje.php?id=" + id); // Archivar
+		sendPetitionQuery("../php/notifications/archivaMensaje.php?id=" + id); // Archivar
 	}	
 	if ( returnedValue == "OK" ){
 		alert("Operacion realizada correctamente");
@@ -69,12 +74,17 @@ function archivarMsg(){
 }
 
 function sendMessage(){
+	if ( document.getElementById("asunto").value.length == 0 ||
+		 document.getElementById("mensaje").value.length == 0 ){
+		alert("No puede dejar campos vacios"); 
+		return;
+	}
 	qry = "enviarMensaje.php?";
 	qry += "asunto=" + document.getElementById("asunto").value + "&";
 	qry += "area=" + document.getElementById("area").value + "&";
 	qry += "mensaje=" + document.getElementById("mensaje").value + "&";
 	qry += "problema=" + document.getElementById("problema").checked;
-	sendPetitionQuery("../php/" + qry);
+	sendPetitionQuery("../php/notifications/" + qry);
 	if ( returnedValue == "OK" ){
 		alert("Mensaje enviado");
 		closeSend();

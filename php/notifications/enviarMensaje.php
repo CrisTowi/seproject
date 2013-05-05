@@ -1,7 +1,7 @@
 <?php
-	include("AccessControl.php");
-	include("Validations.class.php");
-	include("DataConnection.class.php");	
+	include("../AccessControl.php");
+	include("../Validations.class.php");
+	include("../DataConnection.class.php");	
 	$asunto = Validations::cleanString($_GET["asunto"]);	
 	$area = Validations::cleanString($_GET["area"]);	
 	$mensaje = Validations::cleanString($_GET["mensaje"]);	

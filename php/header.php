@@ -18,9 +18,12 @@
         </center>
         <div id="content">
             <div class="box">
-                <div class="form-button" onclick="sendMsg();">Enviar Notificaci&oacute;n</div>
-				<div class="form-button" onclick="loadMessages();">Ver bandeja de entrada</div>
-				<div class="form-button" onclick="loadMessagesArchived();">Ver mensajes archivados</div>
+				<center>
+					<div class="form-button" onclick="sendMsg();"><img src="../img/write.png" height="40px"></div>
+					<div class="form-button" onclick="loadMessages();"><img src="../img/inbox.png" height="40px"></div>
+					<div class="form-button" onclick="loadSentMessages();"><img src="../img/sent.png" height="40px"></div>
+					<div class="form-button" onclick="loadMessagesArchived();"><img src="../img/achieved.png" height="40px"></div>
+				</center>
              </div>
     		<div class="box">
                 <div id="messages">Aqui van los mensajes</div>
@@ -28,7 +31,6 @@
        </div>
     </div>
 </div>
-
 <!-- Ver mensaje -->
 <div id="details">
     <div id="inbox">
@@ -47,7 +49,6 @@
        </div>
     </div>
 </div>
-
 <!-- Enviar mensaje -->
 <div id="sendMessage">
     <div id="inbox">

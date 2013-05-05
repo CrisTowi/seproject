@@ -1,6 +1,6 @@
 <?php 
-	include("../php/Validations.class.php");
-	include("../php/DataConnection.class.php");
+	include("../Validations.class.php");
+	include("../DataConnection.class.php");
 	$id = Validations::cleanString($_GET["id"]);	
 	$db = new DataConnection();
 	if ( isset($_GET["reverse"]) ){
