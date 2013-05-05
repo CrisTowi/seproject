@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
 	</head>    
     <body>
-    	<?php include("header.php"); ?>
+		<?php include("header.php"); ?>
         <center>
         <div id="mainDiv">
 		<!-- Aquí se coloca el menú -->
@@ -19,13 +19,11 @@
             </nav>
 			<!-- Divisor del contenido de la pagina -->
             <div id="all-content">
-			<h1>M&oacute;dulo de Compras</h1>
-				
-            </div>
-			
+			<h1>M&oacute;dulo de Compras</h1>				
+            </div>			
         </div>
         </center>
-        <footer>Elaborado por nosotros(C) 2013</footer>
+        <?php include("../php/footer.php"); ?>
     </body>   
 </html>
 <?php include("scripts.php"); ?>

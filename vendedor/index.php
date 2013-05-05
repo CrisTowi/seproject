@@ -22,8 +22,7 @@
 			</nav>
 			<!-- Divisor del contenido de la pagina -->
             <div id="all-content">
-				<br/>
-                <div id="ENTRADA"><center>Bienvenido al <br/> Modulo de Ventas</center></div>
+				<h1>M&oacute;dulo de Ventas</h1>	
             </div>  
         </center>
         
