@@ -6,16 +6,21 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="author" content="Ventas"/>
         <title>Registrar Venta</title>
-        <link rel="stylesheet" type="text/css" href="../css/ventastyle/styleRV.css" />
-         <?php include('scripts.php'); ?> 	
+        <link rel="stylesheet" type="text/css" href="../css/ventas.css" />
+        <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
+        <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css" />
     </head>    
     <body>
 	<!-- El header es el mismo para todas las paginas-->
     	<?php include('header.php');?>
-        
+        <center>
         <div id="mainDiv">
 		<!-- Aquí se coloca el menú -->
-            <?php include('Menu.php');?>
+            <nav>
+			      <div id="GV" class="selected-button" onClick="window.location ='GestionV.php'"><img src="../img/archive.png"  alt="Icono" class="img-icon"/>Gestión de Ventas</div>     
+					<div id="GC" class="button" onClick="window.location ='GestionC.php'"><img src="../img/card.png"  alt="Icono" class="img-icon"/>Gestión de Clientes</div>
+					<div id="rep" class="button" onClick="window.location ='Reportes.php'"><img src="../img/notepad.png"  alt="Icono" class="img-icon"/>Crear Reportes</div>
+			</nav>
 			<!-- Divisor del contenido de la pagina -->
             <div id="all-content">
 				<br/>
@@ -63,9 +68,12 @@
                     <div id="boton2"><input type="button" value="Cancelar" onClick="cancelar()"></div>  
                   </form>
                 </div>
-            </div>    
+            </div>   
+            <center> 
     </body>   
 </html>
+
+<?php include('scripts.php'); ?> 	
 <!--<script type="text/javascript" src="jquery-1.4.2.min.js"></script>-->
 <script type="text/javascript">
 	 $(document).ready(function(){

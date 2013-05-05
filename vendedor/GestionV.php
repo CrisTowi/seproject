@@ -1,35 +1,38 @@
 ﻿<?php include("../php/AccessControl.php"); ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 	<head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="author" content="Ventas"/>
         <title>Gestión de Ventas</title>
-        <link rel="stylesheet" type="text/css" href="../css/ventastyle/styleV.css" />
-		<?php include('scripts.php');?> 
+        <link rel="stylesheet" type="text/css" href="../css/ventas.css" />
+        <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
+        <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css" />
+ 
     </head>    
     <body>
 	 <?php include('header.php');?>   
+	   <center>
         <div id="mainDiv">
 		<!-- Aquí se coloca el menú -->
-            <?php include('Menu.php');?> 
+            <nav>
+			      <div id="GV" class="selected-button" onClick="window.location ='GestionV.php'"><img src="../img/archive.png"  alt="Icono" class="img-icon"/>Gestión de Ventas</div>     
+					<div id="GC" class="button" onClick="window.location ='GestionC.php'"><img src="../img/card.png"  alt="Icono" class="img-icon"/>Gestión de Clientes</div>
+					<div id="rep" class="button" onClick="window.location ='Reportes.php'"><img src="../img/notepad.png"  alt="Icono" class="img-icon"/>Crear Reportes</div>
+			</nav>
 			<!-- Divisor del contenido de la pagina -->
             <div id="all-content">
-				
-                <!--<div class="titulo">GESTIÓN DE VENTAS</div>-->
                 <div class="box">
                     <div id="AV" class="form-button" onClick="window.location ='Registrar_Venta.php'">Registar Venta</div>
-		            <input type="text" id="buscar" name="buscar" placeholder = "Buscar Venta" class="searchBar" onChange="onClickBusqueda();"/>
+		            <input type="text" id="buscar" name="buscar" placeholder = "Buscar Venta (RFC,FolioVenta)" class="searchBar" onChange="onClickBusqueda();" style="width:250px;"/>
 			   </div>
     			   <div id="tablaVenta"><?php include("TablaVentas.php"); ?></div>
 				</div>
-    			
             </div>  
-        
-        
+        </center>
+ <?php include("../php/footer.php"); ?>      
     </body>   
 </html>
+<?php include('scripts.php');?> 
 <script type="text/javascript">
 	/* Genera la tabla de empleados */
 	function onClickBusqueda(){

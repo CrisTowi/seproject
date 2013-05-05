@@ -1,198 +1,82 @@
 .titulo{
-	font-family: Trebuchet MS;
 	font-size:20pt; 
-	color: white;
 	font-weight:bold;
 }
 .texto{
-	font-family: Trebuchet MS;
 	font-size:13pt; 
-	color: white;
 	font-weight:bold;
 }
 .texto1{
-	font-family: Trebuchet MS;
 	font-size:8pt; 
-	color: white;
-}
+	}
 /*Este es el mismo para todas*/
-body
-{
-    background-color: #DCE4E9; /* Main background color */   
-    font-family: Trebuchet MS;
-}
-/*header de la pagina*/
-header
-{
-    background-color:#81BEF7; /* Cambiar al color respectivo*/
-    margin: 30px;
-    height: 60px;
-    border-radius:10px;
-    padding-top:0px;
-    min-width: 560px;
-}
-/*Lado izquierdo del header*/
-#leftHeader{
-    margin-top: 10px;
-    float: left;
-}
-#rightHeader
-{
-    float: right;
-}
 
-.img-header
+/*header de la pagina*/
+/*#header
 {
+    background-color:#81BEF7; /* Cambiar al color respectivo
     
-    height: 30px;
-    margin-left: 20px;
-}
-/*imagen del banner de la empresa*/
-.img-banner
-{
-    height: 60px;
-}
-/*Texto en el header*/
-.text-header
-{
-    font-family: Trebuchet MS;
-    height: 35px; 
-	color: white;
+}*/
+#ENTRADA{
+	font-size:40pt; 
+	color:#115075;
 	font-weight:bold;
-    vertical-align: middle;
-    margin-left: 10px;
-    display: inline-block;
+	overflow:auto;
+	margin-left: 15px;
+    margin-top: 100px;
 }
-/*Imagen para la busqueda*/
-.img-buscar
-{
-	height: 20px;
-	display:inline-block;
-	cursor:pointer
-}
-#mainDiv
-{
-    width: 1050px;    
-    display: block;
-    height: 500px;
-    margin-left: auto;
-    margin-right: auto;
-}
-/*Barra de navegación*/
-nav
-{   
-    float: left;
-    width: 170px;
-    margin-top: 15px;
-    margin-right: 15px;
-    height: 400px;
-}
-#all-content
-{
-    
-    float: right;    
-    width: 800px;
-    margin-left: 15px;
-    margin-top: 15px;
-    height: 450px;
-    overflow: auto;
-}
-/*Divisor para varios elementos en una misma linea*/
-.box
-{
-    display: block;
-    padding-top: 10px;
-}
-/*Propiedades de los input*/
-input[type="text"],select
-{
-    padding: 5px;
-    margin: 5px;   
-}
-/*Propiedades para la tabla*/
 #tablaCliente{
-	margin-left: 40px;
-	
+	margin-left: -9px;
 }
 #tablaVenta{
-	margin-left: 40px;
+	margin-top:5px;
+	margin-left: 90px;
+	
 }
-/*table
-{
-	display: block;
-}
-
-tbody
-{
-	display: block;
-}*/
-
 #table-content{
-	width: 750px; 
-	margin-left: 10px;
-    margin-top: 60px; 
     color: white; 
 	
 }	
-.tr-header{
-	padding: 3px;
-	background-color: #117DE1;
-	border-color: Gray;
-    border-width: 1px;
-    border-style: solid;
-}
-.tr-cont{
-	padding: 3px;
-	background-color:#81BEF7;
-	
-}
-.opc{
-	padding: 3px;
-}
-
-td{
-	height: 30px;
-	width:auto;
-	padding: 3px;
-}
-
-.clickable{
-	cursor: pointer;
-}
 .click{
 	cursor: pointer;
 	color: #092B9D;
 }
 
-.searchBar{
-	width: 100px;
-}
 #Paginacion{
-	
-	margin-left:270px;
-	font-family: Trebuchet MS;
+	margin-top:-10px;
 	font-size:9pt; 
 	color: #117DE1;
 	font-weight:bold;
+}
+.tr-headerv{
+	padding: 3px;
+	background-color:#117DE1;
+	border-color: Gray;
+    border-width: 1px;
+    border-style: solid;
+}
+.tr-contv{
+	padding: 3px;
+	background-color:#0BB9EE;
+}
+/*REPORTES/ */
+#aceptar{ 
+	position:absolute;  
+	margin-left:300px;
+    margin-top:20px;}
+#cancel{ 
+	position:absolute;  
+	margin-left:400px;
+    margin-top:20px;}
+.ta{
 	
-}
-
-#AV{
-	filter: alpha(opacity=60);
-	-moz-opacity: .60;
-	opacity: 0.6;
-	position:absolute; 
-    padding-right:5px;
-    padding-bottom: 15px;
-    background-color:#81BEF5;
-}
-
-.bo{
-	margin-top: 10px;
-    font-family: Trebuchet MS;
-	font-size:13pt; 
-	color: white;
-	font-weight:bold;
+	height: 90px; 
+	width: 150px; 
+	border-style:none;
+	font-family: Arial; 
+	font-size: 13px;
+	resize:none;
+	/*margin-top: 10px;*/
 }
 
 

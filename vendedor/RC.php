@@ -6,60 +6,57 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="author" content="Ventas"/>
         <title>Registrar Cliente</title>
-        <link rel="stylesheet" type="text/css" href="../css/ventastyle/registrarcliente.css">
-        <?php include('scripts.php');?> 
+         <link rel="stylesheet" type="text/css" href="../css/ventas.css" />
+        <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
+         <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">		
     </head>    
     <body>
 	 <?php include('header.php');?>   
+	 <center>
         <div id="mainDiv">
 		<!-- Aquí se coloca el menú -->
-            <?php include('Menu.php');?> 
+            <nav>
+			      <div id="GV" class="button" onClick="window.location ='GestionV.php'"><img src="../img/archive.png"  alt="Icono" class="img-icon"/>Gestión de Ventas</div>     
+				  <div id="GC" class="selected-button" onClick="window.location ='GestionC.php'"><img src="../img/card.png"  alt="Icono" class="img-icon"/>Gestión de Clientes</div>
+				  <div id="rep" class="button" onClick="window.location ='Reportes.php'"><img src="../img/notepad.png"  alt="Icono" class="img-icon"/>Crear Reportes</div>
+			</nav>
 			<!-- Divisor del contenido de la pagina -->
             <div id="all-content">
-				<br/>
-                <!--<div id="ENTRADA"><center>Bienvenido al <br/> Modulo de Ventas</center></div>-->
-                <center>
-              <div id="Formulario">
-                 <form name="Rvalida">
                 <div id="cab" class="titulo">REGISTRAR CLIENTE</div>
                 <div id="tip" class="texto1">Todos los campos son obligatorios.</div>
                 <table>
 				<tr>
-				<td><div id="dvrfc" class="divform">RFC:</div></td>
+				<td><div id="dvrfc" class="texto">RFC:</div></td>
 				<td><input type="text" id="RFC" class="tb" name="RFC" maxlength="13" placeholder="AAAA880326XXX" onblur="valida(this.value,'mrfc','RFC');"/></td>
 				<td><span id="mrfc"></span></td>
 				</tr>
 				<tr>
-				<td><div id="dvnom" class="divform">Nombre:</div></td>
+				<td><div id="dvnom" class="texto">Nombre:</div></td>
 				<td><input type="text" id="nom" class="tb" name="nom" placeholder="Nombre Cliente" onblur="valida(this.value,'mnom','nombre');"/></td>
 				<td><span id="mnom"></span></td>
 				</tr>
 				<tr>
-				<td><div id="dvtel" class="divform">Tel&eacute;fono Fijo:</div></td>
+				<td><div id="dvtel" class="texto">Teléfono Fijo:</div></td>
 				<td><input type="text" id="tel" class="tb" name="tel" maxlength="11" placeholder="55-55-55-55" onblur="valida(this.value,'mtel','telefono');"/></td>
 				<td><span id="mtel"></span></td>
 				</tr>
-				<td><div id="dvema" class="divform">E-mail:</div></td>
+				<td><div id="dvema" class="texto">E-mail:</div></td>
 				<td><input type="text" id="ema" class="tb" name="ema" placeholder="nombre@ejemplo.com" onblur="valida(this.value,'mema','email');"/></td>
 				<td><span id="mema"></span></td>
 				</tr>
 				<tr>
-				<td><div id="dvdir" class="divform">Direcci&oacute;n:</div></td>
+				<td><div id="dvdir" class="texto">Dirección:</div></td>
 				<td><textarea id="dir" class="ta" name="dir" rows="10" cols="10" placeholder="Dirección" onblur="valida(this.value,'mdir','direccion');"></textarea></td>
 				<td><span id="mdir"></span></td>
 				</tr>
-				
 				</table>
-                <div id="acept" class="form-button" onClick="agregarCliente();"><center>Aceptar</center></div>
-				<div id="cancel" class="form-button" onClick="window.location ='Gestionc.php'"><center>Cancelar</center></div>
-				
-                </form>
-                </div>
-                 </center>
+                <div id="buttonOK" class="form-button" onClick="agregarCliente();"><center>Aceptar</center></div>
+				<div class="form-button" onClick="window.location ='Gestionc.php'"><center>Cancelar</center></div>
             </div>  
-  
+   </center>
     </body>   
 </html>
+<?php include('scripts.php');?> 
 <script type="text/javascript">
 	var modify = false;
 </script>
@@ -83,7 +80,7 @@
 				}
 			}
 		}
-		document.getElementById('acept').innerHTML = "EDITAR";
+		document.getElementById('buttonOK').innerHTML = "EDITAR";
 		document.getElementById('RFC').disabled="disabled";
 		document.getElementById('nom').value = "<?php echo $encontrado->getNombre(); ?>";
 		document.getElementById('RFC').value = "<?php echo $encontrado->getRFC(); ?>";
@@ -122,7 +119,7 @@
 			window.location = "./GestionC.php";
 		}
 		else if ( returnedValue == "DATABASE_PROBLEM"){
-			alert("Error en la base de datos");
+			alert("El RFC de cliente ya existe");
 		}
 		else if ( returnedValue == "INPUT_PROBLEM"){
 			alert("Datos con formato inválido");
