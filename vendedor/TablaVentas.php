@@ -4,8 +4,7 @@
 		<th>RFC</th>
 		<th>Fecha de Realizaci&oacute;n</th>
 		<th>Fecha de Entrega</td>
-		<th class='opc'> </th>
-		<th class='opc'> </th>
+		<th colspan='2'> </th>
 	</tr>
 <?php
 	include("../php/DataConnection.class.php");
@@ -48,15 +47,15 @@
 				<td>".$RFC."</td>
 				<td>".$fecha."</td>
 				<td>".$fentrega."</td>
-				<td class='opc'><img src='../img/pencil.png' onclick='modificarVenta(\"".$id."\")' alt='Modificar' title='Modificar' class='clickable'/></td>
-				<td class='opc'><img src='../img/less.png'   onclick='cancelarVenta(\"".$id."\")' alt='Eliminar' title='Cancelar' class='clickable'/></td>
+				<td ><img src='../img/pencil.png' onclick='modificarVenta(\"".$id."\")' alt='Modificar' title='Modificar' class='clickable'/></td>
+				<td ><img src='../img/less.png'   onclick='cancelarVenta(\"".$id."\")' alt='Eliminar' title='Cancelar' class='clickable'/></td>
 			</tr>");}
 			else{echo ("<tr class='tr-contv' id='".$id."' name='".$id."'>
 				<td>".$id."</td>
 				<td>".$RFC."</td>
 				<td>".$fecha."</td>
 				<td>".$fentrega."</td>
-				<td colspan='2' class='opc'><img src='../img/cancelar.png' alt='Cancelar' title='Cancelado'/></td>
+				<td colspan='2'><img src='../img/cancelar.png' alt='Cancelar' title='Cancelado'/></td>
 				</tr>");}
 		}
 		echo '</table>';

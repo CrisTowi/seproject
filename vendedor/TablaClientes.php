@@ -5,14 +5,13 @@
 		<th>Tel&eacute;fono</th>
 		<th>E-mail</td>
 		<th>Direcci&oacute;n</th>
-		<th class='opc'> </th>
-		<th class='opc'> </th>
+		<th colspan='2'> </th>
 	</tr>
 <?php
 	include("../php/DataConnection.class.php");
 	include("../php/validations.class.php");
 	//Inpaginacion
-    $RegistrosAMostrar=5;
+    $RegistrosAMostrar=4;
 	if(isset($_GET['pag'])){
 		$RegistrosAEmpezar=($_GET['pag']-1)*$RegistrosAMostrar;
 		$PagAct=$_GET['pag'];}
@@ -51,8 +50,8 @@
 				<td>".$telefono."</td>
 				<td>".$email."</td>
 				<td>".$direccion."</td>
-				<td class='opc'><img src='../img/pencil.png' onclick='modificarCliente(\"".$id."\")' alt='Modificar' title='Modificar' class='clickable'/></td>
-				<td class='opc'><img src='../img/less.png'   onclick='eliminarCliente(\"".$id."\")' alt='Eliminar' title='Eliminar' class='clickable'/></td>
+				<td><img src='../img/pencil.png' onclick='modificarCliente(\"".$id."\")' alt='Modificar' title='Modificar' class='clickable'/></td>
+				<td><img src='../img/less.png'   onclick='eliminarCliente(\"".$id."\")' alt='Eliminar' title='Eliminar' class='clickable'/></td>
 			</tr>");}
 			else{echo ("<tr class='tr-contv' id='".$id."' name='".$id."'>
 				<td>".$id."</td>
@@ -60,7 +59,7 @@
 				<td>".$telefono."</td>
 				<td>".$email."</td>
 				<td>".$direccion."</td>
-				<td colspan='2' class='opc'><center><img src='../img/ok2.png' onclick='recuperarCliente(\"".$id."\")' alt='Eliminado' title='Recuperar' class='clickable'/></center></td>
+				<td colspan='2'><center><img src='../img/ok2.png' onclick='recuperarCliente(\"".$id."\")' alt='Eliminado' title='Recuperar' class='clickable'/></center></td>
 			</tr>");}
 		}echo '</table>';
 		$NroRegistros=mysql_num_rows($db->executeQuery($qry));
