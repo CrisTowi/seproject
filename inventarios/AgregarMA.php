@@ -9,22 +9,22 @@
 	$precio    = 	Validations::cleanString($_GET['precio']);
 	$fecha_l   =	Validations::cleanString($_GET['fecha_l']);
 	$fecha_c   =	Validations::cleanString($_GET['fecha_c']);
-	$idm       =	Validations::cleanString($_GET['idm']);
 
 	/* Decodifica los caracteres de la URL */
 	$direccion = str_replace("%23", "#", $direccion);
 	
 	if ( !isset($_GET["edit"]) ){
-		$accept     =	MateriaPrima::Agregar($nombre,$proveedor,$cantidad,$unidad,$precio,$fecha_c,$fecha_l);	
+		$accept     =	MateriaPrima::Agregar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l);	
 	}else{
-		$accept     =	MateriaPrima::Modificar($nombre,$proveedor,$cantidad,$unidad,$precio,$fecha_c,$idm);	
+		$accept     =	MateriaPrima::Modificar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l);	
 	}
 
 	
 	if(!$accept){
-		echo "DATABASE_PROBLEM";
+		return "DATABASE_PROBLEM";
 	}else{
-		echo "OK";
+		return "OK";
+		header( 'Location: /gestion_ma.php' ) ;
 	}
 
 

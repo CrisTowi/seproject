@@ -1,7 +1,5 @@
 ﻿<!DOCTYPE html>
-
-
-<html>
+<html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>Inventarios</title>
@@ -19,19 +17,12 @@
         <center>
         <div id="mainDiv">
             <nav>
-                <div class="selected-button"><img src="../img/archive.png"  alt="Icono" class="img-icon"/>Gestión de Materia Prima
-                    <ul class="sub-level" type="none">
-                        <li onclick="redirect('gestion_ma.php');">Consulta Materia Prima</li>
-                        <li onclick="redirect('ingresar_ma.php');">Ingresa Materia Prima</li>
-                    </ul>
-                </div>
+                <div class="button" onclick="redirect('compras_mp.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Compras Pendientes</div>
+                <div class="button" onclick="redirect('gestion_ma.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gestión de Materia Prima</div>
+                <div class="selected-button" onclick="redirect('ingresar_ma.php');"><img src="../img/note.png"  alt="Icono" class="img-icon" />Ingresar Materia Prima</div>
                 <div class="button" onclick="redirect('gestion_p.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gestión de Productos</div>
-                <div class="button"><img src="../img/notepad.png"  alt="Icono" class="img-icon"/>Reportes
-				        <ul class="sub-level" type="none">
-                            <li onclick="redirect('reportes_ma.php');">Genera Reporte Materias Primas</li>
-                            <li onclick="redirect('reportes_p.php');">Genera Reporte de Productos</li>
-                        </ul>
-                </div>
+                <div class="button" onclick="redirect('reportes_ma.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes de Materia Prima</div>
+                <div class="button" onclick="redirect('reportes_p.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes de Productos</div>
             </nav>  
 
             <div id="all-content">
@@ -43,10 +34,23 @@
     					<div class="box">
     					<table>
 
-    						<tr>
-    						   <td style="color: white;">Nombre: </td>
-    						   <td><input type="text" style="width:150px;" id="name" name="name" placeholder="Escriba su nombre"/></td>
-    						</tr>
+                            <tr>
+                               <td style="color: white;">Nombre: </td>
+                               <td>
+                            <?php
+                                include("../php/DataConnection.class.php");
+                                include("../php/Validations.class.php");
+                                $db = new DataConnection();
+                                $result = $db->executeQuery("SELECT * FROM materiaprima;");
+                                $name = "name";
+                                
+                                echo "<select  style= 'width:160px;' id='".$name."' name='".$name."'>";
+                                while( $dato = mysql_fetch_assoc($result) ){
+                                    echo "<option value='".$dato["Nombre"]."'>".$dato["Nombre"]."</option>";
+                                }
+                                echo "</select>";
+                            ?></td>
+                            </tr>
 
     						<tr>
     						   <td style="color: white;">Proveedor: </td>
@@ -72,17 +76,6 @@
                                     <input type="text" style="width:150px;" id="cantidad" name="cantidad" min="0" max="10000">
                                 </td>
     						</tr>
-                            <tr>
-                                <td style="color: white;">Unidad:</td>
-                                <td>
-                                    <select name="unidad" id="unidad" style="width:165px;">
-                                        <option value="Kg">Kilogramos</option>
-                                        <option value="Lt">Litros</option>
-                                        <option value="O">Onza</option>
-                                        <option value="Pack">Paquete</option>
-                                    </select>
-                                </td>
-                            </tr>
 
     						<tr>
     							<td style="color: white;">Precio por unidad:</td>
@@ -128,17 +121,20 @@
 
 ?>
     <script type="text/javascript">
-    
-        document.getElementById('name').value = "<?php echo $encontrado->getNombre(); ?>";
-        document.getElementById('provider').disabled="disabled";
+
+
+        document.getElementById('name').value = "<?php echo $encontrado->getNombre(); ?>"
+        document.getElementById('name').disabled="disabled";
+        document.getElementById('provider').value = "<?php echo $encontrado->getProveedor(); ?>";
+        document.getElementById('provider').disabled="disabled";        
         document.getElementById('cantidad').value = "<?php echo $encontrado->getCantidad(); ?>";
-        document.getElementById('unidad').value = "<?php echo $encontrado->getUniad(); ?>";
-        document.getElementById('precio').value = "<?php echo $encontrado->getPrecio(); ?>";
+        document.getElementById('precio').value = "<?php echo $encontrado->getUniad(); ?>";
         document.getElementById('from').value = "<?php echo $encontrado->getFechaL(); ?>";
-        document.getElementById('to').value = "<?php echo $encontrado->getFechaC(); ?>";    
-    
-        document.getElementById('titulo').innerHTML = "Editar Materia Prima";
-        document.getElementById('buttonOK').innerHTML = "Editar";
+        document.getElementById('to').value = "<?php echo $encontrado->getFechaC(); ?>";     
+
+
+        document.getElementById('titulo').innerHTML = "Agregar Materia Prima";
+        document.getElementById('buttonOK').innerHTML = "Agregar a Inventario";
 
         modify = true;
     </script>
@@ -155,11 +151,10 @@
         parametros = "nombre=" + document.getElementById('name').value + "&";
         parametros+= "proveedor=" + document.getElementById('provider').value + "&";
         parametros+= "cantidad=" + document.getElementById('cantidad').value + "&";
-        parametros+= "unidad=" + document.getElementById('unidad').value + "&";
         parametros+= "precio=" + document.getElementById('precio').value + "&";
         parametros+= "fecha_l=" + document.getElementById('from').value + "&";
-        parametros+= "fecha_c=" + document.getElementById('to').value + "&";
-        parametros+= "idm=" + "<?php echo $ma ?>";
+        parametros+= "fecha_c=" + document.getElementById('to').value;
+
 
         if ( modify ){
 
@@ -168,7 +163,6 @@
 
         parametros = parametros.replace("#","%23");
 
-        //alert(parametros);
         sendPetitionQuery("AgregarMA.php?" + encodeURI(parametros));
         console.log("AgregarMA.php?" + encodeURI(parametros));
         /* returnedValue almacena el valor que devolvio el archivo PHP */
@@ -178,10 +172,10 @@
             }else{
                 alert("Materia Prima agregada correctamente");
             }
-            window.location = "./gestion_ma.php";
+            window.location = "/gestion_ma.php";
         }
-
-        alert(returnedValue);
+window.location = "gestion_ma.php";
+        //alert(returnedValue);
     }
     
 </script>

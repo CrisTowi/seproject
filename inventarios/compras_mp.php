@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -10,16 +10,14 @@
         <?php include("header.php"); ?>
         <center>
         <div id="mainDiv">
-        <!-- Aquí se colorca el menú -->
              <nav>
-                <div class="button" onclick="redirect('compras_mp.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Compras Pendientes</div>
-                <div class="selected-button" onclick="redirect('gestion_ma.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gestión de Materia Prima</div>
+                <div class="selected-button" onclick="redirect('compras_mp.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Compras Pendientes</div>
+                <div class="button" onclick="redirect('gestion_ma.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gestión de Materia Prima</div>
                 <div class="button" onclick="redirect('ingresar_ma.php');"><img src="../img/note.png"  alt="Icono" class="img-icon" />Ingresar Materia Prima</div>
                 <div class="button" onclick="redirect('gestion_p.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gestión de Productos</div>
                 <div class="button" onclick="redirect('reportes_ma.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes de Materia Prima</div>
                 <div class="button" onclick="redirect('reportes_p.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes de Productos</div>
             </nav>  
-  <!-- Divisor del contenido de la pagina -->
             <div id="all-content">
                 <h2>Gestión de Materias Primas</h2>
                 <div id="content">
@@ -41,8 +39,8 @@
 
                         </table>
                     </div>   
-                    <div id="tablaMateria" class="box">
-                        <?php include("TablaMateria.php"); ?>
+                    <div id="tablaCompras" class="box">
+                        <?php include("TablaCompras.php"); ?>
                     </div>
                     
                     </div>                          
@@ -67,7 +65,7 @@
         loadTable();
     }
 
-    function modificarEmpleado(id){
+    function AgregarCompra(id){
         redirect("ingresar_ma.php?id=" + id);
     }
 
@@ -82,7 +80,7 @@
 
 
         filtro = document.getElementById('buscar').value;
-        sendPetitionSync("TablaMateria.php?search=" + filtro ,"tablaMateria",document);
+        sendPetitionSync("TablaCompras.php?search=" + filtro ,"tablaCompras",document);
         rePaint();
     }   
     

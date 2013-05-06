@@ -2,41 +2,29 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>Gestionar Materia Prima</title>
-        <link rel="stylesheet" type="text/css" href="../css/Inventarios_Style.css" />
+        <title>Inventarios</title>
+        <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
         <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+        <link rel="stylesheet" href="/resources/demos/style.css" />
+
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
     </head>    
     <body>
     <!-- El header es el mismo para todas las paginas-->
-        <div id="header">
-            <div id="leftHeader">
-                <img src="../img/user.png" class="img-header" alt="Username" />
-                <div id="userName" class="text-header">Usuario de Inventarios</div>
-                <img src="../img/noti.png" class="img-header" alt="Notificaciones" />
-                <img src="../img/out.png" class="img-header" alt="Salir" />
-            </div>
-            <div id="rightHeader">
-                <img src="../img/Banner1.png" class="img-banner" alt="Sistema" />
-            </div>
-        </div>
+        <?php include("header.php"); ?>
         <center>
         <div id="mainDiv">
         <!-- Aquí se coloca el menú -->
              <nav>
-                <div class="button"><img src="../img/archive.png"  alt="Icono" class="img-icon"/>Gestión de Materia Prima
-                    <ul class="sub-level" type="none">
-                        <li onclick="redirect('gestion_ma.php');">Gestión de Materia Prima</li>
-                        <li onclick="redirect('ingresar_ma.php');">Ingresar Materia Prima</li>
-
-                    </ul>
-                </div>
+                <div class="button" onclick="redirect('compras_mp.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Compras Pendientes</div>
+                <div class="button" onclick="redirect('gestion_ma.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gestión de Materia Prima</div>
+                <div class="button" onclick="redirect('ingresar_ma.php');"><img src="../img/note.png"  alt="Icono" class="img-icon" />Ingresar Materia Prima</div>
                 <div class="button" onclick="redirect('gestion_p.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gestión de Productos</div>
-                <div class="selected-button"><img src="../img/notepad.png"  alt="Icono" class="img-icon"/>Reportes
-				        <ul class="sub-level" type="none">
-                            <li onclick="redirect('reportes_ma.php');">Generar Reporte Materias Primas</li>
-                            <li onclick="redirect('reportes_p.php');">Generar Reporte de Productos</li>
-                        </ul>
-                </div>
+                <div class="selected-button" onclick="redirect('reportes_ma.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes de Materia Prima</div>
+                <div class="button" onclick="redirect('reportes_p.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes de Productos</div>
             </nav>  
  
            <!-- Divisor del contenido de la pagina -->

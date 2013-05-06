@@ -16,12 +16,13 @@
 	include("../php/Validations.class.php");
 
 	$db = new DataConnection();	
-	$qry = "SELECT mp.idMateria, mp.nombre, 
-			p.nombre as proveedor, mpr.precio_lote, mpr.cantidad,
-			mp.unidad, mp.fecha_caducidad
-			from materia_prima mp, proveedor p, 
-			materia_proveedor mpr where mp.idMateria = mpr.idMateria and 
-			p.RFC = mpr.proveedor_RFC";	
+	$qry = "SELECT mp.idMateriaPrima, mp.nombre, 
+			p.nombre as proveedor, s.precioactual, s.cantidad,
+			mp.unidad, s.fecha_caducidad, s.idSuministro
+			from materiaprima mp, proveedor p, 
+			suministro s
+			where mp.idMateriaPrima = s.idMateriaPrima
+			and p.RFC = s.RFC";	
 
 	// Añade parametros de búsqueda
 	if (isset($_GET["search"]) ){
@@ -30,7 +31,7 @@
 		{
 			if(is_numeric($filtro))
 			{
-				$qry .= " AND mp.idMateria = ".$filtro;
+				$qry .= " AND mp.idMateriaPrima = ".$filtro;
 			}
 			else
 			{
@@ -51,14 +52,14 @@
 	
 		while($fila = mysql_fetch_array($result))
 		{		
-			$idm = $fila['idMateria'];	
+			$ids = $fila['idSuministro'];	
+			$idm = $fila['idMateriaPrima'];	
 			$nombre = $fila['nombre'];
 			$proveedor = $fila['proveedor'];
-			$precio = $fila['precio_lote'];
+			$precio = $fila['precioactual'];
 			$cantidad = $fila['cantidad'];
 			$unidad = $fila['unidad'];
 			$fecha_C = $fila['fecha_caducidad'];
-
 
 			echo "<tr class='tr-cont' id='".$idm."' name='".$idm."'>
 				<td>".$idm."</td>
@@ -68,8 +69,7 @@
 				<td>".$cantidad."</td>
 				<td>".$unidad."</td>
 				<td>".$fecha_C."</td>
-				<td class='opc'><img src='../img/pencil.png' onclick='modificarEmpleado(\"".$idm."\")' alt='Modificar' class='clickable'/></td>
-				<td class='opc'><img src='../img/less.png'   onclick='eliminarEmpleado(\"".$idm."\")' alt='Eliminar' class='clickable'/></td>
+				<td class='opc'><img src='../img/less.png'   onclick='eliminarEmpleado(\"".$ids."\")' alt='Eliminar' class='clickable'/></td>
 			</tr>";
 		}
 	}

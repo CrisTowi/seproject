@@ -19,93 +19,20 @@
         <center>
         <div id="mainDiv">
             <nav>
-                <div class="selected-button"><img src="../img/archive.png"  alt="Icono" class="img-icon"/>Gestión de Materia Prima
-                    <ul class="sub-level" type="none">
-                        <li onclick="redirect('gestion_ma.php');">Consulta Materia Prima</li>
-                        <li onclick="redirect('ingresar_ma.php');">Ingresa Materia Prima</li>
-                    </ul>
-                </div>
+                <div class="button" onclick="redirect('compras_mp.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Compras Pendientes</div>
+                <div class="button" onclick="redirect('gestion_ma.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gestió de Materia Prima</div>
+                <div class="button" onclick="redirect('ingresar_ma.php');"><img src="../img/note.png"  alt="Icono" class="img-icon" />Ingresar Materia Prima</div>
                 <div class="button" onclick="redirect('gestion_p.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gestión de Productos</div>
-                <div class="button"><img src="../img/notepad.png"  alt="Icono" class="img-icon"/>Reportes
-                        <ul class="sub-level" type="none">
-                            <li onclick="redirect('reportes_ma.php');">Genera Reporte Materias Primas</li>
-                            <li onclick="redirect('reportes_p.php');">Genera Reporte de Productos</li>
-                        </ul>
-                </div>
+                <div class="button" onclick="redirect('reportes_ma.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes de Materia Prima</div>
+                <div class="button" onclick="redirect('reportes_p.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes de Productos</div>
             </nav>  
 
             <div id="all-content">
                 
-                <h2 id="titulo">Ingresar Materia Prima</h2>
+                <h2 id="titulo">Módulo de Inventarios</h2>
 
                 <div id="content">
-                    <form id="altaMA" action="AgregarMA.php"name="altaMA" method ="POST">
-                        <div class="box">
-                        <table>
 
-                            <tr>
-                               <td style="color: white;">Nombre: </td>
-                               <td><input type="text" style="width:150px;" id="name" name="name" placeholder="Escriba su nombre"/></td>
-                            </tr>
-
-                            <tr>
-                               <td style="color: white;">Proveedor: </td>
-                               <td>
-                            <?php
-                                include("../php/DataConnection.class.php");
-                                include("../php/Validations.class.php");
-                                $db = new DataConnection();
-                                $result = $db->executeQuery("SELECT * FROM Proveedor;");
-                                $name = "provider";
-                                
-                                echo "<select  style= 'width:160px;' id='".$name."' name='".$name."'>";
-                                while( $dato = mysql_fetch_assoc($result) ){
-                                    echo "<option value='".$dato["Nombre"]."'>".$dato["Nombre"]."</option>";
-                                }
-                                echo "</select>";
-                            ?></td>
-                            </tr>
-
-                            <tr>
-                                <td style="color: white;">Cantidad: </td>
-                                <td>
-                                    <input type="text" style="width:150px;" id="cantidad" name="cantidad" min="0" max="10000">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="color: white;">Unidad:</td>
-                                <td>
-                                    <select name="unidad" id="unidad" style="width:165px;">
-                                        <option value="Kg">Kilogramos</option>
-                                        <option value="Lt">Litros</option>
-                                        <option value="O">Onza</option>
-                                        <option value="Pack">Paquete</option>
-                                    </select>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td style="color: white;">Precio por unidad:</td>
-                                <td>
-                                    <input type="text" style="width:150px;" id="precio" name="precio" min="0" max="10000"> 
-                                </td>
-                            </tr>
-
-                            <tr>
-                               <td style="color: white;">Fecha inicial: </td>
-                               <td><input type="date" style="width:160px;" id="from" name="from" placeholder="yyyy-mm-dd"/></td>
-                            </tr>
-                            <tr>
-                               <td style="color: white;">Fecha de caducidad: </td>
-                               <td><input type="date" style="width:160px;" id="to" name="to" placeholder="yyyy-mm-dd"/></td> 
-                            </tr>
-                        </table>
-                        </div>
-                        <div class="box">
-                            <div id="buttonOK" class="form-button" onclick="agregarMA();">Agregar</div>
-                            <div class="form-button" onclick="redirect('gestion_ma.php')">Cancelar</div>   
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

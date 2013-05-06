@@ -37,8 +37,17 @@ if ( !defined("__MATERIA__") ){
 			return $this->idMateria;
 		}
 		public function getProveedor(){
-			return $this->proveedor;
+
+			$db = new DataConnection();
+			$qry = "SELECT * from proveedor where RFC = '".$this->proveedor."'";			
+			$result = $db->executeQuery($qry);
+
+			if ($dato = mysql_fetch_assoc($result)){
+				//echo $dato["idMateria"].$dato["nombre"].$dato["proveedor"].$dato["precio_lote"].$dato["cantidad"].$dato["unidad"].$dato["fecha_caducidad"];
+				return $dato["Nombre"];
+			}	
 		}
+
 		public function getUniad(){
 			return $this->unidad;
 		}
@@ -57,9 +66,8 @@ if ( !defined("__MATERIA__") ){
 
 
 
-		public static function Agregar($nombre,$proveedor,$cantidad,$unidad,$precio,$fecha_c,$fecha_l)
+		public static function Agregar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l)
 		{
-			//echo $fecha_c.$fecha_l;
 			$connection = new DataConnection();
 
 			$registro1 = $connection->executeQuery("SELECT * from proveedor where Nombre = '".$proveedor."'");
@@ -72,57 +80,65 @@ if ( !defined("__MATERIA__") ){
 				
 			}
 
-			//Crea la consulta a realizar
-
-			$connection->executeQuery("INSERT into materia_prima(Nombre, Unidad, Fecha_Llegada, Fecha_Caducidad) VALUES('".$nombre."', '".$unidad."', '".$fecha_l."', '".$fecha_c."')");
-
-			//echo "INSERT into materia_prima(Nombre, Unidad, Fecha_Llegada, Fecha_Caducidad) VALUES('".$nombre."', '".$unidad."', '".$fecha_l."', '".$fecha_c."')";
-			$registro2 = $connection->executeQuery("SELECT m.idMateria from materia_prima m where m.Nombre = '".$nombre."'");
+			$registro2 = $connection->executeQuery("SELECT m.idMateriaPrima from materiaprima m where m.Nombre = '".$nombre."'");
 
 			while($reg2 = mysql_fetch_array($registro2))
 			{
 				
-				$idMateria = $reg2['idMateria'];
+				$idMateria = $reg2['idMateriaPrima'];
+				$unidad = $reg2['Unidad'];
 				
 			}
 
-			//echo "SELECT m.idMateria from materia_prima m where m.Nombre = '".$nombre."'";
+			$qry = "INSERT into suministro(PrecioActual,RFC,idMateriaPrima,Cantidad,Fecha_Llegada,Fecha_Caducidad) VALUES('".$precio."','".$idProveedor."','".$idMateria."', '".$cantidad."', '".$fecha_l."', '".$fecha_c."');";
 
-			//echo ("INSERT into materia_proveedor(Precio_lote, idMateria, Proveedor_RFC, cantidad) VALUES('".$precio."', '".$idMateria."', '".$idProveedor."', '".$cantidad."')");
+			if($result = $connection->executeQuery($qry))
+				return true;
+			return false;
+		}
+		public static function Modificar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l)
+		{
+			$connection = new DataConnection();
+
+			$registro1 = $connection->executeQuery("SELECT * from proveedor where Nombre = '".$proveedor."'");
 
 
-			if($result = $connection->executeQuery("INSERT into materia_proveedor(Precio_lote, idMateria, Proveedor_RFC, cantidad) VALUES('".$precio."', ".$idMateria.", '".$idProveedor."', '".$cantidad."')"))
+			while($reg1 = mysql_fetch_array($registro1))
 			{
-				return true;
+				
+				$idProveedor = $reg1['RFC'];
+				
 			}
-			return false;
-		}
-		
-		public static function Modificar($nombre,$proveedor,$cantidad,$unidad,$precio,$fecha_c,$idm){
-			$db = new DataConnection();
 
-			$db->executeQuery("UPDATE materia_proveedor SET  cantidad='".$cantidad."', precio_lote='".$precio."' WHERE idMateria=".$idm);
+			$registro2 = $connection->executeQuery("SELECT m.idMateriaPrima from materiaprima m where m.Nombre = '".$nombre."'");
 
-			$qry = "UPDATE materia_prima SET Nombre='".$nombre."', Unidad='".$unidad."' ,Fecha_Caducidad='".$fecha_c."' WHERE idMateria=". $idm;
-			if($result = $db->executeQuery($qry))
+			while($reg2 = mysql_fetch_array($registro2))
+			{
+				
+				$idMateria = $reg2['idMateriaPrima'];
+				$unidad = $reg2['Unidad'];
+				
+			}
+
+			$qry = "INSERT into suministro(PrecioActual,RFC,idMateriaPrima,Cantidad,Fecha_Llegada,Fecha_Caducidad) VALUES('".$precio."','".$idProveedor."','".$idMateria."', '".$cantidad."', '".$fecha_l."', '".$fecha_c."');";
+
+
+			if($result = $connection->executeQuery($qry))
 				return true;
 			return false;
 		}
+	
 		 
 		public static function findById($id)
 		{
-			$db = new DataConnection();			
-			$result = $db->executeQuery("SELECT mp.idMateria, mp.nombre, 
-			p.nombre as proveedor, mpr.precio_lote, mpr.cantidad,
-			mp.unidad, mp.fecha_caducidad, mp.fecha_llegada
-			from materia_prima mp, proveedor p, 
-			materia_proveedor mpr where mp.idMateria = mpr.idMateria and 
-			p.RFC = mpr.proveedor_RFC and mp.idMateria = ".$id);
+			$db = new DataConnection();
+			$qry = "SELECT * from materiaprima where idMateriaPrima = ".$id.";";			
+			$result = $db->executeQuery($qry);
 
-
+			//echo "SELECT * from materiaprima where idMateriaPrima =".$id
 			if ($dato = mysql_fetch_assoc($result)){
-				//echo $dato["idMateria"].$dato["nombre"].$dato["proveedor"].$dato["precio_lote"].$dato["cantidad"].$dato["unidad"].$dato["fecha_caducidad"];
-				$emp = new MateriaPrima($dato["idMateria"],$dato["nombre"],$dato["proveedor"],$dato["precio_lote"],$dato["cantidad"],$dato["unidad"],$dato["fecha_caducidad"],$dato["fecha_llegada"]);
+
+				$emp = new MateriaPrima($dato["idMateriaPrima"],$dato["Nombre"],"QWER123456","5","","","","");
 				return $emp;
 			}	
 			return false;
@@ -130,8 +146,9 @@ if ( !defined("__MATERIA__") ){
 				
 		public static function Eliminar($id){
 			$db = new DataConnection();	
-			$db->executeQuery("DELETE FROM materia_proveedor WHERE idMateria ='".$id."'");		
-			return $result = $db->executeQuery("DELETE FROM Materia_Prima WHERE idMateria='".$id."'");
+			
+			$result = $db->executeQuery("DELETE FROM suministro WHERE idSuministro ='".$id."'");	
+			return $result;
 		}	
 	}
 }
