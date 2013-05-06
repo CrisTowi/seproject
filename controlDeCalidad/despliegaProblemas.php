@@ -29,6 +29,7 @@
 					<td style="width: 90px;"><h2>Fecha</h2></td>
 					<td style="width: 200px;"><h2>Remitente</h2></td>
 					<td style="width: 300px;"><h2>Asunto</h2></td>
+					<td style="width: 30px;"></td>
 				</tr>
                 <?php				
 				include("../php/DataConnection.class.php");	
@@ -54,7 +55,7 @@
 					echo "<td>".$fila["fecha"]."</td>";
 					echo "<td>".$fila["nombre"]."</td>";
 					echo "<td>".$fila["asunto"]."</td>";
-					echo "<td style='width: 90px;'><span class='clickable' style='color:blue;'onclick='despliegaDetalles(".$fila[0].");'>Ver detalles</span></td>";
+					echo "<td><span class='clickable' style='color:blue;'onclick='despliegaDetalles(".$fila[0].");'><img src='../img/busc.png' /></span></td>";
 					echo "</tr>";
 				}
 				if ( $cont == 0 ){
