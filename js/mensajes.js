@@ -24,17 +24,23 @@ function loadSentMessages() {
 	document.getElementById("banner").innerHTML = "Bandeja de salida";
 }
 
-function viewDetails(id){
+function viewDetails(id,read){
 	document.getElementById("details").style.display = "block";
     document.getElementById("details").style.height  = window.innerHeight + "px";
     document.getElementById("details").style.width = window.innerWidth + "px";
     loadDetails(id); 
-	if ( document.getElementById("archivado").value == 1 ){
-		document.getElementById("botonArchivar").innerHTML = "Regresar a bandeja de entrada";
-	}else{
-		document.getElementById("botonArchivar").innerHTML = "Archivar";
+	if ( read ){
+		if ( document.getElementById("archivado").value == 1 ){
+			document.getElementById("botonArchivar").innerHTML = "Regresar a bandeja de entrada";
+		}else{
+			document.getElementById("botonArchivar").innerHTML = "Archivar";
+		}
+		document.getElementById("botonArchivar").style.display = "";
+	} else {
+		document.getElementById("botonArchivar").style.display = "none";
 	}
 }
+
 function loadDetails(id){
 	sendPetitionSync("../php/notifications/details.php?id=" + id,"msgDetail",document);
 }

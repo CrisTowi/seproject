@@ -12,8 +12,10 @@
 	if ( isset($_GET["archivado"]) ){
 		$flt = $_GET["archivado"];	
 		$qry = "SELECT * FROM Mensajes,Empleado WHERE Mensajes.archivado = ".$flt." and Mensajes.remitente=Empleado.CURP and Mensajes.destinatario='".$sesion->getEmpleado()->getArea()."' ORDER BY id DESC";
+		$read = "true";
 	} else {
 		$qry = "SELECT * FROM Mensajes,Empleado WHERE Mensajes.remitente='".$sesion->getEmpleado()->getCurp()."' and Mensajes.remitente=Empleado.CURP ORDER BY id DESC";
+		$read = "false";
 	}
 	$result = $db->executeQuery($qry);
 	$cont = 0;
@@ -24,7 +26,7 @@
 		echo "<td>".$fila["fecha"]."</td>";
 		echo "<td>".$fila["Nombre"]."</td>";
 		echo "<td>".$fila["asunto"]."</td>";
-		echo "<td class='opc'><img src='../img/busc.png' onclick='viewDetails(".$fila["id"].");' alt='Modificar'class='clickable'/></td>";
+		echo "<td class='opc'><img src='../img/busc.png' onclick='viewDetails(".$fila["id"].",".$read.");' alt='Modificar'class='clickable'/></td>";
 		echo "</tr>";
 	}
 	if ( $cont == 0 ){

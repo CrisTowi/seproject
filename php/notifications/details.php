@@ -1,10 +1,10 @@
-<?php header('Content-Type: text/html; charset=iso-8859-1'); ?>
+<?php header('Content-Type: text/html; charset=utf-8'); ?>
 <table style="width: 500px; margin-left:10px;">
 <?php	
 	include("../DataConnection.class.php");	
 	include("../AccessControl.php");	
 	$db = new DataConnection();
-	$qry = "SELECT * FROM Mensajes,Empleado WHERE Mensajes.remitente=Empleado.CURP and Mensajes.destinatario='".$sesion->getEmpleado()->getArea()."' AND Mensajes.id=".$_GET["id"];
+	$qry = "SELECT * FROM Mensajes,Empleado WHERE Mensajes.remitente=Empleado.CURP and Mensajes.id=".$_GET["id"];
 	$result = $db->executeQuery($qry);
 	if($fila = mysql_fetch_array($result))
 	{	
