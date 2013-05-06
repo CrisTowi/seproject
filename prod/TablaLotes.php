@@ -18,13 +18,13 @@
 	//Obtener Conexion
 	$db = new DataConnection();	
 	//Obtener todos los datos de la tabla lote
-	$qry = "SELECT * FROM Lote";
+	$qry = "SELECT * FROM lote";
 	
 	// Añade parametros de búsqueda
 	if ( isset($_GET["search"] ) ){ 
 		$filtro = Validations::cleanString($_GET["search"]); // Limpia la entrada
 		//Condicion para la busqueda
-		$qry .= " WHERE nolote LIKE '%".$filtro."%'";
+		$qry .= " WHERE idLote LIKE '%".$filtro."%'";
 	}
 	//Ejecutar consulta
 	$result = $db->executeQuery($qry);	
@@ -36,11 +36,11 @@
 	}else{	
 		/* Agrega los resultados */
 		while($fila = mysql_fetch_array($result)){		
-			$nolote = $fila['noLote'];	
-			$producto = $fila['productoAsociado'];
+			$nolote = $fila['idLote'];	
+			$producto = $fila['idProducto'];
 			$cantidad = $fila['cantidadProducto'];			
-			$elaboracion = $fila['fechaElaboracion'];
-			$caducidad = $fila['fechaCaducidad'];
+			$elaboracion = $fila['fecha_elaboracion'];
+			$caducidad = $fila['fecha_caducidad'];
 /*
 			$edo = utf8_encode($fila["estado"]);
 			if($edo == "produccion"){
@@ -70,7 +70,7 @@
 <?php
 	function getCookieById($id){
 		$db = new DataConnection();
-		$consulta = "SELECT * FROM catalogoproductos 
+		$consulta = "SELECT * FROM producto
 		WHERE idProducto = '".$id."';";
 		$res = $db->executeQuery($consulta);
 		if(mysql_num_rows($res) < 1){
@@ -78,7 +78,7 @@
 		}		
 		else{
 			while($fila = @mysql_fetch_array($res)){
-				$nombre = $fila["nombreProducto"];
+				$nombre = utf8_encode($fila["Nombre"]);
 			}
 			return $nombre;
 		}

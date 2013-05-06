@@ -11,10 +11,7 @@
 		resizeWindow(document);
 	}
 </script> 
-<script type="text/javascript" src="../js/jquery-1.5.1.js"></script>
-<script type="text/javascript" src="../js/jquery.ui.core.js"></script>
-<script type="text/javascript" src="../js/jquery.ui.widget.js"></script>
-<script type="text/javascript" src="../js/jquery.ui.datepicker.js"></script>
+
 <script type="text/javascript" src="../js/navigation.js"></script>        
 <script type="text/javascript">
 	$(function () {

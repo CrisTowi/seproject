@@ -3,7 +3,7 @@
 ?>
 <table id='table-content'>
 	<tr class='tr-header'>
-		<td>Folio</td>   
+		<td>Folio del Pedido</td>   
 		<td>Identificador de Lote</td>                
 		<td>Producto Asociado</td>   
 		<td>Estado</td>
@@ -20,10 +20,15 @@
 	FROM  `articuloventa` a, venta v
 	WHERE a.folio = v.folio
 	AND v.estado !=  'cancelada'
-*/	
-	$qry = "SELECT v.folio, a.idLote, cp.nombreProducto, a.estado
-	FROM articuloventa a, venta v, lote l, catalogoproductos cp 
-	WHERE a.folio = v.folio AND v.estado != 'cancelada' AND a.idLote = l.noLote AND l.productoAsociado = cp.idProducto ";
+*/
+/*	
+	$qry = "SELECT v.folio, a.idLote, cp.Nombre, a.estado
+	FROM articuloventa a, venta v, lote l, producto cp 
+	WHERE a.folio = v.folio AND v.estado != 'cancelada' AND a.idLote = l.idLote AND l.idProducto = cp.idProducto ";
+*/
+	$qry = "SELECT a.folio, a.idLote, p.Nombre, a.Estado
+			FROM articuloventa a, producto p, lote l
+			WHERE a.Estado != 'Cancelado' AND a.idLote = l.idLote AND l.idProducto = p.idProducto";
 	// Añade parametros de búsqueda
 	if ( isset($_GET["search"] ) ){ 
 		$filtro = Validations::cleanString($_GET["search"]); // Limpia la entrada
@@ -40,8 +45,8 @@
 		while($fila = mysql_fetch_array($result)){		
 			$folio = $fila["folio"];
 			$idlote = $fila['idLote'];	
-			$prod = $fila['nombreProducto'];				
-			$edo = $fila['estado'];
+			$prod = utf8_encode($fila['Nombre']);				
+			$edo = $fila['Estado'];
 		
 /*			
 			if($edo == "NULL"){
@@ -52,7 +57,7 @@
 			}			
 */			
 			echo ("<tr class='tr-cont' id='".$folio."' name='".$folio."'>
-				<td>".$folio."</td>
+				<td>VE-".$folio."</td>
 				<td>LO-".$idlote."</td>
 				<td>".$prod."</td>												
 				<td>".$edo."</td>");
@@ -95,15 +100,15 @@
 
 	function getCookieById($id){
 		$db = new DataConnection();
-		$consulta = "SELECT * FROM catalogoproductos 
+		$consulta = "SELECT * FROM producto
 		WHERE idProducto = '".$id."';";
 		$res = $db->executeQuery($consulta);
 		if(mysql_num_rows($res) < 1){
-			return "no hay";
+			return "Producto Inexistente";
 		}		
 		else{
 			while($fila = @mysql_fetch_array($res)){
-				$nombre = $fila["nombreProducto"];
+				$nombre = utf8_encode($fila["Nombre"]);
 			}
 			return $nombre;
 		}

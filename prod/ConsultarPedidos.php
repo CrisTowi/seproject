@@ -69,16 +69,6 @@
         <center>
         <div id="mainDiv">
             <nav>
-<!--            
-                <div class="button" onclick="redirect('ConsultarIngredientes.php');">
-                	<img src="../img/search.png" alt="Icono" class="img-icon" />
-                    	Consultar Disponibilidad de Ingredientes
-				</div>
--->                
-                <div class="button" onclick="redirect('CrearReporte.php');">
-                	<img src="../img/notepad.png"  alt="Icono" class="img-icon" />
-                    	Crear Reporte
-				</div>
                 <div class="button" onclick="redirect('GestionarLineas.php');">
                 	<img src="../img/way.png"  alt="Icono" class="img-icon" />
                     	Gestión de Líneas
@@ -86,17 +76,26 @@
                 <div class="button" onclick="redirect('GestionarLotes.php');">
                 	<img src="../img/note.png"  alt="Icono" class="img-icon" />
                     	Gestión de Lotes
-				</div>                                
+				</div>   
                 <div class="selected-button" onclick="redirect('ConsultarPedidos.php');">
                 	<img src="../img/clock.png"  alt="Icono" class="img-icon" />
                     	Gestión de Pedidos
-				</div>                
+				</div>
+				<div class="button" onclick="redirect('ConsultarIngredientes.php');">
+                	<img src="../img/search.png" alt="Icono" class="img-icon" />
+                    	Consultar Disponibilidad de Ingredientes
+				</div>				
+                <div class="button" onclick="redirect('CrearReporte.php');" style="height:30px;">
+                	<img src="../img/notepad.png"  alt="Icono" class="img-icon"/>
+                    	Crear Reporte
+				</div>			
+               
             </nav>
             <div id="all-content">	
             	<div id="content">
                 	<h2>Gestionar Pedidos</h2>
                     <div class="box">
-                        <input type="text" id="buscar" name="buscar" placeholder="Ingresa el # del pedido" 
+                        <input type="text" id="buscar" name="buscar" placeholder="Ingresa el número de folio del pedido" 
                         class="searchBar" style="width:250px;" />
                         <img src="../img/busc.png" class="img-buscar" alt="Buscar" 
                         onClick="onClickBusqueda();" />
@@ -117,7 +116,7 @@
 <script type="text/javascript">
 	/*Alert para la ayuda en la busqueda*/
 	function ayudaBusqueda(){
-		alert("Debes ingresar el # de Folio.\nPara volver borra el texto del campo de busqueda!");
+		alert("Debes ingresar el número de Folio del pedido.\nPara volver borra el texto del campo de busqueda!");
 	}
 	
 	/* Genera la tabla de pedidos */

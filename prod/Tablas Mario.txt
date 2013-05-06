@@ -1,0 +1,60 @@
+create table MateriaPrima(
+idMateriaPrima int not null primary key,
+nombreMateriaPrima varchar(50),
+unidad varchar(5)
+);
+
+create table Receta(
+idProducto int not null,
+foreign key(idProducto) references catalogoProductos(idProducto) 
+on delete cascade on update cascade,
+idMateriaPrima int not null,
+cantidad double,
+foreign key(idMateriaPrima) references MateriaPrima(idMateriaPrima)
+on delete cascade on update cascade,
+primary key(idProducto,idMateriaPrima)
+);
+
+--Consulta
+select p.nombreProducto, m.nombreMateriaPrima, r.cantidad, m.unidad
+from catalogoProductos p, materiaprima m, receta r
+where p.idProducto=r.idProducto and r.idMateriaPrima=m.idMateriaPrima
+and r.idProducto=1;
+
+create table proveedor(
+idProveedor int not null primary key,
+nombreProveedor varchar(30)
+);
+
+create table MP_Almacen(
+NoLote varchar(10) not null primary key,
+idProveedor int not null,
+idMateriaPrima int not null,
+cantidad int,
+foreign key(idProveedor) references Proveedor(idProveedor) on delete cascade on update cascade,
+foreign key(idMateriaPrima) references materiaPrima(idMateriaPrima) on delete cascade on update cascade
+);
+
+
+---
+Consulta de lotes
+---
+
+select lp.noLote, c.nombreProducto, l.cantidadProducto, lp.nolinea,e.Nombre,
+l.fechaElaboracion, l.fechaCaducidad   
+from lineaproduccion lp, lote l, catalogoproductos c, empleado e
+where lp.noLote=l.noLote
+and l.productoAsociado=c.idProducto
+and e.CURP=lp.encargadoLinea
+and l.fechaElaboracion between '2013-01-01' and '2013-12-31';
+
+
+----Cambios tablas
+
+alter table lote change column productoAsociado productoAsociado int not null; 
+alter table lote add foreign key(productoAsociado) references catalogoproductos(idproducto)
+on delete cascade on update cascade;
+
+alter table lineaproduccion change column encargadoLinea encargadoLinea varchar(18) not null; 
+alter table lineaproduccion add foreign key(encargadoLinea) references empleado(CURP)
+on delete cascade on update cascade;

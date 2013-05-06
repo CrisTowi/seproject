@@ -58,7 +58,7 @@
 				}
 
 				$qry = "DELETE FROM lineaproduccion WHERE numproduccion = '$numprod';";
-				$qry1 = "DELETE FROM lote WHERE nolote='$lote';";
+				$qry1 = "DELETE FROM lote WHERE idLote='$lote';";
 				
 				$result = $db->executeQuery($qry);
 				if($result){
@@ -72,49 +72,33 @@
 			$caducidad){
 				
 				$db = new DataConnection();
-
-				$validacion = "SELECT * FROM lote l, lineaproduccion p WHERE l.nolote = p.nolote";
-				$comp = $db->executeQuery($validacion);
-				
-				//Si se devuelve true ya estan registrados esa fecha y linea
-				$band = validarFechaLinea($comp, $elaboracion, $linea);
-				//echo "BAND: ".$band."<br />";
-				
-				if($band == "ENCONTRADO"){
-					return "FECHA";
-					break 1;
-				}
-				else{
-					//Si se devolvio falso es que no estan registrados y podremos registrar lote/linea				
-					//$aux = "INSERT INTO lote (noLote, productoAsociado, cantidadProducto, fechaElaboracion,
-					//fechaCaducidad) VALUES('0', '$producto', '$cantidad', '$elaboracion', '$caducidad');";
-					//echo $aux;					
-					$nuevoLote = Lote::agregar($producto, $cantidad, $elaboracion, $caducidad);
+				$nuevoLote = Lote::agregar($producto, $cantidad, $elaboracion, $caducidad);
+/*				
+				$aux = "INSERT INTO lote (noLote, productoAsociado, cantidadProducto, fechaElaboracion,
+				fechaCaducidad) VALUES('0', '$producto', '$cantidad', '$elaboracion', '$caducidad');";
+				echo $aux;
+*/				
+				//Si se pudo agregar el lote, asignamos la linea
+				if($nuevoLote){
+					//Obtener el id del ultimo lote agregado
+	 				$pqry2 = "SELECT * FROM LOTE ORDER BY idLote DESC LIMIT 1";
+	 				$id = obtenerId($pqry2);
+	 				//echo $id."<br />";		
+								
+					$qry = "INSERT INTO lineaproduccion (numproduccion, nolinea, encargadoLinea, 
+					estado, nolote)
+					VALUES('0', '$linea', '$encargado', 'pendiente', '$id');";
+					//echo $qry;							
 					
-					//Si se pudo agregar el lote, asignamos la linea
-					if($nuevoLote){
-						//Obtener el id del ultimo lote agregado
-	 					$pqry2 = "SELECT * FROM LOTE ORDER BY noLote DESC LIMIT 1";
-	 					$id = obtenerId($pqry2);
-	 					//echo $id."<br />";								
-						
-						$qry = "INSERT INTO lineaproduccion (numproduccion, nolinea, encargadoLinea, 
-						estado, nolote)
-						VALUES('0', '$linea', '$encargado', 'pendiente', '$id');";
-						//echo $qry;													
-						//echo "AGREGADO";
-						if($res = $db->executeQuery($qry)){
-							return true;						
-						}						
-					}//nuevoLote
-				}//ifband
-				return false;	//databaseproblem
+					if($res = $db->executeQuery($qry)){
+						return true;						
+					}
+				}
+				return false;
 			}//agregar
 
-			/*
-				modificar(); 
-					Permite modificar una produccion asignada previamente
-			*/			
+//		$accept = Produccion::modificar($numprod, $linea, $encargado, $producto, $cantidad, 
+//		$elaboracion, $caducidad);			
 			public static function modificar($numprod, $linea, $encargado, $estado, $producto, $cantidad,
 			$elaboracion, $caducidad){
 				
@@ -170,28 +154,10 @@
 		}
 		else{
 			while($fila = @mysql_fetch_array($res)){
-				$id = $fila["noLote"];
+				$id = $fila["idLote"];
 			}
 			return $id;
 		}
 		return 0;
 	}
-	
-	function validarFechaLinea($registros, $elaboracion, $linea){
-		//Buscar una incidencia en los registros existentes<br />
-		$flag = false;
-		while($it = @mysql_fetch_array($registros)){
-			$fechaVal = $it["fechaElaboracion"];
-			$lineaVal = $it["nolinea"];
-			
-			//Si existe la misma fecha y linea que tenemos no podremos registrar
-			if($fechaVal == $elaboracion && $lineaVal == $linea){
-				//die("ENCONTRADO");
-				//return true;
-				return "ENCONTRADO";
-			}//if
-		}//while
-		return false;
-	}
-
 ?>

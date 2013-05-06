@@ -14,9 +14,10 @@
 	include("../php/DataConnection.class.php");
 	include("../php/Validations.class.php");
 	include("clases/Lote.class.php");	
-	$db = new DataConnection();	
-	$qry = "SELECT * FROM LineaProduccion";
 	
+	$db = new DataConnection();	
+	$qry = "SELECT * FROM lineaproduccion";
+	//echo $qry;
 	// Añade parametros de búsqueda
 	if ( isset($_GET["search"] ) ){ 
 		$filtro = Validations::cleanString($_GET["search"]); // Limpia la entrada
@@ -24,10 +25,10 @@
 	}
 		
 	$result = $db->executeQuery($qry);	
-	
+
 	if ( mysql_num_rows($result) < 1){
 		echo ("<tr class='tr-cont'>
-			<td colspan='8'>No se encontraron resultados</td>
+			<td colspan='8'><center>No se encontraron resultados</center></td>
 		</tr>");
 	}else{	
 		/* Agrega los resultados */
@@ -37,6 +38,7 @@
 			$encargado = $fila['encargadoLinea'];
 			$nolote = $fila['nolote'];
 			$edo = utf8_encode($fila["estado"]);
+			
 			if($edo == "produccion"){
 				$estado = "producción";
 			}
@@ -83,7 +85,7 @@
 
 	function getCookieById($id){
 		$db = new DataConnection();
-		$consulta = "SELECT * FROM catalogoproductos 
+		$consulta = "SELECT * FROM producto 
 		WHERE idProducto = '".$id."';";
 		$res = $db->executeQuery($consulta);
 		if(mysql_num_rows($res) < 1){
@@ -91,7 +93,7 @@
 		}		
 		else{
 			while($fila = @mysql_fetch_array($res)){
-				$nombre = $fila["nombreProducto"];
+				$nombre = utf8_encode($fila["Nombre"]);
 			}
 			return $nombre;
 		}

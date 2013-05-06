@@ -43,8 +43,8 @@
 			
 			public static function agregar($producto, $cantidad, $elaboracion, $caducidad){
 				$db = new DataConnection();
-				$qry = "INSERT INTO Lote(noLote, productoAsociado, cantidadProducto, fechaElaboracion,
-				fechaCaducidad) VALUES ('0', 
+				$qry = "INSERT INTO Lote(idLote, idProducto, cantidadProducto, fecha_elaboracion,
+				fecha_caducidad) VALUES ('0', 
 				'".$producto."', '".$cantidad."', '".$elaboracion."', '".$caducidad."');";
 				if($result = $db->executeQuery($qry)){
 					return true;
@@ -55,9 +55,9 @@
 			public static function modificar($nolote, $producto, $cantidad, $elaboracion, 
 			$caducidad){
 				$db = new DataConnection();
-				$qry = "UPDATE lote SET productoAsociado='".$producto."', cantidadProducto = '".$cantidad."', 
-				fechaElaboracion = '".$elaboracion."', fechaCaducidad = '".$caducidad."'
-				WHERE nolote = '".$nolote."';";			
+				$qry = "UPDATE lote SET idProducto='".$producto."', cantidadProducto = '".$cantidad."', 
+				fecha_elaboracion = '".$elaboracion."', fecha_caducidad = '".$caducidad."'
+				WHERE idLote = '".$nolote."';";			
 				if($result = $db->executeQuery($qry)){
 					return true;
 				}
@@ -66,10 +66,10 @@
 			
 			public static function findById($nolote){
 				$db = new DataConnection();
-				$result = $db->executeQuery("SELECT * FROM lote WHERE noLote='".$nolote."'");
+				$result = $db->executeQuery("SELECT * FROM lote WHERE idLote='".$nolote."'");
 				if($dato = mysql_fetch_assoc($result)){
-					$lote = new Lote($dato["noLote"], $dato["productoAsociado"], $dato["cantidadProducto"],
-					$dato["fechaElaboracion"], $dato["fechaCaducidad"]);
+					$lote = new Lote($dato["idLote"], $dato["idProducto"], $dato["cantidadProducto"],
+					$dato["fecha_elaboracion"], $dato["fecha_caducidad"]);
 					return $lote;
 				}
 				return false;
@@ -77,7 +77,7 @@
 			
 			public static function eliminar($nolote){
 				$db = new DataConnection();
-				return $result = $db->executeQuery("DELETE FROM lote WHERE nolote='".$nolote."'");
+				return $result = $db->executeQuery("DELETE FROM lote WHERE idLote='".$nolote."'");
 			}
 				
 		}//class lote
