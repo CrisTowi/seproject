@@ -187,7 +187,7 @@
 			$pdf->Cell(40,4,'',0,1); //Linea vacia
 			$pdf->Cell(120,6,'Periodo:    De    '.$fechaInicio.'    A    '.$fechaFin,0,1,'L');
 			$pdf->Cell(40,6,'',0,1); //Linea vacia
-				$Total=0;
+				$Total=0.0;
 			//Lenado de las tablas		
 			for ($j = 0 ; $j < $rows ; ++$j)//Para la venta
 			{
@@ -262,7 +262,7 @@
 			<!-- Divisor del contenido de la pagina -->
             <div id="all-content">
               <div id="VR">
-              	<object data="reporte.pdf" type="application/pdf" width="780" height="400">	</object>
+              	<object data="reporte.pdf" type="application/pdf" width="780" height="450">	</object>
 			  </div>	
                 </div>				
                 
