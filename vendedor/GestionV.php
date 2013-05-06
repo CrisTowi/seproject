@@ -40,8 +40,8 @@
 	}
 	/*Redirige a la pagina de modificar cliente*/
 	function modificarVenta(id){
-		window.location ="Modificar_Venta.php?id="+	id;
-		console.log("Modificar_Venta.php?id=" + id);
+		window.location ="Registrar_Venta.php?id="+	id;
+		console.log("Registrar_Venta.php?id=" + id);
 	}
 	
 	/*Confirma y elimina el cliente*/

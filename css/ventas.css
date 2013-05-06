@@ -17,6 +17,10 @@
     background-color:#81BEF7; /* Cambiar al color respectivo
     
 }*/
+#Tablap
+{
+	text-align: justify;
+}
 #ENTRADA{
 	font-size:40pt; 
 	color:#115075;
@@ -30,8 +34,7 @@
 }
 #tablaVenta{
 	margin-top:5px;
-	margin-left: 90px;
-	
+	margin-left: 90px;	
 }
 #table-content{
     color: white; 
