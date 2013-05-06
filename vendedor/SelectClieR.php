@@ -9,7 +9,7 @@
 	}
 	
 	echo "<select id='clie' name='".$name."'>";
-	echo "<option value='0'>".Todos."</option>";
+	echo "<option value='0'>"."Todos"."</option>";
 	while( $dato = mysql_fetch_assoc($result) ){
 		echo "<option value='".$dato["RFC"]."'>".$dato["Nombre"]."</option>";
 	}
