@@ -25,30 +25,44 @@
 					
 					if ( $_GET["tipo"] == 1 ){
 						
-						$qry = "SELECT * FROM produccion,Empleado,Producto WHERE Producto.idProducto=produccion.idProducto and Empleado.CURP=idEmpleado and lote='".$_GET["numero"]."'";
+						$qry = "SELECT lote.*,lineaproduccion.*,empleado.Nombre as NombreEmpleado,empleado.CURP,producto.* FROM 
+								lote,lineaproduccion,empleado,producto WHERE 
+								lote.idProducto=producto.idProducto and
+								lineaproduccion.nolote = lote.idLote and
+								lineaproduccion.encargadoLinea = empleado.CURP and
+								lote.idLote= ".$_GET["numero"];
+								
 						$result = $db->executeQuery($qry);
 						
 						if($fila = mysql_fetch_array($result)){
-							echo "<table style='margin:50px;'>";
-							echo "<tr><td style='width: 100px; background-color:#BBBBBB;'>Producto</td><td style='width: 300px;'>".$fila['Nombre']."</td></tr>";
-							echo "<tr><td style='width: 100px; background-color:#BBBBBB;'>Empleado</td><td style='width: 300px;'>".$fila[7]."</td></tr>";
-							echo "<tr><td style='width: 100px; background-color:#BBBBBB;'>Fecha de producción</td><td style='width: 300px;'>".$fila['fechaProduccion']."</td></tr>";
-							echo "<tr><td style='width: 100px; background-color:#BBBBBB;'>Fecha de caducidad</td><td style='width: 300px;'>".$fila['fechaCaducidad']."</td></tr>";
+							echo "<h2>Detalles de la producción</h2>";
+							echo "<table style='margin-left:50px;'>";
+							echo "<tr><td style='width: 150px; background-color:#BBBBBB;'>No. de lote</td><td style='width: 300px;'>".$fila['idLote']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Producto</td><td style='width: 300px;'>".$fila['Nombre']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Empleado</td><td style='width: 300px;'>".$fila["CURP"]." - ".$fila["NombreEmpleado"]."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Fecha de producción</td><td style='width: 300px;'>".$fila['fecha_elaboracion']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Fecha de caducidad</td><td style='width: 300px;'>".$fila['fecha_caducidad']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Estado</td><td style='width: 300px;'>".$fila['estado']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Cantidad</td><td style='width: 300px;'>".$fila['cantidadProducto']."</td></tr>";
 							echo "</table>";
 						}
-						/*
-						$qry = "SELECT * FROM produccion,Proveedor,IngredientesUsados,CompraMateriaPrima WHERE LoteProducto=produccion.idProducto and IngredientesUsados.LoteMateriaPrima=CompraMateriaPrima.LoteMateriaPrima and CompraMateriaPrima.idProveedor=Proveedor.idProveedor and CompraMateriaPrima.idMateriaPrima=MateriaPrima.idMateriaPrima and lote='".$_GET["numero"]."'";
+						
+						$qry = "SELECT * FROM venta,articuloventa,cliente WHERE
+								venta.Folio = articuloventa.folio and
+								cliente.RFC = venta.RFC and
+								articuloventa.idLote='".$_GET["numero"]."'";
 						$result = $db->executeQuery($qry);
 						
 						if($fila = mysql_fetch_array($result)){
-							echo "<table style='margin:50px;'>";
-							echo "<tr><td style='width: 100px; background-color:#BBBBBB;'>Producto</td><td style='width: 300px;'>".$fila['Nombre']."</td></tr>";
-							echo "<tr><td style='width: 100px; background-color:#BBBBBB;'>Empleado</td><td style='width: 300px;'>".$fila[7]."</td></tr>";
-							echo "<tr><td style='width: 100px; background-color:#BBBBBB;'>Fecha de producción</td><td style='width: 300px;'>".$fila['fechaProduccion']."</td></tr>";
-							echo "<tr><td style='width: 100px; background-color:#BBBBBB;'>Fecha de caducidad</td><td style='width: 300px;'>".$fila['fechaCaducidad']."</td></tr>";
+							echo "<h2>Cliente</h2>";
+							echo "<table style='margin-left:50px;margin-bottom:30px;'>";
+							echo "<tr><td style='width: 150px; background-color:#BBBBBB;'>Cliente</td><td style='width: 300px;'>".$fila['RFC']." - ".$fila['Nombre']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Dirección</td><td style='width: 300px;'>".$fila['Direccion']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Fecha de compra</td><td style='width: 300px;'>".$fila['Fecha']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Fecha de entrega</td><td style='width: 300px;'>".$fila['Fentrega']."</td></tr>";
 							echo "</table>";
 						}
-						*/
+						
 						
 					}
 				
