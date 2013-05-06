@@ -6,7 +6,7 @@
 	$idMP = $_POST['valor'];
 	$numIng = $_POST['contador'];
 	
-	$query = "select * from mp_almacen
+	$query = "select * from suministro
 			  where idMateriaPrima=$idMP;";	
 
 	$result = $db->executeQuery($query);	

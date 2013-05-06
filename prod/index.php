@@ -9,6 +9,7 @@
     </head>    
     <body>
     	 <?php include("header.php"); ?>
+
         <center>
         <div id="mainDiv">
             <nav>

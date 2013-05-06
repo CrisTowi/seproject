@@ -13,6 +13,7 @@
 <?php
 	include("../php/DataConnection.class.php");
 	include("../php/Validations.class.php");
+	include("../php/Empleado.class.php");	
 	include("clases/Lote.class.php");	
 	
 	$db = new DataConnection();	
@@ -48,9 +49,12 @@
 
 			echo ("<tr class='tr-cont' id='".$noprod."' name='".$noprod."'>
 				<td>PROD-".$noprod."</td>
-				<td>".$nolinea."</td>
-				<td>".obtenerNombre($encargado)."</td>
-				<td>".$estado."</td>				
+				<td>".$nolinea."</td>");
+			$empleado = Empleado::findById($encargado);
+			echo ("<td>".$empleado->getNombre()."</td>");
+		//$nombre = $empleado->getNombre();				
+				//<td>".$encargado."</td>
+			echo ("<td>".$estado."</td>				
 				<td>LO-".$nolote."</td>
 				<td>
 				<img src='../img/pencil.png' 
@@ -67,7 +71,7 @@
 					\"".$milote->getCantidad()."\",
 					\"".$milote->getElaboracion()."\",
 					\"".$milote->getCaducidad()."\")' 
-					alt'Detalle de Lote' class='clickable' />
+					alt='Detalle de Lote' class='clickable' />
 				</td>
 			</tr>");
 		}
@@ -75,13 +79,14 @@
 ?>
 </table>
 <?php
-	//Obtener el nombre del Empleado
+/*
 	function obtenerNombre($CURP){
 		include("../php/Empleado.class.php");	
 		$empleado = Empleado::findById($CURP);
 		$nombre = $empleado->getNombre();
 		return $nombre;
 	}
+*/	
 
 	function getCookieById($id){
 		$db = new DataConnection();

@@ -285,7 +285,7 @@
 	modify = true;
 	</script>
 
-<?		
+<?php		
 	}
 ?>
 
