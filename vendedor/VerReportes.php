@@ -27,12 +27,12 @@
 			$valoresPrimera = explode ("/", $fechaInicio);   
 			$valoresSegunda = explode ("/", $fechaFin); 
 	
-			$diaPrimera    = $valoresPrimera[1];  
-			$mesPrimera  = $valoresPrimera[0];  
-			$anyoPrimera   = $valoresPrimera[2]; 
-			$diaSegunda   = $valoresSegunda[1];  
-			$mesSegunda = $valoresSegunda[0];  
-			$anyoSegunda  = $valoresSegunda[2];
+			$diaPrimera    = $valoresPrimera[2];  
+			$mesPrimera  = $valoresPrimera[1];  
+			$anyoPrimera   = $valoresPrimera[0]; 
+			$diaSegunda   = $valoresSegunda[2];  
+			$mesSegunda = $valoresSegunda[1];  
+			$anyoSegunda  = $valoresSegunda[0];
 			$fechaInicioSQL=$anyoPrimera."-".$mesPrimera."-".$diaPrimera;
 			$fechaFinSQL=$anyoSegunda."-".$mesSegunda."-".$diaSegunda;
 			
