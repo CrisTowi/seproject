@@ -1,4 +1,6 @@
-ï»¿<?php include("../php/AccessControl.php"); ?>
+<?php include("../php/AccessControl.php"); 
+include("../php/DataConnection.class.php");
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -36,12 +38,12 @@
 			//echo $fechaFinSQL;
 			////
 			
-			//$tipoReporte = $_POST["tipoReporte"];
+			//$tipoReporte = $_POST["tipo"];
 			
-			if($tipoReporte=="lotes")
-				$criterio = $_POST["ordenamientoLotes"];
-			else if($tipoReporte=="matPrima")
-				$criterio = $_POST["ordenamientoMatPrima"];
+			//if($tipoReporte=="proveedor")
+				//$criterio = $_POST["ordenamientoLotes"];
+			//else if($tipoReporte=="MP")
+				//$criterio = $_POST["ordenamientoMatPrima"];
 					
 			$pdf=new PDF();
 			$pdf->AddPage();
@@ -57,67 +59,91 @@
 			$pdf->Cell(40,4,'',0,1); //Linea vacia
 			$pdf->Cell(120,6,'Periodo:    De    '.$fechaInicio.'    A    '.$fechaFin,0,1,'L');
 			$pdf->Cell(40,6,'',0,1); //Linea vacia
+			$tipoReporte = $_POST["tipo"];
+			if($tipoReporte=="proveedor"){
 			
-			/////// Tabla (Reportes Genéricos)
-			$pdf->SetFont('Arial','b',11);
-			$pdf->Cell(18,5,'No. Lote',1,0,'L',0);
-			$pdf->Cell(60,5,'Producto',1,0,'L',0);
-			$pdf->Cell(15,5,'Cant.',1,0,'L',0);
-			$pdf->Cell(15,5,'Línea',1,0,'L',0);
-			$pdf->Cell(35,5,'Encargado',1,0,'L',0);						
-			$pdf->Cell(25,5,'Fecha Elab.',1,0,'L',0);			
-			$pdf->Cell(25,5,'Fecha Cad.',1,1,'L',0);
-			
-			$pdf->SetFont('Arial','',11);
-			
-			require_once 'conexion.php';
-			//echo $criterio;
-			//$query = "SELECT * FROM reportesLotes order by $criterio, fechaElaboracion";
-			$query = "SELECT * FROM reportesLotes where fechaElaboracion between '$fechaInicioSQL' and '$fechaFinSQL' order by $criterio, fechaElaboracion";
-			$result = mysql_query($query);
-
-			if (!$result) 
-				die ("Database access failed: " . mysql_error());
+				$db = new DataConnection();	
 		
-			$rows = mysql_num_rows($result);	
-			
-			if($rows==0)				
-				echo "<script type='text/javascript'> 
-						$(document).ready(function() {
+				$query = "SELECT *, COUNT(*) as compras FROM compra where fecha between '".$fechaInicio."' and '".$fechaFin."' and status!=2 GROUP BY RFC order by compras desc;";
+				$result = $db->executeQuery($query);	
+				//if(){	
+				
+					/////// Tabla (Reportes Genéricos)
+					$pdf->SetFont('Arial','b',11);
+					$pdf->Cell(40,5,'No. Compras',1,0,'L',0);
+					$pdf->Cell(70,5,'Proveedor',1,0,'L',0);
+					$pdf->Cell(15,5,'Total $',1,1,'L',0);
 					
-					$.Zebra_Dialog('No se encontraron registros de la información que solicitó. Vuelva a intentarlo con nuevos valores de búsqueda.', {
-							'type':     'warning',
-							'title':    'Operación Incompleta',
-							'onClose':  function(caption) {
-								window.location = 'crearReporte.html';
+					$pdf->SetFont('Arial','',11);
+					
+					
+					if (!$result) 
+						die ("Database access failed: " . mysql_error());
+				
+					$rows = mysql_num_rows($result);	
+					
+					
+					for ($j = 0 ; $j < $rows ; ++$j)
+					{
+						$row = mysql_fetch_row($result);
+						$pdf->Cell(40,5,$row[5],1,0,'L',0);
+							$query2 = "Select * from proveedor where RFC='".$row[4]."'";
+							$result2=$db->executeQuery($query2);	
+							$nombrep=mysql_fetch_row($result2);	
+						$pdf->Cell(70,5,$nombrep[1],1,0,'L',0);
+							$query2 = "Select total from compra where RFC='".$row[4]."'";
+							$result2=$db->executeQuery($query2);	
+							$total=0;
+							while($fila=mysql_fetch_row($result2)){
+								$total=$fila[0]+$total;	
 							}
-						});
-					});
-				</script>";
-			else
-				echo "<script type='text/javascript'> 
-						$(document).ready(function() {
+							
+						$pdf->Cell(15,5,$total,1,1,'L',0);
+						
+					}			
+				//}else {
+					//$pdf->SetFont('Arial','b',11);
+					//$pdf->Cell(100,5,'No hay resultados',1,0,'L',0);
 					
-					$.Zebra_Dialog('Se ha producido su reporte satisfactoriamente.', {
-							'type':     'confirmation',
-							'title':    'Operación Exitosa'
-						});
-					});
-				</script>";
-			
-			for ($j = 0 ; $j < $rows ; ++$j)
-			{
-				$row = mysql_fetch_row($result);
-				$pdf->Cell(18,5,$row[0],1,0,'L',0);
-				$pdf->Cell(60,5,$row[1],1,0,'L',0);
-				$pdf->Cell(15,5,$row[4],1,0,'L',0);
-				$pdf->Cell(15,5,$row[2],1,0,'L',0);
-				$pdf->Cell(35,5,$row[3],1,0,'L',0);							
-				$pdf->Cell(25,5,$row[5],1,0,'L',0);			
-				$pdf->Cell(25,5,$row[6],1,1,'L',0);								
+				//}
+			}else if ($tipoReporte=="MP"){
+				$pdf->SetFont('Arial','b',11);
+				$pdf->Cell(80,5,'Materia Prima',1,0,'L',0);
+				$pdf->Cell(70,5,'No compras',1,1,'L',0);
+				
+				$pdf->SetFont('Arial','',11);
+				
+				//require_once 'conexion.php';
+				//echo $criterio;
+				//$query = "SELECT * FROM reportesLotes order by $criterio, fechaElaboracion";
+				$db = new DataConnection();	
 		
-			}			
+				$query = "select idMateriaPrima, count(*) as producto from compra_mp, compra where compra.Fecha between '".$fechaInicio."' and '".$fechaFin."' and status!=2 and compra_mp.idCompra=compra.idCompra group by idmateriaprima";
+				$result = $db->executeQuery($query);	
+
+				if (!$result) 
+					die ("Database access failed: " . mysql_error());
 			
+				$rows = mysql_num_rows($result);	
+				
+				
+				
+				for ($j = 0 ; $j < $rows ; ++$j)
+				{
+					$row = mysql_fetch_row($result);
+						$query2 = "Select Nombre from materiaprima where idMateriaPrima='".$row[0]."'";
+						$result2=$db->executeQuery($query2);	
+						$nombrep=mysql_fetch_row($result2);	
+					$pdf->Cell(80,5,$nombrep[0],1,0,'L',0);
+					$pdf->Cell(70,5,$row[1],1,1,'L',0);
+					
+					
+				}			
+				
+			
+			
+			
+			}
 			$pdf->Output("reporte.pdf","F");
 			
 		?>			

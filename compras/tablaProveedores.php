@@ -1,4 +1,4 @@
-ï»¿<?php
+<?php
 	/*
 		tablaProveedores.php
 		Última modificación: 17/04/2013		

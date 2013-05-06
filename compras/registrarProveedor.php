@@ -1,6 +1,6 @@
 ﻿<!--
-	AgregarEmpleado.php
-	Última modificación: 17/04/2013
+	registrarProveedor.php
+	Última modificación: 05/05/2013
 	
 	Agrega proveedor o los modifica
 	
@@ -63,17 +63,31 @@
 									<td><span id="msgEmail"></span></td>
 								</tr>
 							</table>
-							<!-- 
+							
 							<div class="box">
-								Producto: <select><option>Producto1</option><option>Producto2</option></select>
-								<div class="evento"><img src="img/less.png" alt="Eliminar" name="eliminar"/></div> 
-								<div class="form-button">Agregar Producto</div>
+								<table>
+									<tr>
+										<td><h2>Producto</h2></td>
+										<td><div class="form-button">Agregar Producto</div></td>
+									</tr>
+								</table>
+								<table>
+									<tr>
+										<td>
+											<select id='sproductos1'>
+												<div >
+													<?php include("SelectMateriaPrima.php"); ?>
+												</div>
+											</select>
+										</td>
+										<td>
+											Precio: <input type="text" name="precio" id="precio" /></td>
+										</td>
+										<td><div class="evento"><img src="../img/less.png" alt="Eliminar" name="eliminar"/></div></td>
+									</tr>
+								</table>
 							</div>
-							<div class="box">
-								Producto: <select><option>Producto1</option><option>Producto2</option></select>
-								<div class="evento"><img src="img/less.png" alt="Eliminar" name="eliminar"/></div>
-							</div> 
-							-->
+							
 							<div class="box">
 								<div id="buttonOK" class="form-button" onclick="agregarProveedor();">Registrar</div>
 								<div class="form-button" onclick="redirect('gestionProveedores.php')">Cancelar</div>	

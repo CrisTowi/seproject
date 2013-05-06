@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if ( !defined("__COMPRA__") ){
 	define("__COMPRA__","");
 	include("../php/DataConnection.class.php");

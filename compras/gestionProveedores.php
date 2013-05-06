@@ -1,4 +1,4 @@
-﻿<?php include("../php/AccessControl.php"); ?>
+<?php include("../php/AccessControl.php"); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,17 +22,13 @@
 				<div id="content">
 				<h2>Gesti&oacute;n de Proveedores</h2>
 					<div class="box">
-						<div>
-							<div onclick="redirect('registrarProveedor.php');" style="float:left" class="form-button">Registrar Proveedor</div>
-							<div style="float:right">
-								<input type="text" name="buscar" id="buscar" placeholder="Buscar" class="searchBar" style="width:250px;"/>
-								<img src="../img/busc.png" class="img-buscar"  alt="Buscar" onClick="onClickBusqueda();"/>&nbsp; &nbsp;
-							</div>
-						</div>
-						<div id="tablaProveedores" class="box">
-							<?php include("tablaProveedores.php"); ?>
-						</div>               
+						<div onclick="redirect('registrarProveedor.php');" class="form-button">Registrar Proveedor</div>
+						<input type="text" name="buscar" id="buscar" placeholder="Buscar" class="searchBar" style="width:250px;"/>
+						<img src="../img/busc.png" class="img-buscar"  alt="Buscar" onClick="onClickBusqueda();"/>
 					</div>					  
+					<div id="tablaProveedores" class="box">
+						<?php include("tablaProveedores.php"); ?>
+					</div>               
                 </div>
             </div>			
         </div>
