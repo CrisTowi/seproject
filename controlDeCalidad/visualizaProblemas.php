@@ -63,30 +63,51 @@
             </div>			
         </div>
         </center>
-        <footer>Elaborado por nosotros(C) 2013</footer>
+        <?php include("../php/footer.php"); ?>
     </body>   
 </html>
 <?php include("scripts.php"); ?>
 <script type="text/javascript">
+	var filterByDate = false;
     function toggleState(element, bvar) {
         var e = new String(element);
         if (!bvar) {
             document.getElementById(e).style.display = "none";
+			filterByDate = false;
         } else {
             document.getElementById(e).style.display = "block";
+			filterByDate = true;
         }
     }
 	
+	function valida(){
+		if ( filterByDate ){
+			if ( document.getElementById("from").value.length != 10 ) return false;
+			if ( document.getElementById("to").value.length != 10 ) return false;
+		}
+		return true;
+	}
+	
 	function visualizarProblemas(){
-		var extra = "";
+		if ( !valida() ){
+			alert("Datos incorrectos");
+			return;
+		}
+		var extra = "?";
 		var indice = document.getElementById("area").selectedIndex;		
 		if ( indice != 0 ){
-			extra = "?area=" + indice;
+			extra = "area=" + indice;
 		}
 		indice = document.getElementById("filtroEstatus").selectedIndex;		
 		if ( indice != 0 ){
-			extra = "?estatus=" + (indice-1);
+			if  ( extra.length > 1 ) extra += "&";
+			extra += "estatus=" + (indice-1);
 		}		
+		if ( filterByDate ){
+			if  ( extra.length > 1 ) extra += "&";
+			extra += "from=" + document.getElementById("from").value;
+			extra += "&to=" + document.getElementById("to").value;
+		}
 		redirect('despliegaProblemas.php' + extra);
 	}	
 </script>    

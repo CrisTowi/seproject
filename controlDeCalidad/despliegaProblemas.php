@@ -40,6 +40,9 @@
 				if ( isset($_GET["estatus"])){
 					$qry .= " and Mensajes.archivadoCC=".$_GET["estatus"];
 				}
+				if ( isset($_GET["from"]) ){
+					$qry .= " and fecha >= '".$_GET["from"]."' and fecha <= '".$_GET["to"]."'";
+				}				
 				$qry .= " ORDER BY Mensajes.id DESC";
 				$result = $db->executeQuery($qry);
 				$cont = 0;
@@ -65,7 +68,7 @@
             </div>			
         </div>
         </center>
-        <footer>Elaborado por nosotros(C) 2013</footer>
+        <?php include("../php/footer.php"); ?>
 		
 		<div id="detalleCC" class="detalleCC">
 			<div class="close" onclick="closeDetailCC();"><img src="../img/close.png" ></div>
