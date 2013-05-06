@@ -1,4 +1,4 @@
-﻿<?php include("../php/AccessControl.php"); ?>
+<?php include("../php/AccessControl.php"); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,9 +15,9 @@
         <center>
         <div id="mainDiv">
             <nav>
-                <div class="button" onclick="redirect('gestionProveedores.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gesti&oacute;n Proveedores</div>
-                <div class="button" onclick="redirect('IngresarMP.php');"><img src="../img/configuration2.png" alt="Icono" class="img-icon" />Gesti&oacute;n Materia Prima</div>
-                <div class="button" onclick="redirect('Reportes.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes</div>
+                <div class="button" onclick="redirect('gestionProveedores.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gesti&oacute;n de Proveedores</div>
+                <div class="selected-button" onclick="redirect('IngresarMP.php');"><img src="../img/configuration2.png" alt="Icono" class="img-icon" />Gesti&oacute;n de Materia Prima</div>
+                <div class="button" onclick="redirect('Compras_Reportes.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes</div>
             </nav>
             <div id="all-content">				
                 <h2>Realizar Compra</h2>
@@ -48,7 +48,7 @@
 									<span id="unitario"></span>
 								</td>
 							   <td>
-									<img src="../img/busc.png" onClick="agregarProducto()" class='clickable'/>
+									<img src="../img/add.png" onClick="agregarProducto()" class='clickable'/>
 							   </td>
 						</tr>
 						</table>
@@ -93,7 +93,7 @@ function agregarCompra(){
 		console.log("AgregaCom.php?" + encodeURI(parametros));
 		/* returnedValue almacena el valor que devolvio el archivo PHP */
 		if (returnedValue == "OK" ){
-				alert("Compra Finalizada");
+				alert("La Compra ha sido agregada exitosamente");
 			
 			window.location = "./IngresarMP.php";
 		}
@@ -103,7 +103,7 @@ function agregarCompra(){
 		 else {
 			alert ("Error desconocido D:"+returnedValue);
 		}
-	}else alert ("Es necesario llenar los campos");
+	}else alert ("Todos los campos son obligatorios");
 		 
 }
 
@@ -115,7 +115,8 @@ function valida( str, target, validate ){
 				document.getElementById(target).innerHTML = "<img src='../img/error.png' />";	
 			}
 			else{
-				var re = /^[0-9]{1,10}$/;
+				//document.write(/^\d+\.?\d*$/.test('15.22'));
+				var re = /^\d+\.?\d*$/;
 				ok = re.exec(str);
 				if ( !ok ){
 					document.getElementById(target).innerHTML = "<img src='../img/error.png' />";	

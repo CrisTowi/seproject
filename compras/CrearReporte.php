@@ -1,4 +1,4 @@
-﻿<?php include("../php/AccessControl.php"); ?>
+<?php include("../php/AccessControl.php"); ?>
 <!DOCTYPE html>
 <html>
     <head>

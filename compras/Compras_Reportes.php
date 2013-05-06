@@ -1,4 +1,4 @@
-﻿<?php include("../php/AccessControl.php"); ?>
+<?php include("../php/AccessControl.php"); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,32 +17,33 @@
             <nav>
 				<div class="button" onclick="redirect('gestionProveedores.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gesti&oacute;n de Proveedores</div>
                 <div class="button" onclick="redirect('IngresarMP.php');"><img src="../img/configuration2.png" alt="Icono" class="img-icon" />Gesti&oacute;n de Materia Prima</div>
-                <div class="button" onclick="redirect('Compras_Reportes.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes</div>
+                <div class="selected-button" onclick="redirect('Compras_Reportes.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes</div>
             </nav>
 			<!-- Divisor del contenido de la pagina -->
             <div id="all-content">
-				<h2>Creaci&oacute;n de reporte</h2>
-                <div id="content">
-                    <div class="box">
-                       Fecha inicial: <input type="text" id="from" name="from" placeholder="Fecha de inicio"/>*
-                    </div>
-                    <div class="box">
-                       Fecha final: <input type="text" id="to" name="to" placeholder="Fecha de fin"/> *
-                    </div>
-                    <div class="box">
-                        <h4>&Aacute;reas que abarcar&aacute; el reporte</h4>
-                        <div class="option"><input type="radio" name="tipo" value="tipo" checked > Mejores Proveedores</div>
-                        <div class="option"><input type="radio" name="tipo" value="tipo"> Materia Prima mas Usada</div>
-                        </div>            
-                    <div class="box">
-                       Producto: <select><option>Producto1</option><option>Producto2</option></select>
-                    </div> 
-					*Obligatorio	
-                    <div class="box">
-                        <div class="form-button">Crear reporte</div>
-                    </div>
-                </div>
-            </div>
+				<form  name="reporte" action="procesarReporte.php" method="POST">
+					<h2>Creaci&oacute;n de reporte</h2>
+					<div id="content">
+						<div class="box">
+						   Fecha inicial: <input type="text" id="from" name="from"  placeholder="Fecha de Inicio" />*
+							<span id="inicial"></span>
+						</div>
+						<div class="box">
+						   Fecha final: <input type="text" id="to" name="to" placeholder="Fecha de fin"/> *
+							<span id="final"></span>
+						</div>
+						<div class="box">
+							<h4>&Aacute;reas que abarcar&aacute; el reporte</h4>
+							<div class="option"><input type="radio" name="tipo" value="proveedor" checked > Mejores Proveedores</div>
+							<div class="option"><input type="radio" name="tipo" value="MP"> Materia Prima mas Usada</div>
+						</div>            
+						<div class="box">
+							<input type="button" class="form-button" onClick="vacios();" value="Crear Reporte"/>
+								
+						</div>
+					</div>
+				</form>
+			</div>
 			
         </div>
         </center>
@@ -50,3 +51,19 @@
     </body>   
 </html>
 <?php include("scripts.php"); ?>
+<script type="text/javascript">
+ function vacios(){
+	inicial =document.getElementById('from').value;
+	ffinal = document.getElementById('to').value;
+	
+	if(inicial.length==0 && ffinal.length==0){
+				alert("Campos vacios");
+				document.reporte.from.focus() 
+				return 0;
+		} else {
+			document.reporte.submit();	
+
+		}
+	//select idMateriaPrima, count(*) as producto from compra_mp group by idmateriaprima
+}
+</script>

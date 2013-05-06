@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	/*
 		TablaCompras.php
 		
@@ -20,7 +20,7 @@
 		<td>No Compra</td>
 		<td>Fecha</td>
 		<td>Productos</td>
-		<td>Total</td>
+		<td>Total($)</td>
 		<td class='opc'> </td>
 	</tr>
 <?php

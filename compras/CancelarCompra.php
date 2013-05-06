@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	include("../php/Compras.class.php");
 	$idCompra = $_GET["id"];
 	$result = Compras::Cancelar($idCompra);

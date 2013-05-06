@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	include("../php/DataConnection.class.php");
 	include("../php/Validations.class.php");
 	$db = new DataConnection();
