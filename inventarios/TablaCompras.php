@@ -52,7 +52,7 @@
 				<td>".$Fecha."</td>
 				<td>".$Productos."</td>
 				<td>".$Total."</td>
-				<td class='opc'><img src='../img/pencil.png' onclick='AgregarCompra(\"".$idm."\")' alt='Modificar' class='clickable'/></td>
+				<td class='opc'><img src='../img/pencil.png' onclick='AgregarCompra(\"".$id."\")' alt='Modificar' class='clickable'/></td>
 			</tr>");
 		}
 		

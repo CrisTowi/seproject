@@ -132,13 +132,29 @@ if ( !defined("__MATERIA__") ){
 		public static function findById($id)
 		{
 			$db = new DataConnection();
-			$qry = "SELECT * from materiaprima where idMateriaPrima = ".$id.";";			
+			$qry = "SELECT * from compra_mp where idCompra = ".$id.";";			
 			$result = $db->executeQuery($qry);
 
-			//echo "SELECT * from materiaprima where idMateriaPrima =".$id
+			while($dato = mysql_fetch_array($result)){
+
+				$idm = $dato["idMateriaPrima"];
+			}	
+
+			$qry = "SELECT * from compra where idCompra = ".$id.";";			
+			$result = $db->executeQuery($qry);
+
+
+
+			$qry = "SELECT * from materiaprima where idMateriaPrima = ".$idm.";";			
+			$result = $db->executeQuery($qry);		
+
 			if ($dato = mysql_fetch_assoc($result)){
 
-				$emp = new MateriaPrima($dato["idMateriaPrima"],$dato["Nombre"],"QWER123456","5","","","","");
+				$emp = new MateriaPrima($idm,$dato["Nombre"],"QWER123456","5","","","","");
+
+				$qry = "DELETE from compra where idCompra = ".$id.";";			
+				$result = $db->executeQuery($qry);	
+
 				return $emp;
 			}	
 			return false;
