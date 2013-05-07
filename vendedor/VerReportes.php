@@ -8,9 +8,11 @@
         <title>Ver Reporte</title>
           <link rel="stylesheet" type="text/css" href="../css/ventas.css" />
         <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
-        <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css" />		       	
+        <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css" />
+        <?php require('/FPDF/fpdf.php');
+			class PDF extends FPDF{}
+        ?>		       	
           <?php
-			include("crear.php");
 			include("../php/DataConnection.class.php");
 					
 			$arrayMeses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio","Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
@@ -27,12 +29,12 @@
 			$valoresPrimera = explode ("/", $fechaInicio);   
 			$valoresSegunda = explode ("/", $fechaFin); 
 	
-			$diaPrimera    = $valoresPrimera[2];  
-			$mesPrimera  = $valoresPrimera[1];  
-			$anyoPrimera   = $valoresPrimera[0]; 
-			$diaSegunda   = $valoresSegunda[2];  
-			$mesSegunda = $valoresSegunda[1];  
-			$anyoSegunda  = $valoresSegunda[0];
+			$diaPrimera    = $valoresPrimera[1];  
+			$mesPrimera  = $valoresPrimera[0];  
+			$anyoPrimera   = $valoresPrimera[2]; 
+			$diaSegunda   = $valoresSegunda[1];  
+			$mesSegunda = $valoresSegunda[0]; 
+			$anyoSegunda  = $valoresSegunda[2];
 			$fechaInicioSQL=$anyoPrimera."-".$mesPrimera."-".$diaPrimera;
 			$fechaFinSQL=$anyoSegunda."-".$mesSegunda."-".$diaSegunda;
 			

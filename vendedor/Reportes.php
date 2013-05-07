@@ -34,11 +34,11 @@
                 	<table>
                 		<tr>
                 		<td><div class="texto">PERIODO</div></td>
-                		<td><input type="text" id="from" name="from" placeholder="Fecha de inicio" onblur="valida(this.value,'mfrom','from');"/></td>	
-                		<td><span id="mfrom"></span></td>
+                		<td><input type="text" id="from" name="from" placeholder="Fecha de inicio"/></td>	
+                		
                 		<td class="texto"> a </td>
-                		<td><input type="text" id="to" name="to" placeholder="Fecha de fin" onblur="valida(this.value,'mto','to');"/> </td>
-                		<td><span id="mto"></span></td>
+                		<td><input type="text" id="to" name="to" placeholder="Fecha de fin"/> </td>
+                		
                 		</tr>
                 		<tr>
                 			<td id="cliente" class="texto">CLIENTE</td>
@@ -69,27 +69,4 @@
 </html>
   <?php include('scripts.php'); ?> 
 
-<script type="text/javascript">
-function valida( str, target, validate ){
-		if ( validate == "from" ){
-			str = str.trim();
-			if ( str.length == 0 ){
-				document.getElementById(target).innerHTML = "<img src='../img/error.png' title='La fecha de inicio es obligatoria.'/>";	
-			}
-			else{
-					document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
-				}
-			}
-		
-		else if ( validate == "to"){			
-			if ( str.length == 0 ){
-				document.getElementById(target).innerHTML = "<img src='../img/error.png' title='La fecha de fin es obligatoria.'/>";	
-			}
-			
-			 else {
-				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";			
-			}}
-		}
-		
-	
-</script>
+
