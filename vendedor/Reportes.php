@@ -30,7 +30,7 @@
               <div id="tir" class="titulo">CONSULTAR REPORTES</div>
                 <div id="tip" class="texto1">Todos los campos son obligatorios.</div>
                 <br/>
-                <form id="formReporte" action="VerReportes.php" method="POST" >
+                <form id="formReporte" action="VerReportes.php" method="POST" name="Rvalida">
                 	<table>
                 		<tr>
                 		<td><div class="texto">PERIODO</div></td>
@@ -54,7 +54,7 @@
                 		</tr>
                 		<tr>
                 			<td ></td>
-                			<td ><input class="form-button" id="acept" type="submit" value="Aceptar" ></td>
+                			<td ><input class="form-button" id="acept" type="button" value="Aceptar" onClick="valida();"></td>
                 			<td colspan="3"><div id="buttonCancel" class="form-button" onClick="window.location ='Index.php'">Cancelar</div></td>
                 		</tr>
      
@@ -68,5 +68,31 @@
     </body>   
 </html>
   <?php include('scripts.php'); ?> 
+  
+  
+<script type="text/javascript">
+  function valida()
+{
+	
+	//Validar Fechas
+	if(document.Rvalida.from.value.length==0)
+	{
+		alert("El inicio de perido es un campo obligatorio")
+		document.Rvalida.from.focus()
+		return 0;
+	}
+	
+	else if(document.Rvalida.to.value.length==0)
+	{
+		alert("El fin de periodo es un campo obligatorio")
+		document.Rvalida.to.focus()
+		return 0;
+	}
+	else if(document.Rvalida.from.value.length!=0 && document.Rvalida.to.value.length!=0){
+	document.Rvalida.submit()}
+	
+ }
+  
+</script>
 
 

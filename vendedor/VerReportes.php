@@ -8,11 +8,10 @@
         <title>Ver Reporte</title>
           <link rel="stylesheet" type="text/css" href="../css/ventas.css" />
         <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
-        <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css" />
-        <?php require('/FPDF/fpdf.php');
-			class PDF extends FPDF{}
-        ?>		       	
+        <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css" />		       	
           <?php
+			require('/FPDF/fpdf.php');
+			class PDF extends FPDF{};
 			include("../php/DataConnection.class.php");
 					
 			$arrayMeses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio","Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
@@ -25,16 +24,17 @@
 			$fechaInicio=$_POST["from"];
 			$fechaFin = $_POST["to"];
 			
+			
 			///Cambiar formato de fechas a SQL
 			$valoresPrimera = explode ("/", $fechaInicio);   
 			$valoresSegunda = explode ("/", $fechaFin); 
 	
-			$diaPrimera    = $valoresPrimera[1];  
-			$mesPrimera  = $valoresPrimera[0];  
-			$anyoPrimera   = $valoresPrimera[2]; 
-			$diaSegunda   = $valoresSegunda[1];  
-			$mesSegunda = $valoresSegunda[0]; 
-			$anyoSegunda  = $valoresSegunda[2];
+			$diaPrimera    = $valoresPrimera[2];  
+			$mesPrimera  = $valoresPrimera[1];  
+			$anyoPrimera   = $valoresPrimera[0]; 
+			$diaSegunda   = $valoresSegunda[2];  
+			$mesSegunda = $valoresSegunda[1];  
+			$anyoSegunda  = $valoresSegunda[0];
 			$fechaInicioSQL=$anyoPrimera."-".$mesPrimera."-".$diaPrimera;
 			$fechaFinSQL=$anyoSegunda."-".$mesSegunda."-".$diaSegunda;
 			
@@ -44,6 +44,7 @@
 			//echo $Producto;
 			$Estado = $_POST["estados"];
 			//echo $Estado;
+			
 			
 			$db = new DataConnection();	
 			//Para las consultas segun el criterio
@@ -104,6 +105,11 @@
 			$pdf->Cell(80,6,'Mexico, D.F.',0,1,'L');
 			$pdf->Cell(80,6,$fechaActual,0,1,'L');
 			$pdf->Cell(40,10,'',0,1); //Linea vacia
+			//Condicion si encuentra Resultados o no
+			if($rows=='0'){$pdf->SetFont('Arial','bi',14);
+			$pdf->Cell(80,6,'Las ventas del     '.$fechaInicio.'    al    '.$fechaFin.'    no muestran ningun resultado',0,0,'L',0);}
+			//inicia creacion de tuplas
+            else{
 			$pdf->SetFont('Arial','b',14);
 			if($Producto=='0' && $Cliente=='0'){//Todas
 				if($Estado!='0'){
@@ -190,6 +196,7 @@
 			$pdf->Cell(120,6,'Periodo:    De    '.$fechaInicio.'    A    '.$fechaFin,0,1,'L');
 			$pdf->Cell(40,6,'',0,1); //Linea vacia
 				$Total=0.0;
+			
 			//Lenado de las tablas		
 			for ($j = 0 ; $j < $rows ; ++$j)//Para la venta
 			{
@@ -216,10 +223,10 @@
 				$pdf->Cell(40,5,'Precio Unitario.',1,0,'L',0);
 				$pdf->SetFont('Arial','',11);
 				$pdf->Ln();	
-				//$qry1 = "SELECT numlote,idProducto FROM Lote WHERE idProducto='$row[0]'";
 				
 				$qry1 = "SELECT P.Nombre, L.idlote, P.Precio,A.Estado FROM articuloventa A, producto P, lote L, venta V WHERE V.Folio='$row[0]' and A.Folio='$row[0]' and A.idlote=L.idlote and L.idProducto=P.idProducto";
 				$qry2= "SELECT SUM( P.precio ) as 'T' FROM producto P, venta V, ArticuloVenta A, lote l WHERE v.folio = a.folio AND a.idlote = l.idlote AND l.idproducto = p.idproducto AND v.folio ='$row[0]' and A.folio='$row[0]'";
+				
 				$result1 = $db->executeQuery($qry1);
 				$resulta = $db->executeQuery($qry2);
 				$fila = mysql_fetch_array($resulta);
@@ -242,7 +249,7 @@
 								
 			}			
 			$pdf->SetFont('Arial','bi',14);
-			$pdf->Cell(80,6,'Total de Ventas: $'.$Total,0,1,0,0);	
+			$pdf->Cell(80,6,'Total de Ventas: $'.$Total,0,1,0,0);}	
 			$pdf->Output("reporte.pdf","F");
 			
 		?>				
