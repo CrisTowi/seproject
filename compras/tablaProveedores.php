@@ -47,7 +47,6 @@
 		{		
 			$id = $fila['RFC'];	
 			$nombre = $fila['Nombre'];
-			$direccion = $fila['Direccion'];
 			$telefono = $fila['Telefono'];
 			$email = $fila['Email'];
 			$status = $fila['Status'];
@@ -55,7 +54,6 @@
 				$status = 'Activo';
 			else
 				$status = 'Bloqueado';
-			$noReportes = $fila['No_reportes'];
 			
 			echo ("<tr class='tr-cont' id='".$id."' name='".$id."'>
 				<td>".$id."</td>

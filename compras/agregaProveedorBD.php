@@ -25,7 +25,13 @@
 	$direccion =	Validations::cleanString($_GET['direccion']);
 	$telefono  = 	Validations::cleanString($_GET['telefono']);
 	$email     = 	Validations::cleanString($_GET['email']);
-
+	$numero    =	Validations::cleanString($_GET['numprod']);
+	
+	for($i = 1; $i<= $numero; $i++){
+		$productos[$i] = $_GET['producto'.$i];
+		$precios[$i] = $_GET['precio'.$i];
+	}
+	
 	/* Decodifica los caracteres de la URL */
 	$direccion = str_replace("%23", "#", $direccion);
 	
@@ -33,11 +39,11 @@
 	{
 		if ( !isset($_GET["edit"]) )
 		{
-			$accept = Proveedor::Agregar($rfc, $nombre, $direccion, $telefono, $email);
+			$accept = Proveedor::Agregar($rfc, $nombre, $direccion, $telefono, $email, $productos, $precios);
 		}
 		else
 		{
-			$accept = Proveedor::Modificar($rfc, $nombre, $direccion, $telefono, $email);
+			$accept = Proveedor::Modificar($rfc, $nombre, $direccion, $telefono, $email, $productos, $precios);
 		}
 		if(!$accept)
 		{
@@ -50,5 +56,4 @@
 	}else{
 		echo "INPUT_PROBLEM";
 	}
-
 ?>
