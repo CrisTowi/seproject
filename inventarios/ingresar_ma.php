@@ -70,14 +70,16 @@
     						<tr>
     							<td style="color: white;">Cantidad: </td>
     							<td>
-                                    <input type="text" style="width:150px;" id="cantidad" name="cantidad" min="0" max="10000">
+                                    <input type="text" style="width:150px;" id="cantidad" onblur="valida(this.value,'cant','numero');" name="cantidad" min="0" max="10000">
+                                    <span id="cant"></span>
                                 </td>
     						</tr>
 
     						<tr>
     							<td style="color: white;">Precio por unidad:</td>
     							<td>
-                                    <input type="text" style="width:150px;" id="precio" name="precio" min="0" max="10000"> 
+                                    <input type="text" style="width:150px;" id="precio" onblur="valida(this.value,'prec','numero');"  name="precio" min="0" max="10000"> 
+                                    <span id="prec"></span>
                                 </td>
     						</tr>
 
@@ -143,6 +145,30 @@
 
 <script type="text/javascript">
     /* Agrega el empleado a la base de datos */
+    function valida( str, target, validate ){
+
+         if ( validate == "numero" ){
+            str = str.trim();
+            if ( str.length == 0 ){
+                document.getElementById(target).innerHTML = "<img src='../img/error.png' />";   
+            }
+            else{
+                //document.write(/^\d+\.?\d*$/.test('15.22'));
+                var re = /^\d+\.?\d*$/;
+                ok = re.exec(str);
+                if ( !ok ){
+                    document.getElementById(target).innerHTML = "<img src='../img/error.png' />";   
+                }else{
+                    document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
+                }
+            }
+        }
+    }
+    function ValidaSoloNumeros() {
+ if ((event.keyCode < 48) || (event.keyCode > 57))
+  event.returnValue = false;
+}
+
     function agregarMA(){
 
         parametros = "nombre=" + document.getElementById('name').value + "&";
