@@ -143,6 +143,10 @@ if ( !defined("__MATERIA__") ){
 			$qry = "SELECT * from compra where idCompra = ".$id.";";			
 			$result = $db->executeQuery($qry);
 
+			while($dato = mysql_fetch_array($result)){
+
+				$idp = $dato["RFC"];
+			}
 
 
 			$qry = "SELECT * from materiaprima where idMateriaPrima = ".$idm.";";			
@@ -150,7 +154,7 @@ if ( !defined("__MATERIA__") ){
 
 			if ($dato = mysql_fetch_assoc($result)){
 
-				$emp = new MateriaPrima($idm,$dato["Nombre"],"QWER123456","5","","","","");
+				$emp = new MateriaPrima($idm,$dato["Nombre"],$idp,"5","","","","");
 
 				$qry = "DELETE from compra where idCompra = ".$id.";";			
 				$result = $db->executeQuery($qry);	

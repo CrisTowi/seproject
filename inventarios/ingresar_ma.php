@@ -1,15 +1,12 @@
 ﻿<!DOCTYPE html>
+<?php include("../php/AccessControl.php"); ?>
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>Inventarios</title>
+        <link rel="stylesheet" type="text/css" href="../css/ventas.css" />
         <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
-        <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-        <link rel="stylesheet" href="/resources/demos/style.css" />
-
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css" />   
 
     </head>    
     <body>
@@ -86,11 +83,11 @@
 
     						<tr>
     						   <td style="color: white;">Fecha inicial: </td>
-    						   <td><input type="date" style="width:160px;" id="from" name="from" placeholder="yyyy-mm-dd"/></td>
+    						   <td><input type="text" style="width:150px;"id="from" name="from" placeholder="Fecha de inicio"/></td>  
     						</tr>
     						<tr>
     						   <td style="color: white;">Fecha de caducidad: </td>
-    						   <td><input type="date" style="width:160px;" id="to" name="to" placeholder="yyyy-mm-dd"/></td> 
+    						   <td><input type="text" style="width:150px;"id="to" name="to" placeholder="Fecha de inicio"/></td>   
     						</tr>
     					</table>
     					</div>
@@ -166,15 +163,15 @@
         sendPetitionQuery("AgregarMA.php?" + encodeURI(parametros));
         console.log("AgregarMA.php?" + encodeURI(parametros));
         /* returnedValue almacena el valor que devolvio el archivo PHP */
-        if (returnedValue == "OK" ){
             if ( modify ){
                 alert("Materia Prima editada correctamente");
             }else{
                 alert("Materia Prima agregada correctamente");
             }
             window.location = "/gestion_ma.php";
-        }
-window.location = "gestion_ma.php";
+        
+
+        window.location = "gestion_ma.php";
         //alert(returnedValue);
     }
     
