@@ -21,22 +21,8 @@
 			$fechaActual ="Hoy";  //Inicializar (Prevencion de errores)									
 			$fechaActual = $dia." de ".$arrayMeses[$mes-1]." de ".$anio;			
 			
-			$fechaInicio=$_POST["from"];
-			$fechaFin = $_POST["to"];
-			
-			
-			///Cambiar formato de fechas a SQL
-			$valoresPrimera = explode ("/", $fechaInicio);   
-			$valoresSegunda = explode ("/", $fechaFin); 
-	
-			$diaPrimera    = $valoresPrimera[2];  
-			$mesPrimera  = $valoresPrimera[1];  
-			$anyoPrimera   = $valoresPrimera[0]; 
-			$diaSegunda   = $valoresSegunda[2];  
-			$mesSegunda = $valoresSegunda[1];  
-			$anyoSegunda  = $valoresSegunda[0];
-			$fechaInicioSQL=$anyoPrimera."-".$mesPrimera."-".$diaPrimera;
-			$fechaFinSQL=$anyoSegunda."-".$mesSegunda."-".$diaSegunda;
+			$fechaInicioSQL=$_POST["from"];
+			$fechaFinSQL=$_POST["to"];
 			
 			$Cliente = $_POST["cliente"];
 			//echo $Cliente;
@@ -107,7 +93,9 @@
 			$pdf->Cell(40,10,'',0,1); //Linea vacia
 			//Condicion si encuentra Resultados o no
 			if($rows=='0'){$pdf->SetFont('Arial','bi',14);
-			$pdf->Cell(80,6,'Las ventas del     '.$fechaInicio.'    al    '.$fechaFin.'    no muestran ningun resultado',0,0,'L',0);}
+			$pdf->Cell(80,6,'Las ventas del     '.$fechaInicioSQL.'    al    '.$fechaFinSQL.'    no muestran ningun resultado',0,0,'L',0);}
+			
+			
 			//inicia creacion de tuplas
             else{
 			$pdf->SetFont('Arial','b',14);
