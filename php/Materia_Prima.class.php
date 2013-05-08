@@ -43,7 +43,6 @@ if ( !defined("__MATERIA__") ){
 			$result = $db->executeQuery($qry);
 
 			if ($dato = mysql_fetch_assoc($result)){
-				//echo $dato["idMateria"].$dato["nombre"].$dato["proveedor"].$dato["precio_lote"].$dato["cantidad"].$dato["unidad"].$dato["fecha_caducidad"];
 				return $dato["Nombre"];
 			}	
 		}
@@ -159,9 +158,15 @@ if ( !defined("__MATERIA__") ){
 				$qry = "DELETE from compra_mp where idCompra = ".$id." AND idMateriaPrima = ".$idm.";";		
 				$result = $db->executeQuery($qry);	
 
+				$qry = "SELECT * from compra_mp where idCompra = ".$id;
 				echo $qry;
-				$qry = "DELETE from compra where idCompra = ".$id.";";		
 				$result = $db->executeQuery($qry);	
+
+				if ( mysql_num_rows($result) < 1)
+				{
+					$qry = "DELETE from compra where idCompra = ".$id.";";		
+					$result = $db->executeQuery($qry);	
+				}
 
 				return $emp;
 			}	
