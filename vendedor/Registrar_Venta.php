@@ -74,6 +74,7 @@
 							<tbody id="cuerpoT" name="cuerpoT">
 								<tr id="titulosTr" class="tr-header">
 								<td>Producto</td>
+								<td>LOTE</td>
 								<td>Precio</td>
 								<td>Cantidad</td>
 								<td></td>
@@ -91,7 +92,7 @@
 </html>
 
 <?php include('scripts.php'); ?> 	
-<script type="text/javascript" src="../js/manejoAriculoVentas.js"></script>
+<script type="text/javascript" src="../js/manejoArticuloVentas.js"></script>
 <!--<script type="text/javascript" src="jquery-1.4.2.min.js"></script>-->
 <script type="text/javascript">
 	 $(document).ready(function(){
@@ -112,16 +113,16 @@
         });
     });
 </script>
-<script type="text/javascript">
+<!--<script type="text/javascript">
 	/* Agrega el empleado a la base de datos */
-	function agregarVenta(){
+	/*function agregarVenta(){
 		parametros= "Cliente=" + document.getElementById('clie').value;
 		parametros = parametros.replace("#","%23");
 		
 		sendPetitionQuery("AgregaVenta.php?" + encodeURI(parametros));
 		
 		console.log("AgregaVenta.php?" + encodeURI(parametros));
-		/* returnedValue almacena el valor que devolvio el archivo PHP */
+		/* returnedValue almacena el valor que devolvio el archivo PHP 
 		if (returnedValue == "OK" ){
 				alert("Venta agregado correctamente");
 			//window.location = "./GestionV.php";
@@ -145,11 +146,11 @@
 				alert("Articulo agregado correctamente");
 		}
 	}
-	
 	function loadTable(){
 		//filtro = document.getElementById('buscar').value;
 		sendPetitionSync("TablaARti.php","tablaArti",document);
 		rePaint();
-	}	
-</script>
+	}*/
+		
+</script>-->
 
