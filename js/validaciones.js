@@ -12,7 +12,7 @@ function validarRFC(rfc){
 	return re.exec(rfc);
 }
 function validarTel(tel){
-	var re = /[0-9]{2}[-. ][0-9]{2}[-. ][0-9]{2}[-. ][0-9]{2}/;
+	var re = /[0-9]{2}[-. ]?[0-9]{2}[-. ]?[0-9]{2}[-. ]?[0-9]{2}/;
 	return re.exec(tel);
 }
 function validarEma(ema) {
