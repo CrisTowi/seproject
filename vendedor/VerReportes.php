@@ -181,7 +181,7 @@
 			}
 			$pdf->SetFont('Arial','',13);
 			$pdf->Cell(40,4,'',0,1); //Linea vacia
-			$pdf->Cell(120,6,'Periodo:    De    '.$fechaInicio.'    A    '.$fechaFin,0,1,'L');
+			$pdf->Cell(120,6,'Periodo:    De    '.$fechaInicioSQL.'    A    '.$fechaFinSQL,0,1,'L');
 			$pdf->Cell(40,6,'',0,1); //Linea vacia
 				$Total=0.0;
 			

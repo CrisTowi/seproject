@@ -49,14 +49,13 @@ status 2 cancelada
 			$qry = "INSERT INTO compra (idCompra,Fecha,Total,status,RFC) VALUES(null,curdate(),".$total.",0,'".$proveedor."');";
 			if($result = $db->executeQuery($qry))
 			{
-				$query="Select * from compra";
+				$query="select max(idCompra) as id from compra";
 				$resultado =$db->executeQuery($query);
-				$rows = mysql_num_rows($resultado);
-				if($rows==0){
-					$rows = 1;
-				}
+				$rows = mysql_fetch_array($resultado);
+				$row=$rows[0];
+				
 				for($i=1;$i<= count($ids) ;$i++){	
-					$qry2 = "INSERT INTO compra_mp VALUES(".$rows.",".$ids[$i].");";
+					$qry2 = "INSERT INTO compra_mp VALUES(".$row.",".$ids[$i].");";
 					$db->executeQuery($qry2);
 				}
 				return true;
