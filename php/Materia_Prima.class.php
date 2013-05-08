@@ -156,7 +156,10 @@ if ( !defined("__MATERIA__") ){
 
 				$emp = new MateriaPrima($idm,$dato["Nombre"],$idp,"5","","","","");
 
-				$qry = "DELETE from compra where idCompra = ".$id.";";			
+				$qry = "DELETE from compra_mp where idCompra = ".$id.";";		
+				$result = $db->executeQuery($qry);	
+
+				$qry = "DELETE from compra where idCompra = ".$id.";";		
 				$result = $db->executeQuery($qry);	
 
 				return $emp;

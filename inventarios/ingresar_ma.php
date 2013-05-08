@@ -123,7 +123,7 @@
         document.getElementById('name').value = "<?php echo $encontrado->getNombre(); ?>"
         document.getElementById('name').disabled="disabled";
         document.getElementById('provider').value = "<?php echo $encontrado->getProveedor(); ?>";
-        //document.getElementById('provider').disabled="disabled";        
+        document.getElementById('provider').disabled="disabled";        
         document.getElementById('cantidad').value = "<?php echo $encontrado->getCantidad(); ?>";
         document.getElementById('precio').value = "<?php echo $encontrado->getUniad(); ?>";
         document.getElementById('from').value = "<?php echo $encontrado->getFechaL(); ?>";
