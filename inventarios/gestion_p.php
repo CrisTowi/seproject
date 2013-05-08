@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+<?php include("../php/AccessControl.php"); ?>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -11,21 +12,13 @@
         <center>
         <div id="mainDiv">
         <!-- Aquí se colorca el menú -->
-             <nav>
-                <div class="selected-button"><img src="../img/archive.png"  alt="Icono" class="img-icon"/>Gestión de Materia Prima
-                    <ul class="sub-level" type="none">
-                        <li onclick="redirect('gestion_ma.php');">Gestión de Materia Prima</li>
-                        <li onclick="redirect('ingresar_ma.php');">Ingresar Materia Prima</li>
-
-                    </ul>
-                </div>
-                <div class="button" onclick="redirect('gestion_p.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Productos</div>
-                <div class="button"><img src="../img/notepad.png"  alt="Icono" class="img-icon"/>Reportes
-                        <ul class="sub-level" type="none">
-                            <li onclick="redirect('reportes_ma.php');">Generar Reporte Materias Primas</li>
-                            <li onclick="redirect('reportes_p.php');">Generar Reporte de Productos</li>
-                        </ul>
-                </div>
+            <nav>
+                <div class="button" onclick="redirect('compras_mp.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Compras Pendientes</div>
+                <div class="button" onclick="redirect('gestion_ma.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gestión de Materia Prima</div>
+                <div class="button" onclick="redirect('ingresar_ma.php');"><img src="../img/note.png"  alt="Icono" class="img-icon" />Ingresar Materia Prima</div>
+                <div class="selected-button" onclick="redirect('gestion_p.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gestión de Productos</div>
+                <div class="button" onclick="redirect('reportes_ma.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes de Materia Prima</div>
+                <div class="button" onclick="redirect('reportes_p.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes de Productos</div>
             </nav>  
   <!-- Divisor del contenido de la pagina -->
             <div id="all-content">
