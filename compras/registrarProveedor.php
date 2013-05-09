@@ -188,12 +188,10 @@
 			parametros +="&edit=1";
 		}
 		parametros = parametros.replace("#","%23");
-		alert(parametros);
 		
 		sendPetitionQuery("agregaProveedorBD.php?" + encodeURI(parametros));
 		console.log("agregaProveedorBD.php?" + encodeURI(parametros));
 		/* returnedValue almacena el valor que devolvio el archivo PHP */
-		alert(returnedValue);
 		if (returnedValue == "OK" ){
 			if ( modify ){
 				alert("Proveedor editado correctamente");

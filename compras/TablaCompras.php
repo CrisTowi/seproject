@@ -10,6 +10,7 @@
 		- Documentación del código: OK		
 	*/
 	header('Cache-Control: no-cache, no-store, must-revalidate');
+	include("../php/money.php");
 ?>
 
 
@@ -21,7 +22,7 @@
 		<td>Fecha</td>
 		<td>Productos</td>
 		<td>Cantidad</td>
-		<td>Total($)</td>
+		<td>Total</td>
 		<td class='opc'> </td>
 	</tr>
 <?php
@@ -71,7 +72,7 @@
 				<td>".$Fecha."</td>
 				<td>".$Productos."</td>
 				<td>".$Cantidades."</td>
-				<td>".$Total."</td>
+				<td>".toMoney($Total)."</td>
 				<td class='opc'><img src='../img/ok.png'   onclick='TerminarCompra(\"".$id."\")' alt='Eliminar' class='clickable'/></td>
 				<td class='opc'><img src='../img/error.png'   onclick='CancelarCompra(\"".$id."\")' alt='Cancelar' class='clickable'/></td>
 			</tr>");
