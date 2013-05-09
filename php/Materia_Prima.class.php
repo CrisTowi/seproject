@@ -14,9 +14,10 @@ if ( !defined("__MATERIA__") ){
 		private $Fecha_Ca;
 		private $Fecha_Ll;
 		private $unidad;
+		private $idCompra;
 		
 
-		public function __construct($idm,$n,$p,$pr,$c,$unit,$Fecha_c,$Fecha_l)
+		public function __construct($idm,$n,$p,$pr,$c,$idc,$Fecha_c,$Fecha_l,$idc)
 		{
 			
 			$this->idMateria = $idm;
@@ -27,11 +28,18 @@ if ( !defined("__MATERIA__") ){
 			$this->unidad = $unit;
 			$this->Fecha_Ca = $Fecha_c;
 			$this->Fecha_Ll = $Fecha_l;
+			$this->idCompra = $idc;
 				
 		}
 		
 		public function getNombre(){
 			return $this->nombre;
+		}
+		public function getIdCompra(){
+			return $this->idCompra;
+		}
+		public function getIdMateria(){
+			return $this->idMateria;
 		}
 		public function getIdm(){
 			return $this->idMateria;
@@ -95,7 +103,7 @@ if ( !defined("__MATERIA__") ){
 				return true;
 			return false;
 		}
-		public static function Modificar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l)
+		public static function Modificar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l,$idc)
 		{
 			$connection = new DataConnection();
 
@@ -119,6 +127,22 @@ if ( !defined("__MATERIA__") ){
 				
 			}
 
+
+			$qry = "DELETE from compra_mp where idCompra = ".$idc." AND idMateriaPrima = ".$idMateria;		
+			$result = $connection->executeQuery($qry);	
+
+			echo $qry;
+
+			$qry = "SELECT * from compra_mp where idCompra = ".$idc;
+
+			$result = $connection->executeQuery($qry);	
+
+			if ( mysql_num_rows($result) < 1)
+			{
+				$qry = "DELETE from compra where idCompra = ".$idc;		
+				$result = $connection->executeQuery($qry);	
+			}
+
 			$qry = "INSERT into suministro(PrecioActual,RFC,idMateriaPrima,Cantidad,Fecha_Llegada,Fecha_Caducidad) VALUES('".$precio."','".$idProveedor."','".$idMateria."', '".$cantidad."', '".$fecha_l."', '".$fecha_c."');";
 
 
@@ -137,6 +161,8 @@ if ( !defined("__MATERIA__") ){
 			while($dato = mysql_fetch_array($result)){
 
 				$idm = $dato["idMateriaPrima"];
+				$cantidad = $dato["Cantidad"];
+				$idc = $dato["idCompra"];
 			}	
 
 			$qry = "SELECT * from compra where idCompra = ".$id.";";			
@@ -153,20 +179,8 @@ if ( !defined("__MATERIA__") ){
 
 			if ($dato = mysql_fetch_assoc($result)){
 
-				$emp = new MateriaPrima($idm,$dato["Nombre"],$idp,"5","","","","");
+				$emp = new MateriaPrima($idm,$dato["Nombre"],$idp,"5",$cantidad,"","","",$idc);
 
-				$qry = "DELETE from compra_mp where idCompra = ".$id." AND idMateriaPrima = ".$idm.";";		
-				$result = $db->executeQuery($qry);	
-
-				$qry = "SELECT * from compra_mp where idCompra = ".$id;
-				echo $qry;
-				$result = $db->executeQuery($qry);	
-
-				if ( mysql_num_rows($result) < 1)
-				{
-					$qry = "DELETE from compra where idCompra = ".$id.";";		
-					$result = $db->executeQuery($qry);	
-				}
 
 				return $emp;
 			}	

@@ -1,7 +1,9 @@
 <?php 
 
 	include("../php/Validations.class.php");
-	include("../php/Materia_Prima.class.php");	
+	include("../php/Materia_Prima.class.php");
+		
+	$idc       =	Validations::cleanString($_GET['idc']);
 	$nombre    =	Validations::cleanString($_GET['nombre']);
 	$proveedor =	Validations::cleanString($_GET['proveedor']);
 	$cantidad  = 	Validations::cleanString($_GET['cantidad']);
@@ -16,7 +18,7 @@
 	if ( !isset($_GET["edit"]) ){
 		$accept     =	MateriaPrima::Agregar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l);	
 	}else{
-		$accept     =	MateriaPrima::Modificar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l);	
+		$accept     =	MateriaPrima::Modificar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l,$idc);	
 	}
 
 	

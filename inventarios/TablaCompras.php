@@ -1,9 +1,10 @@
 ﻿<table id='table-content'>
-	<tr class='tr-header' style='color: white'>
+	<tr class='tr-header' style='color: white;'>
 		<td>No Compra</td>
 		<td>Fecha</td>
 		<td>Productos</td>
-		<td>Total</td>
+		<td>Cantidad</td>
+		<td>Total($)</td>
 		<td class='opc'> </td>
 	</tr>
 <?php
@@ -12,7 +13,7 @@
 	$db = new DataConnection();	
 	$qry = "SELECT * FROM compra  WHERE status = 1";
 	
-	// A?ade parametros de b?squeda
+	// Añade parametros de búsqueda
 	if ( isset($_GET["search"] ) ){
 		if ( strlen($_GET["search"])>0){
 			$filtro = Validations::cleanString($_GET["search"]); // Limpia la entrada
@@ -24,7 +25,7 @@
 
 	if ( mysql_num_rows($result) < 1){
 		echo ("<tr class='tr-cont'>
-			<td colspan='4'>No se encontraron resultados</td>
+			<td colspan='5'>No se encontraron resultados</td>
 			<td class='opc'></td>
 			</tr>");
 	}else{	
@@ -35,22 +36,24 @@
 			
 			$id = $fila['idCompra'];	
 			$Fecha = $fila['Fecha'];
-			$qry2 = "Select mp.Nombre, mp.idMateriaPrima from Compra c join Compra_MP cmp ON c.idCompra = cmp.idCompra join MateriaPrima mp on mp.idMateriaPrima = cmp.idMateriaPrima where cmp.idCompra =".$id." ";
+			$qry2 = "Select mp.Nombre,cmp.Cantidad,mp.Unidad from Compra c join Compra_MP cmp ON c.idCompra = cmp.idCompra join MateriaPrima mp on mp.idMateriaPrima = cmp.idMateriaPrima where cmp.idCompra =".$id." ";
 			$result2 = $db->executeQuery($qry2);	 
 			$Productos="<ul>";
+			$Cantidades="<ul>";
 			while($filaNom=mysql_fetch_array($result2)){
 						
-					$Productos.=$filaNom['idMateriaPrima'].".- ".$filaNom['Nombre'].'</br>';
-					$idm = $filaNom['idMateriaPrima'];
-				
+					$Productos.="<li>".$filaNom['Nombre']."  (".$filaNom['Unidad'].") ". "</li>";
+					$Cantidades.=$filaNom['Cantidad']."<br>";
 			}
 			$Productos.="</ul>";
+			$Cantidades.="</ul>";
 			$Total = $fila['Total'];
 			
 			echo ("<tr class='tr-cont' id='".$id."' name='".$id."'>
 				<td>".$id."</td>
 				<td>".$Fecha."</td>
 				<td>".$Productos."</td>
+				<td>".$Cantidades."</td>
 				<td>".$Total."</td>
 				<td class='opc'><img src='../img/ok.png' onclick='AgregarCompra(\"".$id."\")' alt='Modificar' class='clickable'/></td>
 			</tr>");

@@ -29,6 +29,7 @@
                 <div id="content">
                     <form id="altaMA" action="AgregarMA.php"name="altaMA" method ="POST">
     					<div class="box">
+                            
     					<table>
 
                             <tr>
@@ -171,7 +172,10 @@
 
     function agregarMA(){
 
-        parametros = "nombre=" + document.getElementById('name').value + "&";
+        alert("<?php echo $encontrado->getIdCompra(); ?>" );
+
+        parametros = "idc=" + "<?php echo $encontrado->getIdCompra(); ?>" + "&";
+        parametros+= "nombre=" + document.getElementById('name').value + "&";
         parametros+= "proveedor=" + document.getElementById('provider').value + "&";
         parametros+= "cantidad=" + document.getElementById('cantidad').value + "&";
         parametros+= "precio=" + document.getElementById('precio').value + "&";
@@ -185,7 +189,7 @@
         }
 
         parametros = parametros.replace("#","%23");
-
+        alert(parametros);
         sendPetitionQuery("AgregarMA.php?" + encodeURI(parametros));
         console.log("AgregarMA.php?" + encodeURI(parametros));
         /* returnedValue almacena el valor que devolvio el archivo PHP */
