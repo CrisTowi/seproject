@@ -48,17 +48,17 @@
 				switch ($estado)
 				{
 					 case "Cancelada":
-				        echo ("<td colspan='2' class='opc'><center><img src='../img/cancelar.png' alt='Cancelar' title='Cancelado'/></center></td>
+				        echo ("<td colspan='2' ><center><img src='../img/cancelar.png' alt='Cancelar' title='Cancelado'/></center></td>
 						</tr>");
 				        break;
 				     case "Entregado":
-				        echo ("<td class='opc'><img src='../img/pencil.png' onclick='modificarVenta(\"".$id."\")' alt='Modificar' title='Modificar' class='clickable'/></td>
-						<td class='opc'><img src='../img/entregado.png' title='Entregado'/></td>
+				        echo ("<td><img src='../img/pencil.png' onclick='modificarVenta(\"".$id."\")' alt='Modificar' title='Modificar' class='clickable'/></td>
+						<td ><img src='../img/entregado.png' title='Entregado'/></td>
 						</tr>");
 				        break;
 				     default:
-				        echo ("<td class='opc'><img src='../img/pencil.png' onclick='modificarVenta(\"".$id."\")' alt='Modificar' title='Modificar' class='clickable'/></td>
-						<td class='opc'><img src='../img/less.png'   onclick='cancelarVenta(\"".$id."\")' alt='Eliminar' title='Cancelar' class='clickable'/></td>
+				        echo ("<td><img src='../img/pencil.png' onclick='modificarVenta(\"".$id."\")' alt='Modificar' title='Modificar' class='clickable'/></td>
+						<td ><img src='../img/less.png'   onclick='cancelarVenta(\"".$id."\")' alt='Eliminar' title='Cancelar' class='clickable'/></td>
 						</tr>");
 				        break;
 				}

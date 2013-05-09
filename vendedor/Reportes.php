@@ -33,13 +33,17 @@
                 <form id="formReporte" action="VerReportes.php" method="POST" name="Rvalida">
                 	<table>
                 		<tr>
+                		<td width="50px"></td>
                 		<td><div class="texto">PERIODO</div></td>
-                		<td><input type="text" id="from" name="from" placeholder="Fecha de inicio"/></td>	
-                		
+                		<td><input type="text" id="from" name="from" placeholder="Fecha de inicio"/></td>
                 		<td class="texto"> a </td>
                 		<td><input type="text" id="to" name="to" placeholder="Fecha de fin"/> </td>
-                		
                 		</tr>
+                		
+                		<tr>
+                		<td height="50px"></td>
+                		</tr>
+                		
                 		<tr>
                 			<td id="cliente" class="texto">CLIENTE</td>
                 			<td><?php include("SelectClieR.php"); ?></td>
@@ -47,15 +51,25 @@
                 			<td id="producto" class="texto">PRODUCTO</td>
                 			<td colspan="2"><?php include("SelectProdR.php"); ?></td>
                 		</tr>
+                		
+                		<tr>
+                		<td height="50px"></td>
+                		</tr>
+                		
                 		<tr>
                 			<td colspan="2" ></td>
                 			<td  id="edo" class="texto">ESTADO</td>
                 			<td><select name="estados"><option value='0'>Todo</option><option value="Entregado">Entregado</option><option value="Cancelada">Cancelada</option><option value="En Espera">En Espera</option></select></td>
                 		</tr>
+                		
                 		<tr>
-                			<td ></td>
+                		<td height="50px"></td>
+                		</tr>
+                		
+                		<tr>
+                			<td colspan="2"></td>
                 			<td ><input class="form-button" id="acept" type="button" value="Aceptar" onClick="valida();"></td>
-                			<td colspan="3"><div id="buttonCancel" class="form-button" onClick="window.location ='Index.php'">Cancelar</div></td>
+                			<td><div id="buttonCancel" class="form-button" onClick="window.location ='Index.php'">Cancelar</div></td>
                 		</tr>
      
                 	</table>
