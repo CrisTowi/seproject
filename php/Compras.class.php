@@ -43,7 +43,7 @@ status 2 cancelada
 		}
 	
 		
-		public static function Agregar($ids,$total,$proveedor){
+		public static function Agregar($ids,$cantidades,$total,$proveedor){
 			$db = new DataConnection();
 			
 			$qry = "INSERT INTO compra (idCompra,Fecha,Total,status,RFC) VALUES(null,curdate(),".$total.",0,'".$proveedor."');";
@@ -55,7 +55,7 @@ status 2 cancelada
 				$row=$rows[0];
 				
 				for($i=1;$i<= count($ids) ;$i++){	
-					$qry2 = "INSERT INTO compra_mp VALUES(".$row.",".$ids[$i].");";
+					$qry2 = "INSERT INTO compra_mp VALUES(".$row.",".$ids[$i].",".$cantidades[$i].");";
 					$db->executeQuery($qry2);
 				}
 				return true;

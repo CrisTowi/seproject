@@ -15,8 +15,8 @@
         <center>
         <div id="mainDiv">
             <nav>
-                <div class="button" onclick="redirect('gestionProveedores.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gesti&oacute;n de Proveedores</div>
-                <div class="selected-button" onclick="redirect('IngresarMP.php');"><img src="../img/configuration2.png" alt="Icono" class="img-icon" />Gesti&oacute;n de Materia Prima</div>
+                <div class="button" onclick="redirect('gestionProveedores.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gesti&oacute;n Proveedores</div>
+                <div class="button" onclick="redirect('IngresarMP.php');"><img src="../img/configuration2.png" alt="Icono" class="img-icon" />Gesti&oacute;n Materia Prima</div>
                 <div class="button" onclick="redirect('Compras_Reportes.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes</div>
             </nav>
             <div id="all-content">				
@@ -38,7 +38,7 @@
 
 								</td>
 								<td>
-									Cantidad:<br> <input type="number" onblur="valida(this.value,'cantidad','numero');" class="cantidad" value="0" min="0" max="10000" >
+									Cantidad:<br> <input id="cantidad1" type="number" onblur="valida(this.value,'cantidad','numero');" class="cantidad" value="0" min="0" max="10000" >
 									<span id="cantidad"></span>
 								
 								</td>
@@ -81,9 +81,11 @@ function agregarCompra(){
 		//alert(filas);
 		parametros = "numprod="+ filas + "&"  ;
 		parametros += "proveedor=" + document.getElementById('proveedor').value+"&";
-		
 		for (var i =1 ;i<=filas ;i++ ){
 			parametros+= "producto"+ i+"=" + document.getElementById('sproductos'+i).value + "&";
+		}
+		for (var j =1 ;j<=filas ;j++ ){
+			parametros+= "cantidad"+ j+"=" + document.getElementById('cantidad'+j).value + "&";
 		}
 		
 		parametros += "total=" + document.getElementById('total').value;
@@ -170,7 +172,9 @@ function loadTable(){
 	
 var posicionCampo=2;
 
-
+function disminuir(){
+	posicionCampo--;
+}
 function agregarProducto(){
 		var opciones= posicionCampo;
 		var productos= Contar();
@@ -180,11 +184,11 @@ function agregarProducto(){
 			nuevaCelda=nuevaFila.insertCell(-1);
 			nuevaCelda.innerHTML="<select id='sproductos"+posicionCampo+"'><?php include("SelectProductos.php"); ?></select>";
 			nuevaCelda=nuevaFila.insertCell(-1);
-			nuevaCelda.innerHTML="<td><input type='text' id='producto"+posicionCampo+"' onblur=\"valida(this.value,'cantidad"+posicionCampo+"','numero\');\" class='cantidad' value='0'><span id='cantidad"+posicionCampo+"'></span></td>";
+			nuevaCelda.innerHTML="<td><input type='text' id='cantidad"+posicionCampo+"' onblur=\"valida(this.value,'cantidades"+posicionCampo+"','numero\');\" class='cantidad' value='0'><span id='cantidades"+posicionCampo+"'></span></td>";
 			nuevaCelda=nuevaFila.insertCell(-1);
 			nuevaCelda.innerHTML="<td><input type='text' id='precio"+posicionCampo+"' class='cantidad' onChange='calcular_total();' onBlur=\"valida(this.value,'unitario"+posicionCampo+"','numero');\" value='0'><span id='unitario"+posicionCampo+"'></span></td>";
 			nuevaCelda=nuevaFila.insertCell(-1);
-			nuevaCelda.innerHTML="<td><img src= '../img/less.png'  class='clickable' onclick='eliminarUsuario(this);calcular_total();'></td>";
+			nuevaCelda.innerHTML="<td><img src= '../img/less.png'  class='clickable' onclick='eliminarUsuario(this);calcular_total();disminuir();'></td>";
 			posicionCampo++;
 			loadTable();
 		}

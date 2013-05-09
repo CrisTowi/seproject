@@ -20,6 +20,7 @@
 		<td>No Compra</td>
 		<td>Fecha</td>
 		<td>Productos</td>
+		<td>Cantidad</td>
 		<td>Total($)</td>
 		<td class='opc'> </td>
 	</tr>
@@ -52,22 +53,24 @@
 			
 			$id = $fila['idCompra'];	
 			$Fecha = $fila['Fecha'];
-			$qry2 = "Select mp.Nombre from Compra c join Compra_MP cmp ON c.idCompra = cmp.idCompra join MateriaPrima mp on mp.idMateriaPrima = cmp.idMateriaPrima where cmp.idCompra =".$id." ";
+			$qry2 = "Select mp.Nombre,cmp.Cantidad,mp.Unidad from Compra c join Compra_MP cmp ON c.idCompra = cmp.idCompra join MateriaPrima mp on mp.idMateriaPrima = cmp.idMateriaPrima where cmp.idCompra =".$id." ";
 			$result2 = $db->executeQuery($qry2);	 
 			$Productos="<ul>";
+			$Cantidades="<ul>";
 			while($filaNom=mysql_fetch_array($result2)){
 						
-					$Productos.="<li>".$filaNom['Nombre']."</li>";
-				
+					$Productos.="<li>".$filaNom['Nombre']."  (".$filaNom['Unidad'].") ". "</li>";
+					$Cantidades.=$filaNom['Cantidad']."<br>";
 			}
 			$Productos.="</ul>";
-			
+			$Cantidades.="</ul>";
 			$Total = $fila['Total'];
 			
 			echo ("<tr class='tr-cont' id='".$id."' name='".$id."'>
 				<td>".$id."</td>
 				<td>".$Fecha."</td>
 				<td>".$Productos."</td>
+				<td>".$Cantidades."</td>
 				<td>".$Total."</td>
 				<td class='opc'><img src='../img/ok.png'   onclick='TerminarCompra(\"".$id."\")' alt='Eliminar' class='clickable'/></td>
 				<td class='opc'><img src='../img/error.png'   onclick='CancelarCompra(\"".$id."\")' alt='Cancelar' class='clickable'/></td>

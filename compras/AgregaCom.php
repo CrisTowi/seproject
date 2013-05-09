@@ -17,8 +17,11 @@
 			for($i = 1; $i<= $numero; $i++){
 				$productos[$i] = $_GET['producto'.$i];	
 			}
-		$total      =	$_GET['total'];
-			$accept   =	Compras::Agregar($productos,$total,$proveedor);	
+			for($j = 1; $j<= $numero; $j++){
+				$cantidades[$j] = $_GET['cantidad'.$j];	
+			}
+		$total     =	$_GET['total'];
+			$accept   =	Compras::Agregar($productos,$cantidades,$total,$proveedor);	
 			
 			if(!$accept){
 				echo "DATABASE_PROBLEM";
