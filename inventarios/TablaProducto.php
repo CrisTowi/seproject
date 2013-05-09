@@ -58,7 +58,7 @@
 			<td>".$idP."</td>
 			<td>".$nombre."</td>
 			<td>".$precio."</td>
-			<td>".$Receta."</td>
+			<td>".utf8_encode($Receta)."</td>
 		</tr>";
 	}
 }
