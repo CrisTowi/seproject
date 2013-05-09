@@ -12,7 +12,7 @@
 	include("../php/Validations.class.php");
 
 	$db = new DataConnection();	
-	$qry = "SELECT P.idProducto,P.nombre,P.Precio, P.Receta
+	$qry = "SELECT P.idProducto,P.nombre,P.Precio
 			from Producto P";	
 
 
@@ -45,9 +45,15 @@
 		$idP = $fila['idProducto'];	
 		$nombre = $fila['nombre'];
 		$precio = $fila['Precio'];
-		$Receta = $fila['Receta'];
-
-
+		$qry2 = "Select M.Nombre from Producto p join Receta R ON p.idProducto = R.idProducto join MateriaPrima M on M.idMateriaPrima = R.idMateriaPrima where R.idProducto =".$idP." ";
+		$result2 = $db->executeQuery($qry2);	 
+			$Receta="<ul>";
+			while($filaNom=mysql_fetch_array($result2)){
+						
+					$Receta.="<li>".$filaNom['Nombre']."</li>";
+				
+			}
+			$Receta.="</ul>";
 		echo "<tr class='tr-cont' id='".$idP."' name='".$idP."'>
 			<td>".$idP."</td>
 			<td>".$nombre."</td>
