@@ -45,38 +45,41 @@
 					<tr>
 						<td class="texto">Cliente:</td>
 						<td> <?php include("SelectClie.php"); ?></td>
+						<td colspan="5"></td>
 					</tr>
 					<!--<tr>
 						<td colspan='4'><div id="BotonVenta" class="form-button"   onClick="agregarVenta()">Abrir Venta</div></td>
 					</tr>-->
 					<tr>
-						<td class="texto" colspan='4'>Articulos</td>
+						<td class="texto" colspan='7'>Articulos</td>
 					</tr>
 					<tr>
 						<td class="texto">Producto:</td>
 						<td><?php include("SelectProd.php"); ?></td>
-						<td class="texto">Precio:</td>
-						<td><div id="exi" ><input type="text" id="precio" size="5" maxlength="7" value="Precio" disabled/></div></td>
+						<td class="texto" id="prec"></td>
+						<td id="exi"></td>
 						<td class="texto">Lotes:</td>
 						<td><select id='cant' disabled></select></td>
-						<td class="texto">Existencia:</td>
-						<td><div id="exis" ><input type="text" id="almacen" size="4" value="----" disabled/></div></td>
+						<td><img src="../img/busc.png" class="img-buscar"  alt="Buscar" onClick="ex();"/></td>						
 					</tr>
 					<tr>
-						<td class="texto"></td>
+						<td id="exss" class="texto"></td>
+						<td id="exis"><div></div></td>
 						<td></td>
-						<td id="mscant"></td>
-						<td colspan="2"><div id="BotonVenta" class="form-button" onClick="AddArt();">Agregar</div></td>
+						<td><div id="BotonVenta" class="form-button" onClick="AddArt();">Agregar</div></td>
+						<td></td>
+						<td></td>
+						<td></td>
 					</tr>
 				</table> 
 				<div id="Articulotab" class="box">
 						<table id="table-aux" style="padding-left:30px;">
 							<tbody id="cuerpoT" name="cuerpoT">
 								<tr id="titulosTr" class="tr-header">
+								<td>Lote</td>
 								<td>Producto</td>
-								<td>LOTE</td>
-								<td>Precio</td>
 								<td>Cantidad</td>
+								<td>Precio/Paquete</td>
 								<td></td>
 								</tr>
 							</tbody>
@@ -97,21 +100,31 @@
 <script type="text/javascript">
 	 $(document).ready(function(){
         $("#prod").change(function(event){
+        	document.getElementById('prec').innerHTML="";
+            document.getElementById('exi').innerHTML="";
         	document.getElementById('cant').disabled="";
             var id = $("#prod").find(':selected').val();
             $("#cant").load('selectLote.php?id='+id);
-            $("#exi").load('Getprec.php?id='+id);
+            document.getElementById('prec').innerHTML="Precio:";
+	    	$("#exi").load('Getprec.php?id='+id);
+            document.getElementById('exss').innerHTML="";
+            document.getElementById('exis').innerHTML="";
+            //$("#exi").load('Getprec.php?id='+id);
         });
+        $("#cant").change(function(event){
+        	document.getElementById('exss').innerHTML="";
+            document.getElementById('exis').innerHTML="";
+         });
     });
     //sendPetitionSync("TablaArti.php?Folio="+document.getElementById('clie').value,"tablaArti",document);
 </script>
 <script type="text/javascript">
-	 $(document).ready(function(){
-        $("#cant").blur(function(event){
-        	var id = $("#cant").find(':selected').val();
-            $("#exis").load('Getexist.php?id='+id);
-        });
-    });
+    function ex(){
+    	var id=$("#cant").find(':selected').val();
+    	document.getElementById('exss').innerHTML="Disponible:";
+    	$("#exis").load('Getexist.php?id='+id);
+    	
+    }
 </script>
 <!--<script type="text/javascript">
 	/* Agrega el empleado a la base de datos */

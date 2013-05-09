@@ -5,12 +5,13 @@ function valida( str, target, validate ){
 			document.getElementById(target).innerHTML = "<img src='../img/error.png' title='La cantidad es un campo obligatorio.' />";	
 		}
 		else{
-			var re =/#^[^0-9]$#/;
+			var re =/^\d*$/;
 			ok = re.exec(str);
 			if ( !ok ){
 				document.getElementById(target).innerHTML = "<img src='../img/error.png' title='La cantidad sólo acepta tipo numérico.' />";	
 			}else{
 				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
+				
 			}
 		}
 		
@@ -26,7 +27,6 @@ function AddArt()
 	}
 	else
 	{
-		
 		nuevoIngreso=document.getElementById(selector.value);
 		if(nuevoIngreso==undefined)
 		{
@@ -90,11 +90,11 @@ function AddArt()
 			renglon.className ='tr-cont'; 
 			renglon.id=selector.value;
 			renglon.name=selector.value;
-		    
-		    renglon.appendChild(celda0);
+		   
 			renglon.appendChild(celda1);
-			renglon.appendChild(celda4);
+			renglon.appendChild(celda0);
 			renglon.appendChild(celda2);
+			renglon.appendChild(celda4);
 			renglon.appendChild(celda3);
 			renglon.appendChild(celda5);
 			field.appendChild(renglon);
@@ -110,7 +110,7 @@ function AddArt()
 		}
 		else
 		{
-			alert("El lote ya est� en la lista");
+			alert("El lote ya está en la lista");
 		}
 	}	
 }

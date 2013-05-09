@@ -24,7 +24,7 @@
            <div id="all-content">
 				<div class="box">
 				<div id="AC" class="form-button" onClick="window.location ='RC.php'">Registar Cliente</div>
-			        <input type="text" id="buscar" name="buscar" placeholder = "Buscar Cliente" class="searchBar" onChange="onClickBusqueda();"/>
+			        <input type="text" id="buscar" name="buscar" placeholder = "Buscar Cliente(RFC,Nombre)" class="searchBar" onChange="onClickBusqueda();" style="width:250px;"/>
 				</div>
 				<div id="tablaCliente"><?php include("TablaClientes.php"); ?></div>
          </div>  
