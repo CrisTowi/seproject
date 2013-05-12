@@ -52,7 +52,7 @@
 			echo ("<tr class='tr-cont' id='".$id."' name='".$id."'>
 				<td>".$id."</td>
 				<td>".$Fecha."</td>
-				<td>".$Productos."</td>
+				<td>".utf8_encode($Productos)."</td>
 				<td>".$Cantidades."</td>
 				<td>".$Total."</td>
 				<td class='opc'><img src='../img/ok.png' onclick='AgregarCompra(\"".$id."\")' alt='Modificar' class='clickable'/></td>

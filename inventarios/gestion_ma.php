@@ -73,7 +73,7 @@
     }
 
     function eliminarEmpleado(id){
-        if ( confirm("¿Seguro que desea eliminar al MA con id " + id +"?") ){
+        if ( confirm("¿Seguro que desea eliminar la MA con id " + id +"?") ){
             sendPetitionQuery("EliminarMA.php?id=" + id );
             alert("Materia Prima Eliminada");
             loadTable();

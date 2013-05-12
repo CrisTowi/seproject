@@ -4,8 +4,8 @@
 	include("../php/Materia_Prima.class.php");
 		
 	$idc       =	Validations::cleanString($_GET['idc']);
-	$nombre    =	Validations::cleanString($_GET['nombre']);
-	$proveedor =	Validations::cleanString($_GET['proveedor']);
+	$idm       =	Validations::cleanString($_GET['idm']);
+	$idp       =	Validations::cleanString($_GET['idp']);
 	$cantidad  = 	Validations::cleanString($_GET['cantidad']);
 	$unidad    = 	Validations::cleanString($_GET['unidad']);
 	$precio    = 	Validations::cleanString($_GET['precio']);
@@ -15,12 +15,14 @@
 	/* Decodifica los caracteres de la URL */
 	$direccion = str_replace("%23", "#", $direccion);
 	
-	if (is_numeric($precio) && is_numeric($cantidad)){
+
+	//echo  $idc.$nombre.$proveedor.$cantidad.$unidad.$precio.$fecha_c.$fecha_l;
+	if (is_numeric($cantidad)){
 
 		if ( !isset($_GET["edit"]) ){
-			$accept     =	MateriaPrima::Agregar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l);	
+			$accept     =	MateriaPrima::Agregar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l,$idc);	
 		}else{
-			$accept     =	MateriaPrima::Modificar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l,$idc);	
+			$accept     =	MateriaPrima::Modificar($idm,$idp,$cantidad,$precio,$fecha_c,$fecha_l,$idc);	
 		}
 		if(!$accept){
 			echo "DATABASE_PROBLEM";
