@@ -19,15 +19,12 @@
 					echo "El producto con nombre ".$nombre." ya existe";
 					return;
 				}
-				//Insertamos Producto
-				$accept     =	Producto::Agregar($nombre,$precio);	
 				//Validamos receta
 				if($_GET['numeroFilas']==0)
 				{
 					echo "La receta es un atributo obligatorio";
 					return;
 				}
-				
 				$filas=$_GET['numeroFilas'];
 				for ($i=1; $i <= $filas; $i++) 
 				{			
@@ -37,7 +34,9 @@
 						return;
 					}
 				}	
-				//Incertamos receta
+				//Insertamos Producto
+				$accept     =	Producto::Agregar($nombre,$precio);
+				//Insertamos receta
 				include("../php/DataConnection.class.php");
 				$filas=$_GET['numeroFilas'];
 				$found=Producto::findByName($nombre);
