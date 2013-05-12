@@ -1,14 +1,14 @@
-function valida( str, target, validate ){
+Ôªøfunction valida( str, target, validate ){
 	if ( validate == "nombre" ){
 		str = str.trim();
 		if ( str.length == 0 ){
 			document.getElementById(target).innerHTML = "<img src='../img/error.png' />El nombre es un campo obligatorio.";	
 		}
 		else{
-			var re = /^[a-zA-Z ·ÈÌÛ˙¡…Õ”⁄]{3,}$/;
+			var re = /^[a-zA-Z √°√©√≠√≥√∫√Å√â√ç√ì√ö]{3,}$/;
 			ok = re.exec(str);
 			if ( !ok ){
-				document.getElementById(target).innerHTML = "<img src='../img/error.png' />El nombre sÛlo acepta tipo alfabÈtico.";	
+				document.getElementById(target).innerHTML = "<img src='../img/error.png' />El nombre s√≥lo acepta tipo alfab√©tico.";	
 			}else{
 				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
 			}
@@ -24,7 +24,7 @@ function valida( str, target, validate ){
 			var re =/^[0-9]*(\.[0-9]+)?$/;
 			ok = re.exec(str);
 			if ( !ok ){
-				document.getElementById(target).innerHTML = "<img src='../img/error.png' />El precio sÛlo acepta tipo numÈrico.";	
+				document.getElementById(target).innerHTML = "<img src='../img/error.png' />El precio s√≥lo acepta tipo num√©rico.";	
 			}else{
 				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
 			}
@@ -40,7 +40,7 @@ function valida( str, target, validate ){
 			var re =/^[0-9]+(\.[0-9][0-9]*)?$/;
 			ok = re.exec(str);
 			if ( !ok ){
-				document.getElementById(target).innerHTML = "<img src='../img/error.png' />La cantidad sÛlo acepta tipo numÈrico.";	
+				document.getElementById(target).innerHTML = "<img src='../img/error.png' />La cantidad s√≥lo acepta tipo num√©rico.";	
 			}else{
 				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
 			}
@@ -135,7 +135,7 @@ function AddMP()
 		}
 		else
 		{
-			alert("El ingrediente ya est· en la lista");
+			alert("El ingrediente ya est√° en la lista");
 		}
 	}	
 }

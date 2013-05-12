@@ -1,4 +1,4 @@
-<?php 
+﻿<?php 
 
 	include("../php/Validations.class.php");
 	include("../php/Producto.class.php");
@@ -14,6 +14,10 @@
 			{
 				//probamos que el producto no exista
 				$pruebaExiste=Producto::findByName($nombre);
+				if ( strlen($nombre) < 3 ){
+					echo "INPUT_PROBLEM";
+					return;
+				}
 				if($pruebaExiste)
 				{
 					echo "El producto con nombre ".$nombre." ya existe";
