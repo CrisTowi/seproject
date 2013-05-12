@@ -15,18 +15,21 @@
 	/* Decodifica los caracteres de la URL */
 	$direccion = str_replace("%23", "#", $direccion);
 	
-	if ( !isset($_GET["edit"]) ){
-		$accept     =	MateriaPrima::Agregar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l);	
-	}else{
-		$accept     =	MateriaPrima::Modificar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l,$idc);	
-	}
+	if (is_numeric($precio) && is_numeric($cantidad)){
 
-	
-	if(!$accept){
-		return "DATABASE_PROBLEM";
-	}else{
-		return "OK";
-		header( 'Location: /gestion_ma.php' ) ;
+		if ( !isset($_GET["edit"]) ){
+			$accept     =	MateriaPrima::Agregar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l);	
+		}else{
+			$accept     =	MateriaPrima::Modificar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l,$idc);	
+		}
+		if(!$accept){
+			echo "DATABASE_PROBLEM";
+		}else{
+			echo "OK";
+		}
+	}
+	else{
+		echo "INPUT_PROBLEM";
 	}
 
 

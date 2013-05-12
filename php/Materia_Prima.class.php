@@ -131,7 +131,6 @@ if ( !defined("__MATERIA__") ){
 			$qry = "DELETE from compra_mp where idCompra = ".$idc." AND idMateriaPrima = ".$idMateria;		
 			$result = $connection->executeQuery($qry);	
 
-			echo $qry;
 
 			$qry = "SELECT * from compra_mp where idCompra = ".$idc;
 

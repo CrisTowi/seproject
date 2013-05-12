@@ -29,7 +29,6 @@
                 <div id="content">
                     <form id="altaMA" action="AgregarMA.php"name="altaMA" method ="POST">
     					<div class="box">
-                            
     					<table>
 
                             <tr>
@@ -85,7 +84,7 @@
     						</tr>
 
     						<tr>
-    						   <td style="color: white;">Fecha inicial: </td>
+    						   <td style="color: white;">Fecha de llegada: </td>
     						   <td><input type="text" style="width:150px;"id="from" name="from" placeholder="Fecha de inicio"/></td>  
     						</tr>
     						<tr>
@@ -172,10 +171,7 @@
 
     function agregarMA(){
 
-        alert("<?php echo $encontrado->getIdCompra(); ?>" );
-
-        parametros = "idc=" + "<?php echo $encontrado->getIdCompra(); ?>" + "&";
-        parametros+= "nombre=" + document.getElementById('name').value + "&";
+        parametros = "nombre=" + document.getElementById('name').value + "&";
         parametros+= "proveedor=" + document.getElementById('provider').value + "&";
         parametros+= "cantidad=" + document.getElementById('cantidad').value + "&";
         parametros+= "precio=" + document.getElementById('precio').value + "&";
@@ -189,20 +185,23 @@
         }
 
         parametros = parametros.replace("#","%23");
-        alert(parametros);
+
         sendPetitionQuery("AgregarMA.php?" + encodeURI(parametros));
         console.log("AgregarMA.php?" + encodeURI(parametros));
         /* returnedValue almacena el valor que devolvio el archivo PHP */
+        if (returnedValue == "OK" ){
             if ( modify ){
                 alert("Materia Prima editada correctamente");
             }else{
                 alert("Materia Prima agregada correctamente");
             }
-            window.location = "/gestion_ma.php";
-        
-
-        window.location = "gestion_ma.php";
-        //alert(returnedValue);
+            window.location = "gestion_ma.php";
+        }
+        else if ( returnedValue == "INPUT_PROBLEM"){
+            alert("Datos con formato inválido");
+        } else {
+            alert("Error desconocido");
+        }
     }
     
 </script>
