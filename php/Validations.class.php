@@ -43,7 +43,7 @@ if ( !defined("__VALIDATIONS__") ){
 			return false;
 		}
 		public static function validaTel($string){
-			$reg = "/[0-9]{2}[-. ][0-9]{2}[-. ][0-9]{2}[-. ][0-9]{2}/";
+			$reg = "/^[0-9]{2}[-. ]?[0-9]{2}[-. ]?[0-9]{2}[-. ]?[0-9]{2}$/";
 			return preg_match($reg, $string) ? true: false;		
 		}
 		public static function validaEmail($string){
@@ -61,7 +61,7 @@ if ( !defined("__VALIDATIONS__") ){
 		public static function validaInt($string){
 			if (strlen($string)==0)return false;
 			return preg_match("/^\d*$/" , $string ) ? true: false;
-		}
+		}		
 	}
 }
 ?>

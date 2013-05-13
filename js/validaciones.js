@@ -6,11 +6,11 @@ function validarCurp(curp){
 function validarRFC(rfc){
 	rfc=rfc.toUpperCase().trim();
 	var re;
-	if(rfc.length<=12){
+	if(rfc.length<=12)
 	{
 		re = /^[A-Z]{3}[0-9]{6}[A-Z0-9]{3}$/;
 	}
-	else 
+	else
 	{
 		re = /^[A-Z]{4}[0-9]{6}[A-Z0-9]{3}$/;
 	}
