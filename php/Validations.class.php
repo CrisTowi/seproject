@@ -58,7 +58,10 @@ if ( !defined("__VALIDATIONS__") ){
 			if (strlen($string)==0)return false;
 			return preg_match("/^[0-9]*(\.)?[0-9]*$/" , $string ) ? true: false;
 		}
-		
+		public static function validaInt($string){
+			if (strlen($string)==0)return false;
+			return preg_match("/^\d*$/" , $string ) ? true: false;
+		}
 	}
 }
 ?>

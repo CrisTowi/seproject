@@ -8,20 +8,18 @@ if ( !defined("__VENTA__") ){
 		private $Fecha;
 		private $Cliente;
 		private $Fentrega;
+		private $Estado;
 		
 		//public function __construct($folio,$fecha,$cliente,$producto,$cantidad,$existencia,$fentrega)
-		public function __construct($folio,$fecha,$cliente,$fentrega)
+		public function __construct($folio,$fecha,$cliente,$fentrega,$Estado)
 		{
 			$this->Folio = $folio;
 			$this->Fecha = $fecha;
 			$this->Cliente = $cliente;
-			//$this->Producto = $producto;
-			//$this->Cantidad = $cantidad;
-			//$this->Existencia = $existencia;
 			$this->Fentrega = $fentrega;
+			$this->Estado=$estado;
 					
 		}
-		
 		public function getFolio(){
 			return $this->Folio;
 		}
@@ -31,16 +29,13 @@ if ( !defined("__VENTA__") ){
 		public function getCliente(){
 			return $this->Cliente;
 		}
-		public function getCantidad(){
-			return $this->Cantidad;
-		}
-		public function getExistencia(){
-			return $this->Existencia;
-		}
 		public function getFentrega(){
-			return $this->Fentrega;
+			return $this->Rentrega;
 		}
-			public static function Agregar($Cliente){
+		public function getEstado(){
+			return $this->Estado;
+		}
+		public static function Agregar($Cliente){
 			$db = new DataConnection();
 			$aux= $db->executeQuery("Select MAX(Fentrega) as 'Fentrega' from venta");
 			$aux1= $db->executeQuery("SELECT DATEDIFF(CURDATE( ),MAX( Fentrega )) as 'Fecha' FROM venta");
@@ -48,14 +43,12 @@ if ( !defined("__VENTA__") ){
 			$row=mysql_fetch_row($aux);
 			if($aux!=0 and $dato["Fecha"]<0 )
 			{
-				$qry = "INSERT INTO Venta (Fecha,RFC,Fentrega,Estado) VALUES((SELECT CURDATE( )),'".$Cliente."',(SELECT DATE_ADD(MAX(v.Fentrega),INTERVAL 5 Day) FROM venta v ),'En Espera')";
+				$qry = "INSERT INTO Venta (Fecha,RFC,Fentrega,Estado) VALUES((SELECT CURDATE( )),'".$Cliente."',(SELECT DATE_ADD(MAX(v.Fentrega),INTERVAL 5 Day) FROM venta v ),'En Espera');";
 			}
 			else
 			{
 				$qry = "INSERT INTO Venta (Fecha,RFC,Fentrega,Estado) VALUES((SELECT CURDATE( )),'".$Cliente."',(SELECT DATE_ADD(curdate(),INTERVAL 5 Day)),'En Espera')";
-			}
-			
-			//INSERT INTO Venta (Fecha,RFC,Fentrega) VALUES((SELECT CURDATE( )),"AECJ880326XXX",(SELECT DATE_ADD(MAX(Fentrega),INTERVAL 5 Day) FROM Venta)) 
+			} 
 			if($result = $db->executeQuery($qry))
 			{
 				return true;
@@ -71,6 +64,7 @@ if ( !defined("__VENTA__") ){
 			return false;
 		}
 		
+		
 		public static function findById($Folio)
 		{
 			$db = new DataConnection();			
@@ -81,6 +75,7 @@ if ( !defined("__VENTA__") ){
 			}	
 			return false;
 		}
+		
 				
 		public static function Eliminar($Folio){
 			$db = new DataConnection();			
