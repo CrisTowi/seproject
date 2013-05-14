@@ -25,9 +25,6 @@
                     <div class="box">
                         <table>
                             <tr>
-                                <td class="auxiliarB">
-                                    <div onclick="redirect('ingresar_ma.php');" class="form-button">Agregar Materia Prima</div>
-                                </td>
                                 <td class="auxiliarB"></td>
                                 <td class="auxiliarB"></td>
                                 <td class="auxiliarB">

@@ -20,7 +20,7 @@
 	if (is_numeric($cantidad)){
 
 		if ( !isset($_GET["edit"]) ){
-			$accept     =	MateriaPrima::Agregar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l,$idc);	
+			$accept     =	MateriaPrima::Agregar($idm,$idp,$cantidad,$precio,$fecha_c,$fecha_l);
 		}else{
 			$accept     =	MateriaPrima::Modificar($idm,$idp,$cantidad,$precio,$fecha_c,$fecha_l,$idc);	
 		}

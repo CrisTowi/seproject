@@ -24,7 +24,7 @@
 
             <div id="all-content">
 				
-                <h2 id="titulo">Ingresar Materia Prima</h2>
+                <h2 id="titulo">Ingresar Materia Prima <p style='color: white;' id='idc'></p> </h2>
 
                 <div id="content">
                     <form id="altaMA" action="AgregarMA.php"name="altaMA" method ="POST">
@@ -113,6 +113,7 @@
     <script type="text/javascript">
 
         modify = true;
+        document.getElementById('idc').innerHTML = "<?php echo $encontrado->getIdCompra(); ?>";
         document.getElementById('name').value = "<?php echo $encontrado->getIdMateria(); ?>";
         document.getElementById('name').disabled="disabled";
         document.getElementById('provider').value = "<?php echo $encontrado->getIdProveedor(); ?>";
@@ -160,11 +161,7 @@
 }
 
     function agregarMA(){
-
-        alert(modify);
-
         parametros = "idm=" + document.getElementById('name').value + "&";
-        parametros+= "idc=" + "<?php echo $encontrado->getIdCompra(); ?>" + "&";
         parametros+= "idp=" + document.getElementById('provider').value + "&";
         parametros+= "cantidad=" + document.getElementById('cantidad').value + "&";
         parametros+= "fecha_l=" + document.getElementById('from').value + "&";
@@ -173,8 +170,10 @@
 
         if ( modify ){
 
+            parametros+= "idc=" + document.getElementById('idc').innerHTML + "&";
             parametros +="&edit=1";
         }
+
 
         parametros = parametros.replace("#","%23");
 

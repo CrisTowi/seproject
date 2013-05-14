@@ -57,29 +57,12 @@ if ( !defined("__MATERIA__") ){
 
 
 
-		public static function Agregar($nombre,$proveedor,$cantidad,$precio,$fecha_c,$fecha_l)
+		public static function Agregar($idMateria,$idProveedor,$cantidad,$precio,$fecha_c,$fecha_l)
 		{
 			$connection = new DataConnection();
 
-			$registro1 = $connection->executeQuery("SELECT * from proveedor where Nombre = '".$proveedor."'");
-
-			while($reg1 = mysql_fetch_array($registro1))
-			{
-				
-				$idProveedor = $reg1['RFC'];
-				
-			}
-
-			$registro2 = $connection->executeQuery("SELECT idMateriaPrima from materiaprima m where Nombre = '".$nombre."'");
-
-			while($reg2 = mysql_fetch_array($registro2))
-			{
-				
-				$idMateria = $reg2['idMateriaPrima'];
-				
-			}
-
-			$qry = "INSERT into inventario_mp(idLote,idMateriaPrima,RFC,Cantidad,Fecha_Llegada,Fecha_Caducidad) VALUES('HOOLA',".$idMateria.",'".$idProveedor."',".$cantidad.", '".$fecha_l."', '".$fecha_c."');";
+			$idlote = $idMateria . $idProveedor;
+			$qry = "INSERT into inventario_mp(idLote,idMateriaPrima,RFC,Cantidad,Fecha_Llegada,Fecha_Caducidad) VALUES('".$idlote."',".$idMateria.",'".$idProveedor."',".$cantidad.", '".$fecha_l."', '".$fecha_c."');";
 
 			if($result = $connection->executeQuery($qry))
 				return true;
