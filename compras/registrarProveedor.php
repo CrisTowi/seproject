@@ -62,25 +62,22 @@
 									<td><input type="text" name="email" id="email" placeholder="alguien@example.com" onblur="valida(this.value,'msgEmail','email');"/></td>
 									<td><span id="msgEmail"></span></td>
 								</tr>
+								<tr>
+									<td colspan="2">
+										<select id='selectProductos'>
+											<?php include("SelectMateriaPrima.php"); ?>
+										</select>
+										<img src="../img/add.png" onClick="agregarProducto(document.altaProveedor.selectProductos.value)" class='clickable'/>	
+									</td>
+								</tr>
 							</table>
-							<div class="box">
+							<div id="divProductos" class="box">
 								<table id="productos">
-									<tr class="tr-header">
-										<td>Producto</td>
-										<td>Precio</td>
+									<tr id="msgTable" class="tr-cont">
+										<td colspan="2">Aun no se han agregado productos</td>
 									</tr>
-									<tr>
-										<td>
-											<select id='sproductos1'>
-												<div >
-													<?php include("SelectMateriaPrima.php"); ?>
-												</div>
-											</select>
-										</td>
-										<td><input type="text" name="precio1" id="precio1" onblur="valida(this.value,'msgPrecio1','precio');" value="0" /></td>
-										<td><span id="msgPrecio1"></span></td>
-										<td><img src="../img/add.png" onClick="agregarProducto()" class='clickable'/></td>
-									</tr>
+									
+									
 								</table>
 							</div>
 							<div class="box">
@@ -99,9 +96,7 @@
 
 <script type="text/javascript">
 	var modify = false;
-	var posicionCampo = 2;
-	var noMateriasPrimas = document.altaProveedor.sproductos1.length;	//total de materias en la bd
-	
+	var idProducto = 1;
 </script>
 
 <?php
@@ -114,14 +109,13 @@
 		$encontrado = Proveedor::findById($pvr);
 ?>
 	<script type="text/javascript">
-
-	function selectItem(val,sel){
-			for(var i, j = 0; i = sel.options[j]; j++) {
-				if(i.value == val) {
-					sel.selectedIndex = j;
-					break;
-				}
-			}
+	function getNombre(id)
+	{
+		for(j = 0; j < document.altaProveedor.selectProductos.length; j++)
+		{
+			if(document.altaProveedor.selectProductos.options[j].value == id)
+				return document.altaProveedor.selectProductos.options[j].text;
+		}
 	}
 	
 	document.getElementById('rfc').disabled="disabled";
@@ -135,23 +129,29 @@
 	<?php echo "var productos = ".json_encode($encontrado->getProductos()).";\n" ?>;
 	<?php echo "var precios = ".json_encode($encontrado->getPrecios()).";\n" ?>;
 	
-	selectItem(productos[0], document.getElementById("sproductos1"));
-	document.getElementById('precio1').value = precios[0];
+	//Quitamos el msj inicial
+	table = document.getElementById('productos');
+	table.deleteRow(0);
+		
+	//Agregamos los header
+	nuevaFila = document.getElementById('productos').insertRow(-1);
+	nuevaFila.id = "header";
+	nuevaFila.className = "tr-header";
+	nuevaFila.style.backgroundColor = "#FFA154";
+	nuevaCelda = nuevaFila.insertCell(-1);
+	nuevaCelda.innerHTML = "Producto";
+	nuevaCelda = nuevaFila.insertCell(-1);
+	nuevaCelda.innerHTML = "Precio";
 	
-	for(i = 1; i < productos.length; i++, posicionCampo++)
-	{
+	for(i = 0; i < productos.length; i++, idProducto++)
+	{			
 		nuevaFila = document.getElementById('productos').insertRow(-1);
-		nuevaFila.id = posicionCampo;
 		nuevaCelda = nuevaFila.insertCell(-1);
-		nuevaCelda.innerHTML="<select id='sproductos"+posicionCampo+"'><?php include("SelectMateriaPrima.php"); ?></select>";
-		
-		/* Le ponemos su indice seleccionado */
-		selectItem(productos[i], document.getElementById("sproductos"+posicionCampo));
-		
+		nuevaCelda.innerHTML = "<input type='hidden' name='idProducto"+idProducto+"' class='idProducto' value='"+productos[i]+"' />" + getNombre(productos[i]);
 		nuevaCelda = nuevaFila.insertCell(-1);
-		nuevaCelda.innerHTML="<input type='text' name='precio"+posicionCampo+"' id='precio"+posicionCampo+"' value ='"+precios[i]+"' onblur=\"valida(this.value,'msgPrecio"+posicionCampo+"','precio');\" value='0' />";
+		nuevaCelda.innerHTML="<input type='text' name='precio"+idProducto+"' class='precio' value ='"+precios[i]+"' onblur=\"valida(this.value,'msgPrecio"+idProducto+"','precio');\" />";
 		nuevaCelda=nuevaFila.insertCell(-1);
-		nuevaCelda.innerHTML="<span id='msgPrecio"+posicionCampo+"'></span>";
+		nuevaCelda.innerHTML="<span id='msgPrecio"+idProducto+"'></span>";
 		nuevaCelda=nuevaFila.insertCell(-1);
 		nuevaCelda.innerHTML="<img src= '../img/less.png' class='clickable' onclick='eliminarProducto(this);'>";
 	}
@@ -175,11 +175,14 @@
 		parametros+= "email=" + document.getElementById('email').value + "&";
 		
 		var filas = document.getElementById("productos").rows.length - 1;
-		parametros += "numprod="+ filas + "&"  ;
+		parametros += "numprod="+ filas + "&" ;
 		
-		for (var i = 1 ;i<=filas ;i++ ){
-			parametros+= "producto"+ i+"=" + document.getElementById('sproductos'+i).value + "&";
-			parametros+= "precio"+ i+"=" + document.getElementById('precio'+i).value + "&";
+		ids = document.getElementsByClassName("idProducto");	//Recuperamos los hidden con los ids
+		precios = document.getElementsByClassName("precio");	//Recuperamos los input con los precios
+		
+		for (var i = 1 ;i <= filas ;i++ ){
+			parametros+= "producto"+ i+"=" + ids[i-1].value + "&";
+			parametros+= "precio"+ i+"=" + precios[i-1].value + "&";
 		}
 		
 		parametros = parametros.substring(0,parametros.length-1);	//Se le quita el & que sobra por el for
@@ -188,7 +191,6 @@
 			parametros +="&edit=1";
 		}
 		parametros = parametros.replace("#","%23");
-		
 		sendPetitionQuery("agregaProveedorBD.php?" + encodeURI(parametros));
 		console.log("agregaProveedorBD.php?" + encodeURI(parametros));
 		/* returnedValue almacena el valor que devolvio el archivo PHP */
@@ -203,10 +205,29 @@
 		else if ( returnedValue == "DATABASE_PROBLEM"){
 			alert("Error en la base de datos");
 		}
-		else if ( returnedValue == "INPUT_PROBLEM"){
-			alert("Datos con formato inválido");
-		} else {
-			alert ("Error desconocido D:");
+		else if ( returnedValue == "ID_ALREADY_USED"){
+			alert("El proveedor con rfc " + document.getElementById('rfc').value + " ya esta registrado");
+		}
+		else if ( returnedValue == "RFC_PROBLEM"){
+			alert("RFC inválido");
+		}
+		else if ( returnedValue == "NAME_PROBLEM"){
+			alert("Nombre inválido");
+		}
+		else if ( returnedValue == "TEL_PROBLEM"){
+			alert("Teléfono inválido");
+		}
+		else if ( returnedValue == "EMAIL_PROBLEM"){
+			alert("Email inválido");
+		}
+		else if ( returnedValue == "PRODUCT_PROBLEM"){
+			alert("Debe seleccionar al menos un producto");
+		}
+		else if ( returnedValue == "PRICE_PROBLEM"){
+			alert("Error en los precios de los productos");
+		}
+		else {
+			alert ("Error desconocido D:" + returnedValue);
 		}
 	}
 	
@@ -300,31 +321,84 @@
 		}
 	}
 	
-	function agregarProducto(){
-		var filas = document.getElementById('productos').rows.length - 1;	//menos 1 por la fila de los titulos
+	function agregarProducto(id)
+	{
+		filas = document.getElementById('productos').rows.length - 1;	//menos 1 por la fila del mensaje inicial
 		
-		if (noMateriasPrimas > filas){
+		//Si no hay nada creamos los header
+		if(filas == 0)
+		{
+			//Quitamos el msj inicial
+			table = document.getElementById('productos');
+			table.deleteRow(0);
+		
+			//Agregamos los header
 			nuevaFila = document.getElementById('productos').insertRow(-1);
-			nuevaFila.id = posicionCampo;
+			nuevaFila.id = "header";
+			nuevaFila.className = "tr-header";
+			nuevaFila.style.backgroundColor = "#FFA154";
 			nuevaCelda = nuevaFila.insertCell(-1);
-			nuevaCelda.innerHTML="<select id='sproductos"+posicionCampo+"'><?php include("SelectMateriaPrima.php"); ?></select>";
+			nuevaCelda.innerHTML = "Producto";
 			nuevaCelda = nuevaFila.insertCell(-1);
-			nuevaCelda.innerHTML="<input type='text' name='precio"+posicionCampo+"' id='precio"+posicionCampo+"' onblur=\"valida(this.value,'msgPrecio"+posicionCampo+"','precio');\" value='0' />";
+			nuevaCelda.innerHTML = "Precio";
+		}
+		
+		if (!estaAgregado(id))	//Si no se ha agregado el producto
+		{
+			indice = document.altaProveedor.selectProductos.selectedIndex;
+			idMateriaPrima = document.altaProveedor.selectProductos.value;	//Es el valor del option
+			texto = document.altaProveedor.selectProductos.options[indice].text;	//Es lo que ve el usuario
+			
+			nuevaFila = document.getElementById('productos').insertRow(-1);
+			nuevaCelda = nuevaFila.insertCell(-1);
+			nuevaCelda.innerHTML = "<input type='hidden' name='idProducto"+idProducto+"' class='idProducto' value='"+idMateriaPrima+"' />" + texto;
+			nuevaCelda = nuevaFila.insertCell(-1);
+			nuevaCelda.innerHTML="<input type='text' name='precio"+idProducto+"' class='precio' onblur=\"valida(this.value,'msgPrecio"+idProducto+"','precio');\" value='0' />";
 			nuevaCelda=nuevaFila.insertCell(-1);
-			nuevaCelda.innerHTML="<span id='msgPrecio"+posicionCampo+"'></span>";
+			nuevaCelda.innerHTML="<span id='msgPrecio"+idProducto+"'></span>";
 			nuevaCelda=nuevaFila.insertCell(-1);
 			nuevaCelda.innerHTML="<img src= '../img/less.png' class='clickable' onclick='eliminarProducto(this);'>";
-			posicionCampo++;
+			idProducto++;
 		}
-	}	
+		else
+			alert("El producto ya se ha agregado");
+	}
+
+	//Funcion para saber si ya se agrego a la tabla el producto
+	function estaAgregado(id)
+	{
+		arrayId = document.getElementsByClassName("idProducto");
+		for(i = 0; i < arrayId.length; i++)
+		{
+			if(arrayId[i].value == id)
+				return true;
+		}
+		return false;
+	}
 	
-	function eliminarProducto(obj){
+	function eliminarProducto(obj)
+	{
 		var oTr = obj;
 		while(oTr.nodeName.toLowerCase()!='tr'){
 			oTr=oTr.parentNode;
 		}
 		var root = oTr.parentNode;
 		root.removeChild(oTr);
+		
+		filas = document.getElementById('productos').rows.length - 1;
+		
+		//Si se borraron todos los produtos hay que poner de nuevo el msg inicial
+		if(filas == 0)
+		{
+			table = document.getElementById('productos');
+			table.deleteRow(0);
+			
+			nuevaFila = document.getElementById('productos').insertRow(-1);
+			nuevaFila.className = "tr-cont";
+			nuevaFila.id = "msgTable";
+			nuevaCelda = nuevaFila.insertCell(-1);
+			nuevaCelda.innerHTML = "Aun no se han agregado productos";
+		}
 	}
 	
 </script>

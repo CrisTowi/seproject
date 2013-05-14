@@ -26,34 +26,58 @@
 	$telefono  = 	Validations::cleanString($_GET['telefono']);
 	$email     = 	Validations::cleanString($_GET['email']);
 	$numero    =	Validations::cleanString($_GET['numprod']);
+	$flag = false;
+	
 	
 	for($i = 1; $i<= $numero; $i++){
 		$productos[$i] = $_GET['producto'.$i];
 		$precios[$i] = $_GET['precio'.$i];
+		if(!(Validations::validaFloat($precios[$i])))
+		{
+			$flag = true;
+			break;
+		}
 	}
 	
 	/* Decodifica los caracteres de la URL */
 	$direccion = str_replace("%23", "#", $direccion);
 	
-	if ( Validations::validaNombre($nombre))// && Validations::validaRFC($rfc) )
+	
+	if(!(Validations::validaRFC($rfc)))
+		echo "RFC_PROBLEM";
+	else if(!(Validations::validaNombre($nombre)))
+		echo "NAME_PROBLEM";
+	else if(!(Validations::validaTel($telefono)))
+		echo "TEL_PROBLEM";
+	else if(!(Validations::validaEmail($email)))
+		echo "EMAIL_PROBLEM";
+	else if($numero == 0)
+		echo "PRODUCT_PROBLEM";
+	else if($flag)
+		echo "PRICE_PROBLEM";
+	else
 	{
-		if ( !isset($_GET["edit"]) )
-		{
-			$accept = Proveedor::Agregar($rfc, $nombre, $direccion, $telefono, $email, $productos, $precios);
+		if ( Proveedor::findById($rfc) != false && !isset($_GET["edit"]) ){
+			echo "ID_ALREADY_USED";
 		}
 		else
-		{
-			$accept = Proveedor::Modificar($rfc, $nombre, $direccion, $telefono, $email, $productos, $precios);
+		{		
+			if ( !isset($_GET["edit"]) )
+			{
+				$accept = Proveedor::Agregar($rfc, $nombre, $direccion, $telefono, $email, $productos, $precios);
+			}
+			else
+			{
+				$accept = Proveedor::Modificar($rfc, $nombre, $direccion, $telefono, $email, $productos, $precios);
+			}
+			if(!$accept)
+			{
+				echo "DATABASE_PROBLEM";
+			}
+			else
+			{
+				echo "OK";
+			}
 		}
-		if(!$accept)
-		{
-			echo "DATABASE_PROBLEM";
-		}
-		else
-		{
-			echo "OK";
-		}
-	}else{
-		echo "INPUT_PROBLEM";
 	}
 ?>

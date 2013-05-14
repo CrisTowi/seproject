@@ -26,6 +26,7 @@
                 <div id="ti" class="titulo">REGISTRAR VENTA</div>
                  <div id="tip" class="texto1">Todos los campos son obligatorios.</div>
                 <form name="Rvalida">
+                <input id="idVenta" name="idVenta" type="hidden"/>
                 <table id="Tablap">
 					<tr>
 						<td></td>
@@ -80,12 +81,14 @@
 								<td>Producto</td>
 								<td>Cantidad</td>
 								<td>Precio/Paquete</td>
+								<td>Precio/Total</td>
+								<td></td>
 								<td></td>
 								</tr>
 							</tbody>
 						</table>
 					</div> 
-				    <div id="buttonOK" class="form-button" onclick="">Aceptar</div>                   
+				    <div id="buttonOK" class="form-button" onclick="agregarVenta();">Aceptar</div>                   
                     <div id="buttonCancel" class="form-button" onClick="window.location='GestionV.php'">Cancelar</div>
                   </form>
                 </div>
@@ -98,6 +101,7 @@
 <script type="text/javascript" src="../js/manejoArticuloVentas.js"></script>
 <!--<script type="text/javascript" src="jquery-1.4.2.min.js"></script>-->
 <script type="text/javascript">
+//parte para llenar los cosos :)
 	 $(document).ready(function(){
         $("#prod").change(function(event){
         	document.getElementById('prec').innerHTML="";
@@ -116,54 +120,50 @@
             document.getElementById('exis').innerHTML="";
          });
     });
-    //sendPetitionSync("TablaArti.php?Folio="+document.getElementById('clie').value,"tablaArti",document);
-</script>
-<script type="text/javascript">
     function ex(){
     	var id=$("#cant").find(':selected').val();
     	document.getElementById('exss').innerHTML="Disponible:";
     	$("#exis").load('Getexist.php?id='+id);
     	
-    }
+    };
+    //sendPetitionSync("TablaArti.php?Folio="+document.getElementById('clie').value,"tablaArti",document);
 </script>
-<!--<script type="text/javascript">
+<script type="text/javascript">
 	/* Agrega el empleado a la base de datos */
-	/*function agregarVenta(){
-		parametros= "Cliente=" + document.getElementById('clie').value;
-		parametros = parametros.replace("#","%23");
+	function agregarVenta(){
+		parametros = "idVenta=" + document.getElementById('idVenta').value + "&";
+		parametros+= "Cliente=" + document.getElementById('clie').value;
+		var arrayElements = new Array();
+			var arrayElementsIDES = new Array();
+		    arrayElements = document.getElementsByClassName("cantidades");					
+			arrayElementsIDES = document.getElementsByClassName("ides");
+			arrayElementsp = document.getElementsByClassName("produ");
+			
+			for(i=1;i<=arrayElements.length;i++)
+			{
+				parametros+="&Articulo"+i+"="+arrayElementsIDES[i-1].value;				
+				parametros+="&cantidad"+i+"="+arrayElements[i-1].value;	
+				parametros+="&Producto"+i+"="+arrayElementsp[i-1].value;
+			}
+			parametros+="&numeroFilas="+arrayElements.length;
 		
 		sendPetitionQuery("AgregaVenta.php?" + encodeURI(parametros));
 		
 		console.log("AgregaVenta.php?" + encodeURI(parametros));
-		/* returnedValue almacena el valor que devolvio el archivo PHP 
+		//returnedValue almacena el valor que devolvio el archivo PHP 
 		if (returnedValue == "OK" ){
-				alert("Venta agregado correctamente");
+				alert("La Venta ha sido agregada correctamente");
 			//window.location = "./GestionV.php";
 		}
 		else if ( returnedValue == "DATABASE_PROBLEM"){
-			alert("Error en la base de datos");
+			alert("No se pudo establecer conexión con la base de datos");
 		}
 		else if ( returnedValue == "INPUT_PROBLEM"){
 			alert("Datos con formato inválido");
 		} else {
-			alert ("Error desconocido D:");
+			//alert (returnedValue);
 		}
 	}
-	function AddArt(){
-		parametros="Folio=" + document.getElementById('fol').value;
-		parametros+= "&Lote=" + document.getElementById('cant').value;
-		parametros+= "&Producto=" + document.getElementById('prod').value;
-		sendPetitionQuery("AgregarArti.php?" + encodeURI(parametros))
-		console.log("AgregarArti.php?" + encodeURI(parametros));
-		if (returnedValue == "OK" ){
-				alert("Articulo agregado correctamente");
-		}
-	}
-	function loadTable(){
-		//filtro = document.getElementById('buscar').value;
-		sendPetitionSync("TablaARti.php","tablaArti",document);
-		rePaint();
-	}*/
 		
-</script>-->
+</script>
 

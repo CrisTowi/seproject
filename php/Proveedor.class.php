@@ -65,7 +65,7 @@ if ( !defined("__PROVEEDOR__") ){
 			{
 				for($i = 1; $i <= count($productos); $i++)
 				{
-					$qry = "INSERT INTO Suministro (PrecioActual, RFC, idMateriaPrima, Cantidad) VALUES (".$precios[$i].", '".$RFC."', ".$productos[$i].", 0);";
+					$qry = "INSERT INTO Suministro (PrecioActual, RFC, idMateriaPrima) VALUES (".$precios[$i].", '".$RFC."', ".$productos[$i].");";
 					if(!($result = $db->executeQuery($qry)))	//Si ocurre algun error
 						return false;
 				}
@@ -110,7 +110,7 @@ if ( !defined("__PROVEEDOR__") ){
 					//Si no existe se agrega
 					else
 					{
-						$qry = "INSERT INTO Suministro (PrecioActual, RFC, idMateriaPrima, Cantidad) VALUES (".$precios[$i].", '".$RFC."', ".$productos[$i].", 0);";
+						$qry = "INSERT INTO Suministro (PrecioActual, RFC, idMateriaPrima) VALUES (".$precios[$i].", '".$RFC."', ".$productos[$i].");";
 						if(!($result = $db->executeQuery($qry)))	//Si ocurre algun error
 							return false;
 					}
