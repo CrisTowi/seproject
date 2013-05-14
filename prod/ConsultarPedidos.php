@@ -69,10 +69,12 @@
         <center>
         <div id="mainDiv">
             <nav>
+<!--            
                 <div class="button" onclick="redirect('GestionarLineas.php');">
                 	<img src="../img/way.png"  alt="Icono" class="img-icon" />
                     	Gestión de Líneas
 				</div>                
+-->                
                 <div class="button" onclick="redirect('GestionarLotes.php');">
                 	<img src="../img/note.png"  alt="Icono" class="img-icon" />
                     	Gestión de Lotes
@@ -81,10 +83,12 @@
                 	<img src="../img/clock.png"  alt="Icono" class="img-icon" />
                     	Gestión de Pedidos
 				</div>
+<!--                
 				<div class="button" onclick="redirect('ConsultarIngredientes.php');">
                 	<img src="../img/search.png" alt="Icono" class="img-icon" />
                     	Consultar Disponibilidad de Ingredientes
 				</div>				
+-->                
                 <div class="button" onclick="redirect('CrearReporte.php');" style="height:30px;">
                 	<img src="../img/notepad.png"  alt="Icono" class="img-icon"/>
                     	Crear Reporte

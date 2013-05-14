@@ -5,9 +5,9 @@
 	$noLote = $_POST['valor'];			
 	
 	$query = "select a.cantidad, m.unidad
-			  from suministro a, materiaprima m
-			  where a.idMateriaPrima=m.idMateriaPrima
-			  and idSuministro=$noLote";
+			  from inventario_mp a, materiaprima m
+			  where a.idMateriaPrima = m.idMateriaPrima
+			  and idLote='$noLote'";
 	 	
 	$result = $db->executeQuery($query);	
 

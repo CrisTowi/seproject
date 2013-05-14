@@ -16,10 +16,12 @@
         <center>
         <div id="mainDiv">
             <nav>
+<!--            
                 <div class="button" onclick="redirect('GestionarLineas.php');">
                 	<img src="../img/way.png"  alt="Icono" class="img-icon" />
                     	Gestión de Líneas
 				</div>                
+-->                
                 <div class="selected-button" onclick="redirect('GestionarLotes.php');">
                 	<img src="../img/note.png"  alt="Icono" class="img-icon" />
                     	Gestión de Lotes
@@ -28,10 +30,12 @@
                 	<img src="../img/clock.png"  alt="Icono" class="img-icon" />
                     	Gestión de Pedidos
 				</div>
+<!--                
 				<div class="button" onclick="redirect('ConsultarIngredientes.php');">
                 	<img src="../img/search.png" alt="Icono" class="img-icon" />
                     	Consultar Disponibilidad de Ingredientes
 				</div>				
+-->                
                 <div class="button" onclick="redirect('CrearReporte.php');" style="height:30px;">
                 	<img src="../img/notepad.png"  alt="Icono" class="img-icon"/>
                     	Crear Reporte
@@ -84,7 +88,32 @@
 									<td>
                                     	<span id="msgCantidad"></span>
 									</td>
-								</tr>                               
+								</tr>     
+								<tr>
+									<td>Línea de Producción: </td>
+									<td>
+                                    	<select id="linea" val="linea"
+                                    	onblur="valida(this.value, 'msgLinea', 'linea');">
+                                    		<option value="0">Seleccionar línea</option>
+                                    		<option value="1">Línea 1</option>
+                                    		<option value="2">Línea 2</option>
+                                    		<option value="3">Línea 3</option>
+										</select>
+                                    </td>
+									<td>
+                                    	<span id="msgLinea"></span>
+									</td>
+								</tr>   
+								<tr>
+									<td>Encargado: </td>
+									<td>
+                                    	<input type="text" name="encargado" id="encargado" 
+                                    	onBlur="valida(this.value, 'msgEncargado', 'encargado');" />                                    
+                                    </td>
+									<td>
+                                    	<span id="msgEncargado"></span>
+									</td>
+								</tr>                                                                                             
 								<tr>
 									<td>Fecha de Elaboración: </td>
 									<td>
@@ -174,6 +203,11 @@
 	document.getElementById('cantidad').value = "<?php echo $encontrado->getCantidad(); ?>";
 	document.getElementById('elaboracion').value = "<?php echo $encontrado->getElaboracion(); ?>";
 	document.getElementById('caducidad').value = "<?php echo $encontrado->getCaducidad(); ?>";
+	
+	document.getElementById('linea').value = "<?php echo $encontrado->getLinea(); ?>";
+	document.getElementById('encargado').value = "<?php echo $encontrado->getEncargado(); ?>";
+	document.getElementById('encargado').disabled = "disabled";
+	
 	document.getElementById('titulo').innerHTML = "Modificar Lote";
 	document.getElementById('buttonOK').innerHTML = "Modificar";
 	modify = true;
@@ -189,18 +223,26 @@
 		parametros = "nolote=" + document.getElementById('numlote').value + "&";	
 		parametros += "producto=" + document.getElementById('producto').value + "&";
 		parametros += "cantidad=" + document.getElementById('cantidad').value + "&";
+		
+		parametros += "linea=" + document.getElementById('linea').value + "&";
+		parametros += "encargado=" + document.getElementById('encargado').value + "&";
+		
 		parametros += "elaboracion=" + document.getElementById('elaboracion').value + "&";
 		parametros += "caducidad=" + document.getElementById('caducidad').value;		
 
 		if ( modify ){
 			parametros +="&edit=1";
+			//alert(parametros);
 		}
 		parametros = parametros.replace("#", "%23");
 		sendPetitionQuery("AgregaLote1.php?" + encodeURI(parametros));
 		console.log("AgregaLote1.php?" + encodeURI(parametros));
 		//alert("AgregaLote1.php?" + encodeURI(parametros));
 		/* returnedValue almacena el valor que devolvio el archivo PHP */
-		if (returnedValue == "OK" ){
+		var aux = returnedValue;		
+		
+//		if (returnedValue == "OK" ){
+		if( (aux.indexOf("OK")) != -1){	
 			if ( modify ){
 				alert("Lote modificado correctamente");
 			}else{
@@ -208,10 +250,12 @@
 			}
 			window.location = "./GestionarLotes.php";
 		}
-		else if ( returnedValue == "DATABASE_PROBLEM"){
+		//else if ( returnedValue == "DATABASE_PROBLEM"){
+		else if( (aux.indexOf("DATABASE_PROBLEM")) != -1){			
 			alert("Error en la base de datos");
 		}
-		else if ( returnedValue == "INPUT_PROBLEM"){
+		//else if ( returnedValue == "INPUT_PROBLEM"){
+		else if( (aux.indexOf("INPUT_PROBLEM")) != -1){			
 			alert("Datos con formato inválido");
 		} else {
 			alert ("Error desconocido D:");
@@ -240,6 +284,15 @@
 				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
 			}		
 		}//linea
+		else if ( validate == "linea") {
+			if ( str == 0){
+				document.getElementById(target).innerHTML = "<img src='../img/error.png' />" + 
+				"La Línea de producción no es valida!";	
+			}
+			else{
+				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
+			}		
+		}//linea		
 		else if(validate == 'elaboracion'){
 			if(str == ''){
 				document.getElementById(target).innerHTML = "<img src='../img/error.png' />" + 
@@ -337,6 +390,22 @@
 		if(mysql_num_rows($res) < 1){
 			return "Producto Inexistente!";
 		}		
+		else{
+			while($fila = @mysql_fetch_array($res)){
+				$nombre = $fila["Nombre"];
+			}
+			return $nombre;
+		}
+		return 0;
+	}
+	
+	function getEncargado($CURP){
+		$db = new DataConnection();
+		$consulta = "SELECT * FROM empleado WHERE CURP = '$CURP'";
+		$res = $db->executeQuery($consulta);
+		if(mysql_num_rows($res) < 1){
+			return "Encargado No Registrado";
+		}
 		else{
 			while($fila = @mysql_fetch_array($res)){
 				$nombre = $fila["Nombre"];

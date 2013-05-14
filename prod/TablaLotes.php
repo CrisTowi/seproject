@@ -1,5 +1,5 @@
 <?php
-	header('Cache-Control: no-cache, no-store, must-revalidate');
+	@header('Cache-Control: no-cache, no-store, must-revalidate');
 ?>
 <table id='table-content'>
 	<tr class='tr-header'>
@@ -7,14 +7,15 @@
 		<td>Producto Asociado</td>
 		<td>Unidades Producidas</td>                  
 		<td>Fecha de Elaboración</td>
-		<td>Fecha de Caducidad</td>  
-        <td colspan="2">Opciones</td>      
+		<!--<td>Fecha de Caducidad</td>  -->
+        <td colspan="3">Opciones</td>      
 		<!--<td class='opc'></td>
 		<td class='opc'> </td>-->
 	</tr>
 <?php
 	include("../php/DataConnection.class.php");
 	include("../php/Validations.class.php");
+	include("clases/Lote.class.php");		
 	//Obtener Conexion
 	$db = new DataConnection();	
 	//Obtener todos los datos de la tabla lote
@@ -26,6 +27,7 @@
 		//Condicion para la busqueda
 		$qry .= " WHERE idLote LIKE '%".$filtro."%'";
 	}
+	//echo $qry;
 	//Ejecutar consulta
 	$result = $db->executeQuery($qry);	
 	
@@ -40,7 +42,7 @@
 			$producto = $fila['idProducto'];
 			$cantidad = $fila['cantidadProducto'];			
 			$elaboracion = $fila['fecha_elaboracion'];
-			$caducidad = $fila['fecha_caducidad'];
+			//$caducidad = $fila['fecha_caducidad'];
 /*
 			$edo = utf8_encode($fila["estado"]);
 			if($edo == "produccion"){
@@ -51,18 +53,32 @@
 			}
 */
 			echo ("<tr class='tr-cont' id='".$nolote."' name='".$nolote."'>
-				<td>LO-".$nolote."</td>
+				<td>".$nolote."</td>
 				<td>".getCookieById($producto)."</td>
 				<td>".$cantidad." paquetes</td>				
 				<td>".$elaboracion."</td>
-				<td>".$caducidad."</td>																		
 				<td>
 				<img src='../img/pencil.png' onclick='modificarLote(\"".$nolote."\")' alt='Modificar' class='clickable'/>
 				</td>
 				<td>
 				<img src='../img/less.png'   onclick='eliminarLote(\"".$nolote."\")' alt='Eliminar' class='clickable'/>
+				</td>");
+
+			$milote = Lote::findById($nolote);
+			echo ("<td>
+					<img src='../img/search.png'
+					onclick='detalleLote(\"".$nolote."\", 
+					\"".getCookieById($milote->getProducto())."\", 
+					\"".$milote->getCantidad()."\",
+					
+					\"".$milote->getLinea()."\",					
+					\"".getEncargado($milote->getEncargado())."\",															
+					
+					\"".$milote->getElaboracion()."\",
+					\"".$milote->getCaducidad()."\")' 
+					alt='Detalle de Lote' class='clickable' />
 				</td>
-			</tr>");
+			</tr>");			
 		}
 	}	
 ?>
@@ -84,4 +100,21 @@
 		}
 		return 0;
 	}
+	
+	function getEncargado($CURP){
+		$db = new DataConnection();
+		$consulta = "SELECT * FROM empleado WHERE CURP = '$CURP'";
+		$res = $db->executeQuery($consulta);
+		if(mysql_num_rows($res) < 1){
+			return "Encargado No Registrado";
+		}
+		else{
+			while($fila = @mysql_fetch_array($res)){
+				$nombre = $fila["Nombre"];
+			}
+			return $nombre;
+		}
+		return 0;
+	}	
 ?>
+

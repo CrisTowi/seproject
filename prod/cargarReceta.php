@@ -45,11 +45,11 @@
 		$row = mysql_fetch_row($result);
 		//echo '<p>' . $row[0] . '</p>';
 		echo '<tr class="tr-cont">';
-		echo '<td style="width: 180px;" >'. utf8_encode($row[0]);
+		echo '<td style="width: 180px;" >'. $row[0].'</td>';
 		
 		echo '<td style="text-align: center;" id="cantReq'.$j.'"><p>'. $row[2].' '.$row[3].'</p>';
 		echo '<input type="hidden" id="cantReqBase'. $j.'" value="'. $row[2].'"/>';
-		echo '<input type="hidden" id="cantReqFinal'. $j.'" value="'. $row[2].'"/>';
+		echo '<input type="hidden" id="cantReqFinal'. $j.'" value="'. $row[2].'" name="cantReqFinal'. $j.'" />';
 		echo '</td>';
 	
 	/*	echo "<script type='text/javascript'> 
@@ -57,7 +57,7 @@
 				</script>";*/
 				
 		echo '</td>';
-		echo '<td id="ing'.$j.'"><input type="hidden" id="ingrediente'. $j.'" value="'. $row[1].'"/>';
+		echo '<td id="ing'.$j.'"><input type="hidden" id="ingrediente'. $j.'" value="'. $row[1].'" name="idIngrediente'. $j.'"/>';
 		echo '</td>';
 		echo '</td>';	
 		echo '<td id="cantidad'.$j.'"></td>';
@@ -66,6 +66,6 @@
 		
 		
 	}
-	echo '<input type="hidden" id="totalIngredientes" value="'. $rows.'"/>';
+	echo '<input type="hidden" id="totalIngredientes" value="'. $rows.'" name="totalIngredientes"/>';
 	echo '</table>';	
 ?> 

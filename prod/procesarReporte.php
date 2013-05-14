@@ -34,18 +34,21 @@
 		<?php
 			include('crearPDF.php');
 					
-			$arrayMeses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio","Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+			$arrayMeses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio","Julio", "Agosto", 
+			"Septiembre", "Octubre", "Noviembre", "Diciembre");
 			$dia = date("d");
 			//echo $dia;
 			$mes = (int)date("m");
 			$anio = date("Y");			
-			$fechaActual ="Hoy";  //Inicializar (Prevencion de errores)									
+			$fechaActual = "Hoy";  //Inicializar (Prevencion de errores)									
 			$fechaActual = $dia." de ".$arrayMeses[$mes-1]." de ".$anio;			
 			
-			$fechaInicio=$_POST["fechaInicio"];
+			//Obtener valores del formulario
+			$fechaInicio = $_POST["fechaInicio"];
 			$fechaFin = $_POST["fechaFin"];
 			
-			///Cambiar formato de fechas a SQL
+			/*
+				Cambiar formato de fechas a SQL
 			$valoresPrimera = explode ("/", $fechaInicio);   
 			$valoresSegunda = explode ("/", $fechaFin); 
 	
@@ -59,7 +62,7 @@
 			$fechaFinSQL=$anyoSegunda."-".$mesSegunda."-".$diaSegunda;
 			//echo $fechaInicioSQL;
 			//echo $fechaFinSQL;
-			////
+			*/
 			
 			//$tipoReporte = $_POST["tipoReporte"];
 			
@@ -72,7 +75,7 @@
 				$criterio = "c.".$_POST["ordenamientoLotes"];
 			}
 			else if($_POST["ordenamientoLotes"] == "linea"){
-				$criterio = "lp.no".$_POST["ordenamientoLotes"];				
+				$criterio = "l.no".$_POST["ordenamientoLotes"];				
 			}
 			else{
 				$criterio = $_POST["ordenamientoLotes"];
@@ -108,13 +111,23 @@
 			include("../php/DataConnection.class.php");		
 			$db = new DataConnection();
 			
-			//$query = "SELECT * FROM reportesLotes where fechaElaboracion between '$fechaInicioSQL' and '$fechaFinSQL' order by $criterio, fechaElaboracion";
+			//$query = "SELECT * FROM 
+			//reportesLotes where fechaElaboracion between '$fechaInicioSQL' and '$fechaFinSQL' order by $criterio, fechaElaboracion";
+			/*
 			$query = "select lp.noLote, c.Nombre, l.cantidadProducto, lp.nolinea, e.Nombre, l.fecha_elaboracion, l.fecha_caducidad   
 					from lineaproduccion lp, lote l, producto c, empleado e
 					where lp.noLote = l.idLote
 					and l.idProducto = c.idProducto
 					and e.CURP = lp.encargadoLinea
 					and l.fecha_elaboracion between '$fechaInicioSQL' AND '$fechaFinSQL' order by $criterio, fecha_elaboracion";
+			*/					
+			$query = "SELECT l.idLote, c.Nombre, l.cantidadProducto, l.noLinea, e.Nombre, 
+					l.fecha_elaboracion, l.fecha_caducidad   
+					FROM lote l, producto c, empleado e
+					WHERE l.idProducto = c.idProducto
+					and e.CURP = l.curpEmpleado
+					and l.fecha_elaboracion between '$fechaInicio' AND '$fechaFin' 
+					order by $criterio, fecha_elaboracion";
 					//echo "QUERY".$query."<br />";
 			$result = $db->executeQuery($query);	
 			
@@ -172,10 +185,12 @@
         <center>
         <div id="mainDiv">
             <nav>
+<!--            
                 <div class="button" onclick="redirect('GestionarLineas.php');">
                 	<img src="../img/way.png"  alt="Icono" class="img-icon" />
                     	Gestión de Líneas
 				</div>                
+-->                
                 <div class="button" onclick="redirect('GestionarLotes.php');">
                 	<img src="../img/note.png"  alt="Icono" class="img-icon" />
                     	Gestión de Lotes
@@ -184,10 +199,12 @@
                 	<img src="../img/clock.png"  alt="Icono" class="img-icon"/>
                     	Gestión de Pedidos
 				</div>                                                                   			          
+<!--                
                 <div class="button" onclick="redirect('ConsultarIngredientes.php');">
                 	<img src="../img/search.png" alt="Icono" class="img-icon" />
                     	Consultar Disponibilidad de Ingredientes
 				</div>
+-->                
                 <div class="selected-button" onclick="redirect('CrearReporte.php');" style="height:30px;">
                 	<img src="../img/notepad.png"  alt="Icono" class="img-icon" />
                     	Crear Reporte

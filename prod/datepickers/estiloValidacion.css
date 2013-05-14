@@ -1,0 +1,8 @@
+label.error{  /*Estilo para los labels con clase error*/
+
+color: rgb(220,0,0);
+font-weight: bold;
+font-size: 11px;
+font-family: 'Comic Sans MS';
+
+}

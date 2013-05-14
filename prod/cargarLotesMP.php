@@ -6,8 +6,9 @@
 	$idMP = $_POST['valor'];
 	$numIng = $_POST['contador'];
 	
-	$query = "select * from suministro
-			  where idMateriaPrima=$idMP;";	
+	$query = "SELECT *
+				FROM inventario_mp
+			  	WHERE idMateriaPrima = $idMP";	
 
 	$result = $db->executeQuery($query);	
 	
@@ -16,11 +17,10 @@
 		
 	$rows = mysql_num_rows($result);
 	
-	if($rows>0)
-	{
-		echo '<select id="lotesIng'.$numIng.'" class="loteMP">';	
-		for ($j = 0 ; $j < $rows ; ++$j)
-		{
+	if($rows > 0){
+	
+		echo '<select id="lotesIng'.$numIng.'" class="loteMP" name="lotesIng'.$numIng.'" >';	
+		for ($j = 0 ; $j < $rows ; ++$j){
 			$row = mysql_fetch_row($result);		
 			echo '<option value="'.$row[0].'">' . $row[0] . '</option>';				
 		}

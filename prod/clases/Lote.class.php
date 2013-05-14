@@ -9,16 +9,21 @@
 			private $productoAsociado;
 			private $fechaElaboracion;
 			private $fechaCaducidad;
+			private $estado;
+			private $cantidad;			
 			private $linea;
-			private $cantidad;
+			private $encargado;
 			
-			public function __construct($nolote, $productoAsociado, $cantidad, $fechaElaboracion,
-			 $fechaCaducidad){
+			public function __construct($nolote, $productoAsociado, $fechaElaboracion,
+			 $fechaCaducidad, $estado, $cantidad, $linea, $encargado){
 				$this->nolote = $nolote;
 				$this->productoAsociado = $productoAsociado;
 				$this->fechaElaboracion = $fechaElaboracion;
 				$this->fechaCaducidad = $fechaCaducidad;
+				$this->estado = $estado;
 				$this->cantidad = $cantidad;
+				$this->linea = $linea;
+				$this->encargado = $encargado;
 			}//construct
 			
 			public function getProducto(){
@@ -41,6 +46,34 @@
 				return $this->cantidad;
 			}			
 			
+			public function getEncargado(){
+				return $this->encargado;
+			}
+			
+			public static function findById($nolote){
+				$db = new DataConnection();
+				$result = $db->executeQuery("SELECT * FROM lote WHERE idLote='".$nolote."'");
+				if($dato = mysql_fetch_assoc($result)){
+					$lote = new Lote($dato["idLote"], $dato["idProducto"], $dato["fecha_elaboracion"], $dato["fecha_caducidad"], 
+					$dato["estado"], $dato["cantidadProducto"], $dato["noLinea"], $dato["curpEmpleado"]);
+					return $lote;
+				}
+				return false;
+			}		
+			
+			public static function modificar($nolote, $producto, $cantidad, $linea, $encargado, $elaboracion, $caducidad){
+				$db = new DataConnection();
+				$qry = "UPDATE lote SET idProducto='".$producto."', cantidadProducto = '".$cantidad."', 
+				fecha_elaboracion = '".$elaboracion."', fecha_caducidad = '".$caducidad."',
+				estado = NULL, cantidadProducto = $cantidad, noLinea = $linea, curpEmpleado = '$encargado'
+				WHERE idLote = '".$nolote."';";			
+				if($result = $db->executeQuery($qry)){
+					return true;
+				}
+				return false;
+			}
+							
+			
 			public static function agregar($producto, $cantidad, $elaboracion, $caducidad){
 				$db = new DataConnection();
 				$qry = "INSERT INTO Lote(idLote, idProducto, cantidadProducto, fecha_elaboracion,
@@ -51,29 +84,6 @@
 				}
 				return false;
 			}//Agregar
-			
-			public static function modificar($nolote, $producto, $cantidad, $elaboracion, 
-			$caducidad){
-				$db = new DataConnection();
-				$qry = "UPDATE lote SET idProducto='".$producto."', cantidadProducto = '".$cantidad."', 
-				fecha_elaboracion = '".$elaboracion."', fecha_caducidad = '".$caducidad."'
-				WHERE idLote = '".$nolote."';";			
-				if($result = $db->executeQuery($qry)){
-					return true;
-				}
-				return false;
-			}
-			
-			public static function findById($nolote){
-				$db = new DataConnection();
-				$result = $db->executeQuery("SELECT * FROM lote WHERE idLote='".$nolote."'");
-				if($dato = mysql_fetch_assoc($result)){
-					$lote = new Lote($dato["idLote"], $dato["idProducto"], $dato["cantidadProducto"],
-					$dato["fecha_elaboracion"], $dato["fecha_caducidad"]);
-					return $lote;
-				}
-				return false;
-			}
 			
 			public static function eliminar($nolote){
 				$db = new DataConnection();
