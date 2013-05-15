@@ -86,7 +86,7 @@ include("../php/DataConnection.class.php");
 
 				$rows = mysql_num_rows($result);
 
-				for($j=0; $j<$rows); ++$j){
+				for($j=0; $j<$rows; ++$j){
 					$row = mysql_fetch_row($result);
 						$pdf->Cell(70,5,$row[5],1,0,'L',0);
 							$query2 = "Select Nombre from materiaprima where idMateriaPrima='".$row[0]."'";
