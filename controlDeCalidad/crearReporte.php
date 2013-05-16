@@ -19,6 +19,7 @@
             <div id="all-content">				
                 <h2>Creación de reporte general</h2>
                 <div id="content">
+					<form action="procesarReporte.php" method="POST" name="formulario">
                     <div class="box">
                        Fecha inicial: <input type="text" id="from" name="from" placeholder="Fecha de inicio"/>
                     </div>
@@ -27,24 +28,66 @@
                     </div>
                     <div class="box">
                         <h4>Áreas que abarcará el reporte</h4>
-                        <div class="option"><input type="checkbox" value="materiaPrima" /> Todas</div>
-                        <div class="option"><input type="checkbox" value="materiaPrima" /> Producción</div>
-                        <div class="option"><input type="checkbox" value="materiaPrima" /> Inventario</div>
-                        <div class="option"><input type="checkbox" value="materiaPrima" /> Compras</div>
-                        <div class="option"><input type="checkbox" value="materiaPrima" /> Ventas</div>                        
+                        <div class="option"><input type="checkbox" id="all" /> Todas</div>
+						<div class="option"><input type="checkbox" id="admin" /> Administración</div>
+                        <div class="option"><input type="checkbox" id="produccion" /> Producción</div>
+                        <div class="option"><input type="checkbox" id="inventarios" /> Inventario</div>
+                        <div class="option"><input type="checkbox" id="compras" /> Compras</div>
+                        <div class="option"><input type="checkbox" id="ventas" /> Ventas</div>                        
                     </div>            
                     <div class="box">
-                       Ordenar por: <select><option>Estatus</option><option>Área</option><option>Fecha</option></select>
+                       Ordenar por: <select name="order"><option value="1">Área</option><option value="2">Fecha</option></select>
                     </div>        
+					<input type="hidden" id="mask" name="mask" />
                     <div class="box">
-                        <div class="form-button" onclick="redirect('../pdf/reporte.pdf');">Crear reporte</div>
+                        <div class="form-button" onclick="createReport();">Crear reporte</div>
                     </div>
+					</form>
                 </div>
             </div>
 			
         </div>
         </center>
-        <footer>Elaborado por nosotros(C) 2013</footer>
+        <?php include("../php/footer.php"); ?>
     </body>   
 </html>
 <?php include("scripts.php"); ?>
+<script type="text/javascript">
+	function createReport(){
+		var mask = 0;
+		if ( document.getElementById("from").value.length == 0){
+			alert("No se ha seleccionado la fecha de inicio");
+			return;
+		}
+		if ( document.getElementById("to").value.length == 0){
+			alert("No se ha seleccionado la fecha de fin");
+			return;
+		}
+		if(document.getElementById("all").checked == true ){
+			mask |= 31;
+		}
+		if(document.getElementById("admin").checked == true ){
+			mask |= 16;
+		}
+		if(document.getElementById("produccion").checked == true ){
+			mask |= 8;
+		}
+		if(document.getElementById("inventarios").checked == true ){
+			mask |= 4;
+		}
+		if(document.getElementById("compras").checked == true ){
+			mask |= 2;
+		}
+		if(document.getElementById("ventas").checked == true ){
+			mask |= 1;
+		}
+		document.getElementById("mask").value = mask;
+		if ( mask == 0 )
+		{
+			alert("No se ha seleccionado un área");
+			return;
+		}
+		document.formulario.submit();
+	}
+</script>
+

@@ -96,7 +96,7 @@
 		var extra = "?";
 		var indice = document.getElementById("area").selectedIndex;		
 		if ( indice != 0 ){
-			extra = "area=" + indice;
+			extra += "area=" + indice;
 		}
 		indice = document.getElementById("filtroEstatus").selectedIndex;		
 		if ( indice != 0 ){
