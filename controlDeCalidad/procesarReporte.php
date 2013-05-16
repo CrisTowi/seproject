@@ -65,7 +65,7 @@ include("../php/DataConnection.class.php");
 			}
 			$qry .= " ) ORDER BY ";
 			if ( $_POST["order"] == 1 ){
-				$qry .= " destinatario ";
+				$qry .= " Area.nombre ";
 			}else{
 				$qry .= " fecha ";
 			}
