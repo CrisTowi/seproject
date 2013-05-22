@@ -25,13 +25,49 @@
 					
 					if ( $_GET["tipo"] == 1 ){
 						
-						$qry = "SELECT lote.*,lineaproduccion.*,empleado.Nombre as NombreEmpleado,empleado.CURP,producto.* FROM 
-								lote,lineaproduccion,empleado,producto WHERE 
-								lote.idProducto=producto.idProducto and
-								lineaproduccion.nolote = lote.idLote and
-								lineaproduccion.encargadoLinea = empleado.CURP and
-								lote.idLote= ".$_GET["numero"];
+						$qry = "SELECT uso_mp.cantidadUsada,materiaprima.unidad,materiaprima.idMateriaPrima, materiaprima.Nombre as NomMP, uso_mp.idLoteMP,uso_mp.idLoteProduccion,inventario_mp.idLote,proveedor.RFC as RFCC,proveedor.Nombre as NomProv FROM 
+								uso_mp,inventario_mp,proveedor,materiaprima WHERE 
+								inventario_mp.idLote = uso_mp.idLoteMP and
+								proveedor.RFC = inventario_mp.RFC and
+								materiaprima.idMateriaPrima = inventario_mp.idMateriaPrima and
+								uso_mp.idLoteProduccion='".$_GET["numero"]."'";
 								
+						//echo $qry;
+						$mknTable = false;
+						$result = $db->executeQuery($qry);
+						if ( $result != false ){
+							$mknTable = true;
+							echo "<h2>Detalles de las materias primas</h2>";
+							echo "<table style='margin-left:50px;'>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Id</td>";
+							echo "<td style='background-color:#BBBBBB;'>Nombre Materia Prima</td>";
+							echo "<td style='background-color:#BBBBBB;'>RFC</td>";
+							echo "<td style='background-color:#BBBBBB;'>Nombre Proveedor</td>";
+							echo "<td style='background-color:#BBBBBB;'>Cantidad</td>";
+							echo "<td style='background-color:#BBBBBB;'>Unidad</td></tr>";
+						}
+						while($fila = mysql_fetch_array($result)){
+							echo "<tr>";
+							echo "<td>".$fila["idLoteMP"]."</td>";
+							echo "<td>".$fila["NomMP"]."</td>";
+							echo "<td>".$fila["RFCC"]."</td>";
+							echo "<td>".$fila["NomProv"]."</td>";
+							echo "<td>".$fila["cantidadUsada"]."</td>";
+							echo "<td>".$fila["unidad"]."</td>";
+							echo "</tr>";
+						}
+						
+						if ( $mknTable == true ){
+							echo "</table>";
+						}
+						
+						$qry = "SELECT lote.*,empleado.Nombre as NombreEmpleado,empleado.CURP,producto.* FROM 
+								lote,empleado,producto WHERE 
+								lote.idProducto=producto.idProducto and
+								lote.curpEmpleado = empleado.CURP and
+								lote.idLote='".$_GET["numero"]."'";
+								
+						//echo $qry;
 						$result = $db->executeQuery($qry);
 						
 						if($fila = mysql_fetch_array($result)){
