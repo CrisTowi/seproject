@@ -3,7 +3,7 @@
 <html>
     <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title><? utf8_encode("Crear Reporte de Producción"); ?></title>
+        <title>Crear Reporte de Producción</title>
         <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
         <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
 		<script src="datepickers/jquery-1.9.1.js"></script>		
@@ -86,11 +86,11 @@
 			$pdf->SetFont('Arial','bi',14);
 			$pdf->Cell(40,10,'',0,1); //Linea vacia
 			$pdf->Cell(80,6,'Cookies & System S.A. De C.V.',0,1,'L');
-			$pdf->Cell(80,6,'M�xico, D.F.',0,1,'L');
+			$pdf->Cell(80,6,'México, D.F.',0,1,'L');
 			$pdf->Cell(80,6,$fechaActual,0,1,'L');
 			$pdf->Cell(40,10,'',0,1); //Linea vacia
 			$pdf->SetFont('Arial','b',14);
-			$pdf->Cell(80,6,'Reporte de Producci�n',0,1,'L');
+			$pdf->Cell(80,6,'Reporte de Producción',0,1,'L');
 			$pdf->SetFont('Arial','',13);
 			$pdf->Cell(40,4,'',0,1); //Linea vacia
 			$pdf->Cell(120,6,'Periodo:    De    '.$fechaInicio.'    A    '.$fechaFin,0,1,'L');
@@ -101,7 +101,7 @@
 			$pdf->Cell(18,5,'No. Lote',1,0,'L',0);
 			$pdf->Cell(60,5,'Producto',1,0,'L',0);
 			$pdf->Cell(15,5,'Cant.',1,0,'L',0);
-			$pdf->Cell(15,5,'L�nea',1,0,'L',0);
+			$pdf->Cell(15,5,'Línea',1,0,'L',0);
 			$pdf->Cell(35,5,'Encargado',1,0,'L',0);						
 			$pdf->Cell(25,5,'Fecha Elab.',1,0,'L',0);			
 			$pdf->Cell(25,5,'Fecha Cad.',1,1,'L',0);
@@ -141,9 +141,9 @@
 				echo "<script type='text/javascript'> 
 						$(document).ready(function() {
 					
-					$.Zebra_Dialog('No se encontraron registros de la informaci�n que solicit�. Vuelva a intentarlo con nuevos valores de b�squeda.', {
+					$.Zebra_Dialog('No se encontraron registros de la información que solicitó. Vuelva a intentarlo con nuevos valores de búsqueda.', {
 							'type':     'warning',
-							'title':    'Operaci�n Incompleta',
+							'title':    'Operación Incompleta',
 							'onClose':  function(caption) {
 								window.location = 'crearReporte.html';
 							}
@@ -156,7 +156,7 @@
 					
 					$.Zebra_Dialog('Se ha producido su reporte satisfactoriamente.', {
 							'type':     'confirmation',
-							'title':    'Operaci�n Exitosa'
+							'title':    'Operación Exitosa'
 						});
 					});
 				</script>";
@@ -193,11 +193,11 @@
 -->                
                 <div class="button" onclick="redirect('GestionarLotes.php');">
                 	<img src="../img/note.png"  alt="Icono" class="img-icon" />
-                    	Gesti�n de Lotes
+                    	Gestión de Lotes
 				</div>      
                 <div class="button" onclick="redirect('ConsultarPedidos.php');">
                 	<img src="../img/clock.png"  alt="Icono" class="img-icon"/>
-                    	Gesti�n de Pedidos
+                    	Gestión de Pedidos
 				</div>                                                                   			          
 <!--                
                 <div class="button" onclick="redirect('ConsultarIngredientes.php');">
@@ -212,7 +212,7 @@
             </nav>
 			<!-- Divisor del contenido de la pagina -->
             <div id="all-content">	
-                <h2>Visualizaci�n de Reportes</h2>      
+                <h2>Visualización de Reportes</h2>      
                 <div style="border-style:solid; height:400px; width:700px; float: left; margin-left:50px;">
 			
 				<object data="reporte.pdf" type="application/pdf" width="700" height="400">	</object>
