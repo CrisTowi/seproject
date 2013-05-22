@@ -486,12 +486,14 @@
 							</td>
 						</tr>
                         <?
+							/*
 							if(isset($_GET["nolote"])){
 								$lote = $_GET["nolote"];
+								*/
 						?>
-                        	<input type="hidden" name="nolote" id="nolote" value="<? echo $lote; ?>" />
+                        	<!--<input type="hidden" name="nolote" id="nolote" value="<? //echo $lote; ?>" />-->
                         <?
-							}
+							//}
 						?>
 					</table>
 					</form>
@@ -504,18 +506,23 @@
 </html>
 <?php include("scripts.php"); ?>
 <?
+/*
 	if(isset($_GET["folio"])){
 		$producto = $_GET["producto"];
 		$cantidad = $_GET["cantidad"];
+	*/
 ?>
+<!--
 		<script>
-			document.getElementById('producto').value = "<? echo $producto; ?>";
-			document.getElementById('selectCantidad').value = "<? echo $cantidad; ?>";
+			document.getElementById('producto').value = "<? //echo $producto; ?>";
+			document.getElementById('selectCantidad').value = "<? //echo $cantidad; ?>";
         </script>
+-->        
 <?
-	}//issetfolio
+	//}//issetfolio
 ?>
 <?
+/*
 	include("../php/DataConnection.class.php");		
 	function obtenerProducto($producto){
 		$db = new DataConnection();
@@ -552,28 +559,33 @@
 		}
 		return 0;		
 	}
+	*/
 	
 ?>
 <?
+/*
 	include("clases/Lote.class.php");	
 	if(isset($_GET["nolote"])){
 		$lote = $_GET["nolote"];
 		$encontrado = Lote::findById($lote);
+*/		
 ?>
+<!--
 		<script>
-			document.getElementById('lineaProduccion').value = "<? echo $encontrado->getLinea(); ?>";
-			document.getElementById('producto').value = "<? echo obtenerProducto($encontrado->getProducto()); ?>";
-			document.getElementById('selectCantidad').value = "<? echo $encontrado->getCantidad(); ?>";
-			//document.getElementById('encargado').value = "<? echo getNombre($encontrado->getEncargado()); ?>";
-			document.getElementById('fechaElab').value = "<? echo $encontrado->getElaboracion(); ?>";
-			document.getElementById('fechaCad').value = "<? echo $encontrado->getCaducidad(); ?>";
+			document.getElementById('lineaProduccion').value = "<? //echo $encontrado->getLinea(); ?>";
+			document.getElementById('producto').value = "<? //echo obtenerProducto($encontrado->getProducto()); ?>";
+			document.getElementById('selectCantidad').value = "<? //echo $encontrado->getCantidad(); ?>";
+			//document.getElementById('encargado').value = "<? //echo getNombre($encontrado->getEncargado()); ?>";
+			document.getElementById('fechaElab').value = "<? //echo $encontrado->getElaboracion(); ?>";
+			document.getElementById('fechaCad').value = "<? //echo $encontrado->getCaducidad(); ?>";
 			
 			document.getElementById('titulo').innerHTML = "Modificar Lote";
 			document.getElementById('buttonOK').innerHTML = "Modificar";
 			modify = true;		
         </script>
+-->        
 <?
-	}//issetfolio
+	//}//issetfolio
 ?>
 
 
