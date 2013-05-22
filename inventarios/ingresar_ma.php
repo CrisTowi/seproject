@@ -177,13 +177,13 @@
 
         parametros = parametros.replace("#","%23");
 
+
         sendPetitionQuery("AgregarMA.php?" + encodeURI(parametros));
         console.log("AgregarMA.php?" + encodeURI(parametros));
         /* returnedValue almacena el valor que devolvio el archivo PHP */
-
         if (returnedValue == "OK" ){
             if ( modify ){
-                alert("Materia Prima editada correctamente");
+                alert("Materia prima comprada y agregada correctamente");
             }else{
                 alert("Materia Prima agregada correctamente");
             }
