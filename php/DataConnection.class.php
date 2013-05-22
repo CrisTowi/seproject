@@ -6,7 +6,7 @@
 			private $link;
 			private $server = "localhost";
 			private $user = "root";
-			private $password = "root";
+			private $password = "password";
 			private $database = "cookies";
 			
 			public function __construct()  

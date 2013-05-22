@@ -47,9 +47,9 @@ if ( !defined("__WEBSESSION__") ){
 		public function redirect(){
 			if ( $this->isSesionActiva() ){
 				$path = $this->getEmpleado()->getPath();
-				header("location:/Github/seproject/".$path."/index.php");
+				header("location:/seproject/".$path."/index.php");
 			} else {
-				header("location:/Github/seproject/index.php?error=1");
+				header("location:/seproject/index.php?error=1");
 			}
 		}
 		

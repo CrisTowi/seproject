@@ -7,7 +7,7 @@
 	if ( isset($_GET["name"]) ){
 		$name = Validations::cleanString($_GET["name"]);
 	}
-	echo "<select id='".$name."' name='".$name."' onChange='loadTable();' style= 'width:160px;'>";
+	echo "<select id='".$name."' name='".$name."' onChange='loadTable();'>";
 	echo "<option value='-1'>Elige Proveedor</option>";
 				
 	while( $dato = mysql_fetch_assoc($result) ){

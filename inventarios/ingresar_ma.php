@@ -16,7 +16,7 @@
             <nav>
                 <div class="button" onclick="redirect('compras_mp.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Compras Pendientes</div>
                 <div class="button" onclick="redirect('gestion_ma.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gestión de Materia Prima</div>
-                <div class="selected-button" onclick="redirect('ingresar_man.php');"><img src="../img/note.png"  alt="Icono" class="img-icon" />Ingresar Materia Prima</div>
+                <div class="selected-button" onclick="redirect('ingresar_ma.php');"><img src="../img/note.png"  alt="Icono" class="img-icon" />Ingresar Materia Prima</div>
                 <div class="button" onclick="redirect('gestion_p.php');"><img src="../img/archive.png"  alt="Icono" class="img-icon" />Gestión de Productos</div>
                 <div class="button" onclick="redirect('reportes.php');"><img src="../img/notepad.png"  alt="Icono" class="img-icon" />Reportes </div>
             </nav>  
@@ -29,6 +29,7 @@
                     <form id="altaMA" action="AgregarMA.php"name="altaMA" method ="POST">
     					<div class="box">
     					<table>
+
                             <tr>
                                <td style="color: white;">Nombre: </td>
                                <td>
@@ -78,7 +79,7 @@
     						</tr>
     						<tr>
     						   <td style="color: white;">Fecha de caducidad: </td>
-    						   <td><input type="text" style="width:150px;"id="to" name="to" placeholder="Fecha de caducidad"/></td>   
+    						   <td><input type="text" style="width:150px;"id="to" name="to" placeholder="Fecha de inicio"/></td>   
     						</tr>
     					</table>
     					</div>
@@ -158,29 +159,26 @@
   event.returnValue = false;
 }
 
-
-
     function agregarMA(){
-
         parametros = "idm=" + document.getElementById('name').value + "&";
         parametros+= "idp=" + document.getElementById('provider').value + "&";
         parametros+= "cantidad=" + document.getElementById('cantidad').value + "&";
         parametros+= "fecha_l=" + document.getElementById('from').value + "&";
+        parametros+= "fecha_c=" + document.getElementById('to').value;
+
 
         if ( modify ){
 
-            parametros+= "idc=" + document.getElementById('idc').innerHTML;
-            parametros+="&edit=1";
+            parametros+= "idc=" + document.getElementById('idc').innerHTML + "&";
+            parametros +="&edit=1";
         }
 
-        parametros+= "&fecha_c=" + document.getElementById('to').value;
 
         parametros = parametros.replace("#","%23");
 
         sendPetitionQuery("AgregarMA.php?" + encodeURI(parametros));
         console.log("AgregarMA.php?" + encodeURI(parametros));
         /* returnedValue almacena el valor que devolvio el archivo PHP */
-
         if (returnedValue == "OK" ){
             if ( modify ){
                 alert("Materia Prima editada correctamente");
