@@ -55,8 +55,7 @@
  function vacios(){
 	inicial =document.getElementById('from').value;
 	ffinal = document.getElementById('to').value;
-	
-	if(inicial.length==0 && ffinal.length==0){
+	if(inicial.length==0 || ffinal.length==0){
 				alert("Campos vacios");
 				document.reporte.from.focus() 
 				return 0;
@@ -66,4 +65,6 @@
 		}
 	//select idMateriaPrima, count(*) as producto from compra_mp group by idmateriaprima
 }
+
+
 </script>

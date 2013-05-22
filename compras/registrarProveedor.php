@@ -63,7 +63,10 @@
 									<td><span id="msgEmail"></span></td>
 								</tr>
 								<tr>
-									<td colspan="2">
+									<td colspan="3">Seleccione los productos que ofrece el provedor</td>
+								</tr>
+								<tr>
+									<td colspan="3">
 										<select id='selectProductos'>
 											<?php include("SelectMateriaPrima.php"); ?>
 										</select>

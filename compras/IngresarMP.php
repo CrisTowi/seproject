@@ -21,7 +21,7 @@
                 <h2>Ingresar Materia Prima</h2>                
 					<div class="box">
 						<div onclick="redirect('Compra.php');" class="form-button">Realizar Compra</div>
-						<input type="text" name="buscar" id="buscar" placeholder="Buscar" class="searchBar" style="width:250px;"/>
+						<input type="text" name="buscar" id="buscar" onkeypress="ValidaSoloNumeros()" placeholder="No Compra" class="searchBar" style="width:250px;"/>
 						<img src="../img/busc.png" class="img-buscar"  alt="Buscar" onClick="onClickBusqueda();"/>
 					</div>
 					<div id="tablaCompras">
@@ -36,8 +36,12 @@
 </html>
 <?php include("scripts.php"); ?>
 <script type="text/javascript">
-	
+	function ValidaSoloNumeros() {
+ if ((event.keyCode < 48) || (event.keyCode > 57))
+  event.returnValue = false;
+}
 	function onClickBusqueda(){
+		
 		loadTable();
 	}	
 	
