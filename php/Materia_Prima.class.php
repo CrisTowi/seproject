@@ -79,7 +79,6 @@ if ( !defined("__MATERIA__") ){
 
 
 			$qry = "SELECT * from compra_mp where idCompra = ".$idc;
-
 			$result = $connection->executeQuery($qry);	
 
 			if ( mysql_num_rows($result) < 1)
@@ -90,7 +89,6 @@ if ( !defined("__MATERIA__") ){
 
 			$idlote = $idMateria . $idProveedor . $idc;
 			$qry = "INSERT into inventario_mp(idLote,idMateriaPrima,RFC,Cantidad,Fecha_Llegada,Fecha_Caducidad) VALUES('".$idlote."',".$idMateria.",'".$idProveedor."',".$cantidad.", '".$fecha_l."', '".$fecha_c."');";
-
 			if($result = $connection->executeQuery($qry))
 				return true;
 			return false;
