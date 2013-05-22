@@ -153,7 +153,7 @@
 		//returnedValue almacena el valor que devolvio el archivo PHP 
 		if (returnedValue == "OK" ){
 				alert("La Venta ha sido agregada correctamente");
-			//window.location = "./GestionV.php";
+			    window.location = "./GestionV.php";
 		}
 		else if ( returnedValue == "DATABASE_PROBLEM"){
 			alert("No se pudo establecer conexión con la base de datos");
