@@ -20,7 +20,17 @@
 				$res=$db->executeQuery("Update lote set cantidadProducto=".(int)$dato1['cantidadProducto']."+(Select cantidad from articuloventa where folio=".$id." and idlote='".$_GET['Eliminar'.$i]."') Where idlote=
 										'".$_GET['Eliminar'.$i]."'");
 	}
-							
+					
+	/*$query=("select count(*) as 'cuenta' from articuloventa where estado not like 'cancelado' and Folio=".$id);
+	$resulta=$db->executeQuery($query);
+	$dato=mysql_fetch_assoc($resulta);
+	$cuenta=(int)$dato['cuenta'];
+	if($cuenta==0)
+	{
+		$query="update Venta set Estado='Cancelado' where folio=".$id;
+		$db->executeQuery($query);
+	}	*/			
+	
 	if(!$accept){echo "DATABASE_PROBLEM";
 	}else{echo "OK";}	
 ?>

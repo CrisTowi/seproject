@@ -77,6 +77,7 @@
 		$cliente=Venta::NombreClie($encontrado->getCliente());
 ?>
 
+
 <script type="text/javascript">
         var eliminar = new Array();
         var i=0;
@@ -86,12 +87,12 @@
 			rePaint();
 		}
 		function cancelarArticulo(idlote)
-		{ 	
+		{ 	if ( confirm("¿Seguro que desea cancelar de la venta articulo con lote " + idlote +"?") ){
 			eliminar[i]=idlote;
 			var el=document.getElementById(idlote);
 			var padre = el.parentNode;
 			padre.removeChild(el);
-			i+=1;
+			i+=1;}
 		}	
 		document.getElementById('Folios').innerHTML = "<?php echo $encontrado->getFolio(); ?>";
 		document.getElementById('cliente').innerHTML = "<?php echo $cliente; ?>";
