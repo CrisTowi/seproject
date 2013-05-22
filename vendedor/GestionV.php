@@ -21,6 +21,8 @@
 			</nav>
 			<!-- Divisor del contenido de la pagina -->
             <div id="all-content">
+            	<br/>
+           	    <div id="ti" class="titulo">GESTIÓN DE VENTAS</div>
                 <div class="box">
                     <div id="AV" class="form-button" onClick="window.location ='Registrar_Venta.php'">Registar Venta</div>
 		            <input type="text" id="buscar" name="buscar" placeholder = "Buscar Venta (RFC,FolioVenta)" class="searchBar" onChange="onClickBusqueda();" style="width:250px;"/>

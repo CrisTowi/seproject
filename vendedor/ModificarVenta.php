@@ -24,7 +24,7 @@
             <div id="all-content" >
 				<br/>
                 <div id="ti" class="titulo">MODIFICAR VENTA</div>
-                 <div id="tip" class="texto1">Todos los campos son obligatorios.</div>
+                 <div id="tip" class="texto1"></div>
         	    <div style="display: block">
                 <table id="Tablap">
                 	<tbody>

@@ -7,7 +7,7 @@
 	$filas=Validations::cleanString($_GET['noEl']);
 	include("../php/DataConnection.class.php");
 	$db = new DataConnection();
-	$accept=venta::Modificar($Fentrega);
+	$accept=venta::Modificar($Fentrega,$Folio);
 	
 		    
 	for ($i=0; $i <= $filas-1; $i++) 
