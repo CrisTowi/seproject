@@ -39,6 +39,7 @@
 		$filtro = Validations::cleanString($_GET["search"]); // Limpia la entrada
 		$qry .= " AND a.folio LIKE '%".$filtro."%'";
 	}	
+	echo $qry;
 	
 	$result = $db->executeQuery($qry);	
 	

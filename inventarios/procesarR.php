@@ -26,7 +26,7 @@ include("../php/DataConnection.class.php");
 			$pdf->SetFont('Arial','bi',14);
 			$pdf->Cell(40,10,'',0,1); //Linea vacia
 			$pdf->Cell(80,6,'Cookies & System S.A. De C.V.',0,1,'L');
-			$pdf->Cell(80,6,'México, D.F.',0,1,'L');
+			$pdf->Cell(80,6,'Mexico, D.F.',0,1,'L');
 			$pdf->Cell(80,6,$fechaActual,0,1,'L');
 			$pdf->Cell(40,10,'',0,1); //Linea vacia
 			$pdf->SetFont('Arial','b',14);
@@ -56,16 +56,16 @@ include("../php/DataConnection.class.php");
 
 				for($j=0; $j < $rows; ++$j){
 					$row = mysql_fetch_row($result);
-							$pdf->Cell(50,5,$row[1],1,1,'L',0);	
-							$pdf->Cell(40,5,$row[2],1,1,'L',0);
-							$pdf->Cell(20,5,$row[3],1,1,'L',0);
+							$pdf->Cell(50,5,$row[1],1,0,'L',0);	
+							$pdf->Cell(40,5,$row[2],1,0,'L',0);
+							$pdf->Cell(20,5,$row[3],1,0,'L',0);
 				}
 					
 			}
 			else if($tipoReporte="Materia"){
 				$db = new DataConnection();
 				$qry = "SELECT M.idMateriaPrima as IDM,MP.Nombre, M.Fecha_Caducidad, M.RFC as proveedor 
-						from inventario_mp M, materiaprima MP where M.idMateriaPrima=MP.idMateriaPrima group by M.idMateriaPrima";
+						from inventario_mp M, materiaprima MP where M.idMateriaPrima=MP.idMateriaPrima";
 				$result= $db-> executeQuery($qry);
 
 				$pdf->Setfont('Arial','b',11);
@@ -83,13 +83,12 @@ include("../php/DataConnection.class.php");
 
 				for($j=0; $j<$rows; ++$j){
 					$row = mysql_fetch_row($result);
-						$pdf->Cell(70,5,$row[5],1,0,'L',0);
 							$query2 = "Select Nombre from materiaprima where idMateriaPrima='".$row[0]."'";
 							$result2=$db->executeQuery($query2);	
 							$nombreM=mysql_fetch_row($result2);	
-							$pdf->Cell(50,5,$nombreM[0],1,1,'L',0);
-							$pdf->Cell(40,5,$row[2],1,1,'L',0);
-							$pdf->Cell(40,5,$row[3],1,1,'L',0);
+							$pdf->Cell(50,5,$nombreM[0],1,0,'L',0);
+							$pdf->Cell(40,5,$row[2],1,0,'L',0);
+							$pdf->Cell(40,5,$row[3],1,0,'L',0);
 				}
 			}
 			

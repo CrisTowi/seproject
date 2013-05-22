@@ -48,14 +48,14 @@
 	function eliminarCliente(id){
 		if ( confirm("¿Seguro que desea eliminar al cliente con RFC " + id +"?") ){
 			sendPetitionQuery("EliminaCliente.php?id=" + id );
-			alert("Empleado eliminado");
+			alert("Cliente eliminado");
 			loadTable();
 		}
 	}
 	function recuperarCliente(id){
 		if ( confirm("¿Seguro que desea recuperar al cliente con RFC " + id +"?") ){
 			sendPetitionQuery("RecuperarCliente.php?id=" + id );
-			alert("Empleado Recuperado");
+			alert("Cliente Recuperado");
 			loadTable();
 		}
 	}
