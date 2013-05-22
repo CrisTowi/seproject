@@ -40,10 +40,13 @@
 	}
 	/*Redirige a la pagina de modificar cliente*/
 	function modificarVenta(id){
-		window.location ="Registrar_Venta.php?id="+	id;
-		console.log("Registrar_Venta.php?id=" + id);
+		window.location ="ModificarVenta.php?id="+ id;
+		console.log("ModificarVenta.php?id=" + id);
 	}
-	
+	function ViewVenta(id){
+		window.location ="ModificarVenta.php?id="+ id+"&view=1";
+		console.log("ModificarVenta.php?id=" + id+"&view=1");
+	}
 	/*Confirma y elimina el cliente*/
 	function cancelarVenta(id){
 		if ( confirm("¿Seguro que desea cancelar la venta con Folio " + id +"?") ){

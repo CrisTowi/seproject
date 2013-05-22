@@ -10,15 +10,13 @@ if ( !defined("__VENTA__") ){
 		private $Fentrega;
 		private $Estado;
 		
-		//public function __construct($folio,$fecha,$cliente,$producto,$cantidad,$existencia,$fentrega)
 		public function __construct($folio,$fecha,$cliente,$fentrega,$Estado)
 		{
 			$this->Folio = $folio;
 			$this->Fecha = $fecha;
 			$this->Cliente = $cliente;
 			$this->Fentrega = $fentrega;
-			$this->Estado=$estado;
-					
+			$this->Estado= $Estado;	
 		}
 		public function getFolio(){
 			return $this->Folio;
@@ -30,7 +28,7 @@ if ( !defined("__VENTA__") ){
 			return $this->Cliente;
 		}
 		public function getFentrega(){
-			return $this->Rentrega;
+			return $this->Fentrega;
 		}
 		public function getEstado(){
 			return $this->Estado;
@@ -60,27 +58,43 @@ if ( !defined("__VENTA__") ){
 		    $db = new DataConnection();
 			$qry = "UPDATE Venta SET Fentrega='".$Fentrega."'";
 			if($result = $db->executeQuery($qry))
-				return true;
+				{return true;}
 			return false;
 		}
-		
-		
+			
 		public static function findById($Folio)
 		{
 			$db = new DataConnection();			
-			$result = $db->executeQuery("SELECT * FROM Venta WHERE Folio='".$Folio."'");
+			$result = $db->executeQuery("SELECT Folio, DATE_FORMAT(Fecha, '%Y-%m-%d') as 'Fecha',RFC,DATE_FORMAT(FEntrega, '%Y-%m-%d') as 'Fentrega',Estado FROM Venta WHERE Folio=".$Folio);
 			if ($dato = mysql_fetch_assoc($result)){
-				$Vent= new Venta($dato["Folio"],$dato["Fecha"],$dato["RFC"],$dato["Fentrega"]);
-				return $Vent;
+				$emp = new Venta($dato["Folio"],$dato["Fecha"],$dato["RFC"],$dato["Fentrega"],$dato["Estado"]);
+				return $emp;
 			}	
 			return false;
 		}
 		
+		public static function NombreClie($RFC)
+		{
+			$db = new DataConnection();			
+			$result = $db->executeQuery("SELECT Nombre FROM Cliente WHERE RFC='".$RFC."'");
+			if ($dato = mysql_fetch_assoc($result)){
+				$emp = $dato["Nombre"];
+				return $emp;
+			}	
+			return false;
+		}
 				
 		public static function Eliminar($Folio){
 			$db = new DataConnection();			
 			$result = $db->executeQuery("Update Venta set Estado='Cancelada' where Folio=".$Folio);
 			$datos= $db->executeQuery("Update ArticuloVenta set Estado='Cancelado' where Folio=".$Folio);
+			$qry="Select l.cantidadProducto,l.idlote from lote l, articuloventa a where a.idlote=l.idlote and folio=".$Folio;
+			$result=$db->executeQuery($qry);
+			while($fila = mysql_fetch_array($result))
+			{
+					$res=$db->executeQuery("Update lote set cantidadProducto=".(int)$fila['cantidadProducto']."+(Select cantidad from articuloventa where folio=".$Folio." and idlote='".$fila['idlote']."') Where idlote=
+										'".$fila['idlote']."'");
+			}
 			return $result;
 		}	
 	}

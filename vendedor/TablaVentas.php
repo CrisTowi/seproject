@@ -4,7 +4,7 @@
 		<th>RFC</th>
 		<th>Fecha de Realizaci&oacute;n</th>
 		<th>Fecha de Entrega</td>
-		<th colspan='2'> </th>
+		<th colspan='3'> </th>
 	</tr>
 <?php
 	include("../php/DataConnection.class.php");
@@ -44,7 +44,9 @@
 				<td>".$id."</td>
 				<td>".$RFC."</td>
 				<td>".$fecha."</td>
-				<td>".$fentrega."</td>");
+				<td>".$fentrega."</td>
+				<td><img src='../img/view.png' onclick='ViewVenta(\"".$id."\")' alt='Visualizar' title='Visualizar' class='clickable'/></td>");
+				
 				switch ($estado)
 				{
 					 case "Cancelada":

@@ -44,19 +44,19 @@
 							{
 								echo "hola";
 							}else{
-							$db = new DataConnection();
-							$dism="UPDATE";
-							$query="insert into articuloventa values('".$Fol."','".$_GET['Articulo'.$i]."','".$_GET['cantidad'.$i]."')";
-							$db->executeQuery($query);	}				
+							//$db = new DataConnection();
+							$query="insert into articuloventa values(".$Fol.",'".$_GET['Articulo'.$i]."',".$_GET['cantidad'.$i].",'En Espera')";
+							$db->executeQuery($query);
+							$res=$db->executeQuery("Select cantidadProducto from lote where idlote='".$_GET['Articulo'.$i]."'");
+							$datos=mysql_fetch_assoc($res);
+							$res2=$datos["cantidadProducto"]-(int)$_GET['cantidad'.$i];
+							$query2="Update lote set cantidadProducto=".(int)$res2." where idlote='".$_GET['Articulo'.$i]."'";
+							$db->executeQuery($query2);}
 						}
-	}
-	
-	 
-	 
-	 /*if(!$accept){
-	 
-				echo "DATABASE_PROBLEM";
-	}else{
-				echo "OK";
-	}*/
+					if(!$accept){
+					 
+								echo "DATABASE_PROBLEM";
+					}else{
+								echo "OK";}
+		}
 ?>
