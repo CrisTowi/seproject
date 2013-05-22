@@ -31,11 +31,10 @@
 								proveedor.RFC = inventario_mp.RFC and
 								materiaprima.idMateriaPrima = inventario_mp.idMateriaPrima and
 								uso_mp.idLoteProduccion='".$_GET["numero"]."'";
-								
-						//echo $qry;
+						
 						$mknTable = false;
 						$result = $db->executeQuery($qry);
-						if ( $result != false ){
+						if ( $result != false && mysql_num_rows($result) > 0){
 							$mknTable = true;
 							echo "<h2>Detalles de las materias primas</h2>";
 							echo "<table style='margin-left:50px;'>";
@@ -55,10 +54,11 @@
 							echo "<td>".$fila["cantidadUsada"]."</td>";
 							echo "<td>".$fila["unidad"]."</td>";
 							echo "</tr>";
-						}
-						
+						}						
 						if ( $mknTable == true ){
 							echo "</table>";
+						}else{
+							echo "<h3>No hay resultados</h3>";
 						}
 						
 						$qry = "SELECT lote.*,empleado.Nombre as NombreEmpleado,empleado.CURP,producto.* FROM 
@@ -67,7 +67,6 @@
 								lote.curpEmpleado = empleado.CURP and
 								lote.idLote='".$_GET["numero"]."'";
 								
-						//echo $qry;
 						$result = $db->executeQuery($qry);
 						
 						if($fila = mysql_fetch_array($result)){
@@ -98,10 +97,82 @@
 							echo "<tr><td style='background-color:#BBBBBB;'>Fecha de entrega</td><td style='width: 300px;'>".$fila['Fentrega']."</td></tr>";
 							echo "</table>";
 						}
+					}else{
+						$qry = "SELECT inventario_mp.*,materiaprima.*,proveedor.RFC,proveedor.Nombre as NomP FROM 
+								inventario_mp,materiaprima,proveedor WHERE 
+								materiaprima.idMateriaPrima = inventario_mp.idMateriaPrima and
+								inventario_mp.RFC = proveedor.RFC and
+								inventario_mp.idLote='".$_GET["numero"]."'";
+								
+						$mknTable = false;
+						$result = $db->executeQuery($qry);
+						if ( $result != false && mysql_num_rows($result) > 0){
+							$mknTable = true;
+							echo "<h2>Detalles de las materias primas</h2>";
+							echo "<table style='margin-left:50px;'>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Id</td>";
+							echo "<td style='background-color:#BBBBBB;'>Nombre Materia Prima</td>";
+							echo "<td style='background-color:#BBBBBB;'>RFC</td>";
+							echo "<td style='background-color:#BBBBBB;'>Nombre Proveedor</td>";
+							echo "<td style='background-color:#BBBBBB;'>Cantidad</td>";
+							echo "<td style='background-color:#BBBBBB;'>Unidad</td></tr>";
+						}
+						while($fila = mysql_fetch_array($result)){
+							echo "<tr>";
+							echo "<td>".$fila["idLote"]."</td>";
+							echo "<td>".$fila["Nombre"]."</td>";
+							echo "<td>".$fila["RFC"]."</td>";
+							echo "<td>".$fila["NomP"]."</td>";
+							echo "<td>".$fila["cantidad"]."</td>";
+							echo "<td>".$fila["Unidad"]."</td>";
+							echo "</tr>";
+						}						
+						if ( $mknTable == true ){
+							echo "</table>";
+						}else{
+							echo "<h3>No hay resultados</h3>";
+						}
+						
+						$qry = "SELECT uso_mp.*,lote.*,empleado.Nombre as NombreEmpleado,empleado.CURP,producto.* FROM 
+								lote,empleado,producto,uso_mp WHERE 
+								lote.idProducto=producto.idProducto and
+								lote.curpEmpleado = empleado.CURP and
+								lote.idLote=uso_mp.idLoteProduccion and
+								uso_mp.idLoteMP='".$_GET["numero"]."'";
+								
+						$result = $db->executeQuery($qry);
+						while($fila = mysql_fetch_array($result)){
+							echo "<h2>Detalles de la producción</h2>";
+							echo "<table style='margin-left:50px;'>";
+							echo "<tr><td style='width: 150px; background-color:#BBBBBB;'>No. de lote</td><td style='width: 300px;'>".$fila['idLote']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Producto</td><td style='width: 300px;'>".$fila['Nombre']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Empleado</td><td style='width: 300px;'>".$fila["CURP"]." - ".$fila["NombreEmpleado"]."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Fecha de producción</td><td style='width: 300px;'>".$fila['fecha_elaboracion']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Fecha de caducidad</td><td style='width: 300px;'>".$fila['fecha_caducidad']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Estado</td><td style='width: 300px;'>".$fila['estado']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Cantidad</td><td style='width: 300px;'>".$fila['cantidadProducto']."</td></tr>";
+							echo "</table>";
+						}
 						
 						
+						$qry = "SELECT * FROM uso_mp.*,venta,articuloventa,cliente WHERE
+								venta.Folio = articuloventa.folio and
+								cliente.RFC = venta.RFC and
+								articuloventa.idLote=uso_mp.idLoteProduccion and
+								uso_mp.idLoteMP='".$_GET["numero"]."'";
+						$result = $db->executeQuery($qry);
+						
+						if ( $result != false )
+						if($fila = mysql_fetch_array($result)){
+							echo "<h2>Cliente</h2>";
+							echo "<table style='margin-left:50px;margin-bottom:30px;'>";
+							echo "<tr><td style='width: 150px; background-color:#BBBBBB;'>Cliente</td><td style='width: 300px;'>".$fila['RFC']." - ".$fila['Nombre']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Dirección</td><td style='width: 300px;'>".$fila['Direccion']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Fecha de compra</td><td style='width: 300px;'>".$fila['Fecha']."</td></tr>";
+							echo "<tr><td style='background-color:#BBBBBB;'>Fecha de entrega</td><td style='width: 300px;'>".$fila['Fentrega']."</td></tr>";
+							echo "</table>";
+						}
 					}
-				
 				?>
                 </div>
             </div>

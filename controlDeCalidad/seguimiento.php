@@ -21,8 +21,8 @@
                 <div id="content">
                     <div class="box">
                         <h4>Número de lote</h4>
-                        <div class="option"><input type="radio" name="filtroLote" checked="checked" />Por número de lote de Materia prima</div>
-                        <div class="option"><input type="radio" name="filtroLote" />Por número de lote de Producto</div>
+                        <div class="option"><input type="radio" id="filtro1" name="filtroLote" checked="checked" />Por número de lote de Materia prima</div>
+                        <div class="option"><input type="radio" id="filtro2" name="filtroLote" />Por número de lote de Producto</div>
                     </div>
                     <div class="box">
                        Número de lote: <input type="text" placeholder="Ingrese aquí el lote" id="numLote" />
@@ -35,13 +35,21 @@
 			
         </div>
         </center>
-        <footer>Elaborado por nosotros(C) 2013</footer>
+        <?php include("../php/footer.php"); ?>
     </body>   
 </html>
 <?php include("scripts.php"); ?>
 <script>
 	function track(){
 		var numLote = document.getElementById('numLote').value;
-		redirect('tracking.php?tipo=1&numero=' + numLote);
+		if ( numLote.length == 0 ){
+			alert("Introduce un número de lote");
+			return;
+		}
+		if ( document.getElementById("filtro1").checked ){
+			redirect('tracking.php?tipo=0&numero=' + numLote);
+		}else{
+			redirect('tracking.php?tipo=1&numero=' + numLote);
+		}
 	}
 </script>	
