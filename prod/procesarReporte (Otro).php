@@ -73,16 +73,16 @@
 			$pdf->Cell(40,6,'',0,1); //Linea vacia
 			
 			/////// Tabla (Reportes Genéricos)
-			$pdf->SetFont('Arial','b',11);
-			$pdf->Cell(18,5,'No. Lote',1,0,'L',0);
-			$pdf->Cell(60,5,'Producto',1,0,'L',0);
-			$pdf->Cell(15,5,'Cant.',1,0,'L',0);
-			$pdf->Cell(15,5,'Línea',1,0,'L',0);
+			$pdf->SetFont('Arial','b',10);
+			$pdf->Cell(25,5,'No. Lote',1,0,'L',0);
+			$pdf->Cell(55,5,'Producto',1,0,'L',0);
+			$pdf->Cell(13,5,'Cant.',1,0,'L',0);
+			$pdf->Cell(13,5,'Línea',1,0,'L',0);
 			$pdf->Cell(35,5,'Encargado',1,0,'L',0);						
 			$pdf->Cell(25,5,'Fecha Elab.',1,0,'L',0);			
 			$pdf->Cell(25,5,'Fecha Cad.',1,1,'L',0);
 			
-			$pdf->SetFont('Arial','',11);
+			$pdf->SetFont('Arial','',10);
 			
 			include("../php/DataConnection.class.php");		
 			$db = new DataConnection();
@@ -140,10 +140,10 @@
 			for ($j = 0 ; $j < $rows ; ++$j)
 			{
 				$row = mysql_fetch_row($result);
-				$pdf->Cell(18,5,$row[0],1,0,'L',0);
-				$pdf->Cell(60,5,$row[1],1,0,'L',0);
-				$pdf->Cell(15,5,$row[2],1,0,'L',0);
-				$pdf->Cell(15,5,$row[3],1,0,'L',0);
+				$pdf->Cell(25,5,$row[0],1,0,'L',0);
+				$pdf->Cell(55,5,$row[1],1,0,'L',0);
+				$pdf->Cell(13,5,$row[2],1,0,'L',0);
+				$pdf->Cell(13,5,$row[3],1,0,'L',0);
 				$pdf->Cell(35,5,$row[4],1,0,'L',0);							
 				$pdf->Cell(25,5,$row[5],1,0,'L',0);			
 				$pdf->Cell(25,5,$row[6],1,1,'L',0);								

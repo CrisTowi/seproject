@@ -1,12 +1,13 @@
 <?php
 	@header('Cache-Control: no-cache, no-store, must-revalidate');
 ?>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <table id='table-content'>
 	<tr class='tr-header'>
-		<td>NÃºmero de Lote</td>
+		<td>N&uacute;mero de Lote</td>
 		<td>Producto Asociado</td>
 		<td>Unidades Producidas</td>                  
-		<td>Fecha de ElaboraciÃ³n</td>
+		<td>Fecha de Elaboraci&oacute;n</td>
 		<!--<td>Fecha de Caducidad</td>  -->
         <td colspan="3">Opciones</td>      
 		<!--<td class='opc'></td>
@@ -21,7 +22,7 @@
 	//Obtener todos los datos de la tabla lote
 	$qry = "SELECT * FROM lote";
 	
-	// AÃ±ade parametros de bÃºsqueda
+	// Añade parametros de búsqueda
 	if ( isset($_GET["search"] ) ){ 
 		$filtro = Validations::cleanString($_GET["search"]); // Limpia la entrada
 		//Condicion para la busqueda
@@ -46,7 +47,7 @@
 /*
 			$edo = utf8_encode($fila["estado"]);
 			if($edo == "produccion"){
-				$estado = "producciÃ³n";
+				$estado = "producción";
 			}
 			else{
 				$estado = $edo;

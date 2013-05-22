@@ -43,7 +43,7 @@
 			</div>
         </div>
         </center>
-        <footer>Elaborado por nosotros(C) 2013</footer>
+        <footer>©2013</footer>
     </body>   
 </html>
 <?php include("scripts.php"); ?>

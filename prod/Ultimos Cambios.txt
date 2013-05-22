@@ -1,0 +1,39 @@
+Cambio necesario debido a que en la tabla inventario_mp se ingresan Numeros de lote de longitud mayor
+a la esperada en un inicio (7):
+
+alter table uso_mp modify column idLoteMP varchar(15);
+
+Notas:
+
+-Al eliminar un lote se eliminan sus datos de la tabla Lote y Uso_MP. Sin embargo, los ingredientes utilizados
+no se reponen a los lotes de MP en Inventario_MP. La cuestion es: ¿Es esto correcto o habría que devolver lo que
+se utilizó?
+
+-Si se decide utilizar la forma correcta de generar numeros de Lote de produccion, es necesario sustituir
+procesarReporte por procesarReporte(Otro)
+
+-La "Gestión de productos" del módulo Inventarios no es lo mismo que "Gestión Productos" del módulo Administración
+
+-Nota al modificar lote. 
+Caso 1: La generación de numeros de lote no cambia (Clave+Numero)
+No se permite cambiar el producto, pues eso podría generar cambios en el No. de Lote (Identificador)
+
+Caso 2: La generación de numeros de lote cambia (Clave+linea+año+mes+dia)
+No se permite cambiar el producto, linea, y fecha de
+elaboracion pues eso podría generar cambios en el No. de Lote (Identificador)
+
+Extra:
+
+SQL Modificar lotes:
+update lote set fecha_elaboracion=$nuevaFechaElaboracion, fecha_caducidad=$nuevaFechaCaducidad,
+cantidadProducto=$nuevaCantidad, noLinea=$nuevoNoLinea, curpEmpleado=$nuevoCurpEmpleado where idLote=$idLote;
+
+Ejemplo:
+update lote set fecha_elaboracion='2013-03-11', fecha_caducidad='2014-03-11',
+cantidadProducto=4000, noLinea=3, curpEmpleado='RULM910705HDFDPG08' where idLote='GAV3';
+
+SQL devolver MP:
+update inventario_mp set cantidad=cantidad+$cantidadUsada where idLote=$idLoteMP;
+
+Ejemplo:
+update inventario_mp set cantidad=cantidad+500 where idLote='MER1';

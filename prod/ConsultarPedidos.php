@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>Modulo de Producci√≥n</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <title>Modulo de Producci&oacute;n</title>
         <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
         <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
         <script src="../js/jquery-1.9.1.js"></script>
@@ -54,9 +54,9 @@
 				'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
 				monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 
 				'Oct','Nov','Dic'],
-      			dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi√©rcoles', 'Jueves', 'Viernes', 'S√°bado'],
-      			dayNamesShort: ['Dom','Lun','Mar','Mi√©','Juv','Vie','S√°b'],
-      			dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S√°'],
+      			dayNames: ['Domingo', 'Lunes', 'Martes', 'MiÈrcoles', 'Jueves', 'Viernes', 'S·bado'],
+      			dayNamesShort: ['Dom','Lun','Mar','MiÈ','Juv','Vie','S·b'],
+      			dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S·'],
 			});
 			$('#fechaVenta').datepicker("option", "dateFormat", "yy-mm-dd");
 			$('#fechaVenta').datepicker("option", "maxDate", today);
@@ -72,16 +72,16 @@
 <!--            
                 <div class="button" onclick="redirect('GestionarLineas.php');">
                 	<img src="../img/way.png"  alt="Icono" class="img-icon" />
-                    	Gesti√≥n de L√≠neas
+                    	GestiÛn de LÌneas
 				</div>                
 -->                
                 <div class="button" onclick="redirect('GestionarLotes.php');">
                 	<img src="../img/note.png"  alt="Icono" class="img-icon" />
-                    	Gesti√≥n de Lotes
+                    	Gesti&oacute;n de Lotes
 				</div>   
                 <div class="selected-button" onclick="redirect('ConsultarPedidos.php');">
                 	<img src="../img/clock.png"  alt="Icono" class="img-icon" />
-                    	Gesti√≥n de Pedidos
+                    	Gesti&oacute;n de Pedidos
 				</div>
 <!--                
 				<div class="button" onclick="redirect('ConsultarIngredientes.php');">
@@ -99,7 +99,7 @@
             	<div id="content">
                 	<h2>Gestionar Pedidos</h2>
                     <div class="box">
-                        <input type="text" id="buscar" name="buscar" placeholder="Ingresa el n√∫mero de folio del pedido" 
+                        <input type="text" id="buscar" name="buscar" placeholder="Ingresa el n˙mero de folio del pedido" 
                         class="searchBar" style="width:250px;" />
                         <img src="../img/busc.png" class="img-buscar" alt="Buscar" 
                         onClick="onClickBusqueda();" />
@@ -120,7 +120,7 @@
 <script type="text/javascript">
 	/*Alert para la ayuda en la busqueda*/
 	function ayudaBusqueda(){
-		alert("Debes ingresar el n√∫mero de Folio del pedido.\nPara volver borra el texto del campo de busqueda!");
+		alert("Debes ingresar el n˙mero de Folio del pedido.\nPara volver borra el texto del campo de busqueda!");
 	}
 	
 	/* Genera la tabla de pedidos */
@@ -134,10 +134,10 @@
 		rePaint();
 	}		
 	
-	/*modificar la producci√≥n*/
-	function enviarProduccion(folio, producto, cantidad){
-		redirect("RegistrarLote.php?folio=" + folio + "&producto=" + producto + "&cantidad=" + cantidad);
-		//alert("Se enviara a producci√≥n");
+	/*modificar la producciÛn*/
+	function enviarProduccion(folio){
+		redirect("AsignarLinea.php?folio=" + folio);
+		//alert("Se enviara a producciÛn");
 	}
 	
 	/*Muestra el detalle del Lote asociado*/
@@ -146,7 +146,7 @@
 		"Numero de lote: " + nolote + 
 		"\nProducto Asociado: " + producto + 
 		"\nCantidad de Producto: " + cantidad + " Unidades" +
-		"\nFecha de Elaboraci√≥n: " + elaboracion +
+		"\nFecha de ElaboraciÛn: " + elaboracion +
 		"\nFecha de Caducidad: " + caducidad);
 	}	
 </script>

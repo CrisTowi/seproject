@@ -87,6 +87,7 @@
 			
 			public static function eliminar($nolote){
 				$db = new DataConnection();
+				$result = $db->executeQuery("DELETE FROM uso_mp WHERE idLoteProduccion='".$nolote."'");
 				return $result = $db->executeQuery("DELETE FROM lote WHERE idLote='".$nolote."'");
 			}
 				

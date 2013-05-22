@@ -2,50 +2,41 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>Modulo de Producci√≥n</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <title>Registrar Lote</title>
         <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
         <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
-		<script src="../js/jquery-1.9.1.js"></script>
+        <script src="datepickers/jquery-1.9.1.js"></script>
         <script src="datepickers/jquery-ui-1.10.2.custom.min.js"></script>
-		<script src="datepickers/jquery.validate.min.js"></script>
-		<script src="datepickers/validaciones.js"></script>
         <link rel="stylesheet" type="text/css" href="datepickers/jquery-ui-1.10.2.custom.css" />
-		<link rel="stylesheet" type="text/css" href="datepickers/estiloValidacion.css" />
 		
 		<!--
-        	Autocompletar producto
+        Cargar datos del lote
 		-->                
         <script>
-			$(function(){
-			$('#producto').autocomplete({				
-				source: 'ajaxProducto.php',
-				select: function(event, ui){
-					
-					//alert(ui.item.idProductoElegido);					
-					var parametros = {
-						"producto" : ui.item.idProductoElegido
-					};
-					
-					$('#producto').html('<input type="hidden" value="'+ui.item.idProductoElegido+'" name="idProducto">');
-					
+		$(document).ready(function() {			
+			
+			var parametros = {
+						"producto" : $('#idProducto').val()
+			};
+														
 					$.ajax({
 						data:  parametros,
 						url:   'cargarReceta.php',
 						type:  'post',						
 						beforeSend: function () {							
-							//$('#resultado').hide(1000);
+							
 							$('#resultado').slideUp(1000);
 						},
 						success:  function (response) {
-							$('#selectCantidad').val('1000');
+							
 							$('#filaCantidad').show(2000);		
 							$('#filaEncargado').show(2000);	
 							$('#filaSubmit').show(2000);	
 							$('#filaFechaElab').show(2000);	
 							$('#filaFechaCad').show(2000);	
 							
-							$("#resultado").html('<p class="textoForm">Ingredientes requeridos para la producci√≥n: </p>');
+							$("#resultado").html('<p class="textoForm">Ingredientes requeridos para la producciÛn: </p>');
 							$("#resultado").append(response);
 														
 							var ingredientesProducto = $('#totalIngredientes').val();
@@ -69,7 +60,117 @@
 									success:  function (response) {
 										$(selector2).append(response);    //ingX = celda	
 										
-										var celdaIng = "#cantidad"+counter;   //Celda donde se mostrar√° la cantidad
+										var celdaIng = "#cantidad"+counter;   //Celda donde se mostrar· la cantidad
+										
+										if($("#lotesIng"+counter).val()!=null)  //Si response devolvio un combobox, llamar a ajax										
+										{
+											$.ajax({
+												async: false,    ////Evitar necesidad de alert()
+												data:  { "valor" : $("#lotesIng"+counter).val() },   
+												url:   'cargarCantidadLoteMP.php',
+												type:  'post',
+									
+												success:  function (response) {									
+												
+												$(celdaIng).html(response);    //ingX = celda	
+										
+												}																			
+								
+											});
+										} //Fin de if
+										
+									}  //Fin de success
+								
+								}); //Fin de ajax
+																
+								actualizarCeldasSuficiente(counter);								
+																						
+							} //Fin de for
+							
+							//$("#resultado").show(2000);
+							$("#resultado").slideDown(2000);
+							
+							$('.loteMP').change(function() {
+									
+								var aux= $(this).attr('id');
+								var celdaIng = '#'+aux.replace("lotesIng","cantidad"); 
+								var filaIng = aux.substring(8,9);
+								
+								$.ajax({
+									async: false,    ////Evitar necesidad de alert()
+									data:  { "valor" : $(this).val() },   
+									url:   'cargarCantidadLoteMP.php',
+									type:  'post',
+									
+									success:  function (response) {																				
+										$(celdaIng).html(response);    //ingX = celda	
+										actualizarCeldasSuficiente(filaIng);
+									}																			
+								
+								});		//Fin de ajax
+																		
+																		
+							});  //Fin de change
+							
+						}
+					});	
+		
+		
+		}); // end ready
+		
+			$(function(){
+			$('#producto').autocomplete({				
+				source: 'ajaxProducto.php',
+				select: function(event, ui){
+					
+					//alert(ui.item.idProductoElegido);					
+					var parametros = {
+						"producto" : ui.item.idProductoElegido
+					};
+					
+					$('#producto').html('<input type="hidden" value="'+ui.item.idProductoElegido+'" name="idProducto">');
+					
+					$.ajax({
+						data:  parametros,
+						url:   'cargarReceta.php',
+						type:  'post',						
+						beforeSend: function () {							
+							//$('#resultado').hide(1000);
+							$('#resultado').slideUp(1000);
+						},
+						success:  function (response) {
+							//$('#selectCantidad').val('1000');
+							$('#filaCantidad').show(2000);		
+							$('#filaEncargado').show(2000);	
+							$('#filaSubmit').show(2000);	
+							$('#filaFechaElab').show(2000);	
+							$('#filaFechaCad').show(2000);	
+							
+							$("#resultado").html('<p class="textoForm">Ingredientes requeridos para la producciÛn: </p>');
+							$("#resultado").append(response);
+														
+							var ingredientesProducto = $('#totalIngredientes').val();
+							
+							for (var counter=0; counter<=ingredientesProducto; counter++) {
+							
+								var selector1="#ingrediente";	//Campo hidden
+								selector1+=counter;
+								
+								var selector2="#ing";  //Celda ingrediente
+								selector2+=counter;	
+								
+								$.ajax({
+									async: false,    ////Evitar necesidad de alert()
+									data:  { "valor" : $(selector1).val(),   //ingredienteX = contador de Ingredientes, val = id del Ingrediente en la BD
+										 "contador": counter
+										},   
+									url:   'cargarLotesMP.php',
+									type:  'post',
+									
+									success:  function (response) {
+										$(selector2).append(response);    //ingX = celda	
+										
+										var celdaIng = "#cantidad"+counter;   //Celda donde se mostrar· la cantidad
 										
 										if($("#lotesIng"+counter).val()!=null)  //Si response devolvio un combobox, llamar a ajax										
 										{
@@ -130,21 +231,7 @@
 			});  //fin autocomplete								
 			
 		});
-		</script>
-		
-		<!--
-        	Script tareas iniciales
-		-->                
-        <script>
-		$(document).ready(function() {
-			$('#resultado').hide();
-			$('#filaCantidad').hide();
-			$('#filaEncargado').hide();	
-			$('#filaSubmit').hide();	
-			$('#filaFechaElab').hide();
-			$('#filaFechaCad').hide();
-		});
-		</script>
+		</script>			
 		
 		<!--
         	SCRIPT PARA ACTUALIZAR CANTIDADES
@@ -223,8 +310,7 @@
 		});
 		</script>
 		
-	
-<!--
+	<!--
 	SCRIPT PARA LAS FECHAS
 -->       
 <script type="text/javascript">
@@ -236,9 +322,9 @@
 			'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
 			monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 
 			'Oct','Nov','Dic'],
-      		dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi√©rcoles', 'Jueves', 'Viernes', 'S√°bado'],
-      		dayNamesShort: ['Dom','Lun','Mar','Mi√©','Juv','Vie','S√°b'],
-      		dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S√°'],
+      		dayNames: ['Domingo', 'Lunes', 'Martes', 'MiÈrcoles', 'Jueves', 'Viernes', 'S·bado'],
+      		dayNamesShort: ['Dom','Lun','Mar','MiÈ','Juv','Vie','S·b'],
+      		dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S·'],
 			dateFormat: "yy-mm-dd",
 			minDate: "-7",
 			maxDate: "+0"
@@ -251,9 +337,9 @@
 			'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
 			monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 
 			'Oct','Nov','Dic'],
-      		dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi√©rcoles', 'Jueves', 'Viernes', 'S√°bado'],
-      		dayNamesShort: ['Dom','Lun','Mar','Mi√©','Juv','Vie','S√°b'],
-      		dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S√°'],
+      		dayNames: ['Domingo', 'Lunes', 'Martes', 'MiÈrcoles', 'Jueves', 'Viernes', 'S·bado'],
+      		dayNamesShort: ['Dom','Lun','Mar','MiÈ','Juv','Vie','S·b'],
+      		dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S·'],
 			dateFormat: "yy-mm-dd",
 			minDate: "+3M",
 			maxDate: "+1y"			
@@ -286,7 +372,7 @@
 		else if ( validate == "lineaProduccion") {
 			if ( str == 0){
 				document.getElementById(target).innerHTML = "<img src='../img/error.png' />" + 
-				"*Seleccione una l√≠nea de producci√≥n";	
+				"*Seleccione una lÌnea de producciÛn";	
 			}
 			else{
 				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
@@ -303,6 +389,7 @@
 		}//elaboracion			
 	}    
 	</script>
+	
     </head>    
     <body>
     	 <?php include("header.php"); ?>
@@ -310,26 +397,16 @@
         <center>
         <div id="mainDiv">
             <nav>                
-<!--            
-                <div class="button" onclick="redirect('GestionarLineas.php');">
-                	<img src="../img/way.png"  alt="Icono" class="img-icon" />
-                    	Gesti√≥n de L√≠neas
-				</div>                
--->                
+
                 <div class="selected-button" onclick="redirect('GestionarLotes.php');">
                 	<img src="../img/note.png"  alt="Icono" class="img-icon" />
-                    	Gesti√≥n de Lotes
+                    	Gesti&oacute;n de Lotes
 				</div>            
                 <div class="button" onclick="redirect('ConsultarPedidos.php');">
                 	<img src="../img/clock.png"  alt="Icono" class="img-icon" />
-                    	Gesti√≥n de Pedidos
+                    	Gesti&oacute;n de Pedidos
 				</div>     
-<!--                                               
-                <div class="selected-button" onclick="redirect('ConsultarIngredientes.php');" style="height:30px;">
-                	<img src="../img/search.png" alt="Icono" class="img-icon" />
-                    	Registrar lote
-				</div>
--->                
+
 				<div class="button" onclick="redirect('CrearReporte.php');" style="height:30px;">
                 	<img src="../img/notepad.png"  alt="Icono" class="img-icon" />
                     	Crear Reporte
@@ -337,20 +414,29 @@
             </nav>
             <div id="all-content">				
 				<div id="content">
-                	<h2>Registrar Lote</h2>
-					<form id="formRegistrar" action="procesarLote.php" method="POST" >
+                	<h2>Modificar Lote</h2>
+					<form id="formActualizar" action="actualizarLote.php" method="POST" >
 					<table style="float: left; margin-left: 10px; width:750px" >	
 						<tr>
+							<td style="width: 150px; text-align:right;">
+								No. de Lote:
+							</td>
+							<td style="width: 150px; ">
+								<input type="text" id="noLoteVisible" name="noLoteVisible" disabled />
+								<input type="hidden" id="noLote" name="noLote"/>
+							</td>                            
+						</tr>
+						<tr>
 							<td style="width: 220px; text-align:right;">
-								Seleccionar l√≠nea de producci√≥n:
+								Seleccionar l&iacute;nea de producci&oacute;n:
 							</td>
 							<td>
 								<select name="lineaProduccion" id="lineaProduccion"
 								onblur="valida(this.value,'msgLinea','lineaProduccion');" >                                
-                                	<option value="0">Seleccionar l√≠nea. . .</option>
-									<option value="1">L√≠nea 1</option>
-									<option value="2">L√≠nea 2</option>
-									<option value="3">L√≠nea 3</option>													
+                                	<option value="0">Seleccionar l&iacute;nea. . .</option>
+									<option value="1">L&iacute;nea 1</option>
+									<option value="2">L&iacute;nea 2</option>
+									<option value="3">L&iacute;nea 3</option>													
 								</select>
 							</td>
 							<td colspan="2"><span id="msgLinea" style="font-size: 12px;"></span></td>                            
@@ -361,7 +447,8 @@
 							</td>
 							<td style="width: 400px; ">
 								<input type="text" id="producto" name="producto" size="30"
-                                onblur="valida(this.value,'msgProducto','producto');" />												
+                                onblur="valida(this.value,'msgProducto','producto');" disabled />	
+								<input type="hidden" name="idProducto" id="idProducto">
 							</td>
 							<td><span id="msgProducto"></span></td>                             
                             <td>
@@ -398,12 +485,13 @@
 							<td style="width: 150px; ">
 								<input type="text" id="encargado" name="encargado" size="30"
                                 onblur="valida(this.value,'msgEncargado','encargado');" />
+								<input type="hidden" id="curpEmpleado" name="curpEmpleado">
 							</td>
                             <td colspan="2"><span id="msgEncargado" style="font-size: 12px;"></span></td>
 						</tr>
 						<tr id="filaFechaElab">
                             <td  style="width: 150px; text-align:right;">
-                            	Seleccionar la Fecha de Elaboraci√≥n:</td>
+                            	Seleccionar la Fecha de Elaboraci&oacute;n:</td>
                             <td>
                                 <input type="text" class="datePicker entrada" id="fechaElab" name="fechaElab" size="30"
                                 onblur="valida(this.value,'msgElaboracion','elaboracion');" />
@@ -424,7 +512,7 @@
                             <td>
                             </td>                        
 							<td>
-								<input type="submit" value="Registrar Lote" class="form-button" style="background-color: rgb(255, 222, 0);"/>
+								<input type="submit" value="Modificar lote" class="form-button" style="background-color: rgb(255, 222, 0);"/>
                             	<a href="GestionarLotes.php" class="form-button" style="text-decoration:none">
                         			Cancelar
 								</a>                                
@@ -437,12 +525,51 @@
         </div><!--maindiv-->
         </center>
         <footer>Elaborado por nosotros(C) 2013</footer>
-    </body>   
+    </body>
 </html>
-<?php include("scripts.php"); ?>
 
-<script>
-	function ayudaAutocompletado(){
-		alert("Este campo cuenta con autocompletado, \nsolo debes ingresar uno o m√°s caracteres y el sistema har√° el resto.");
+<?php include("scripts.php"); ?>
+<?php
+	/*
+		Verifica si es la opcion de modificar un lote, si lo es, 
+		agrega los scripts y carga los datos correspondientes
+	*/
+	include("clases/Lote.class.php");	
+	include("../php/DataConnection.class.php");		
+	$db = new DataConnection();		
+	
+	if ( isset($_GET["nolote"]) ){
+		$noLote = $_GET["nolote"];
+		//$encontrado = Lote::findById($lote);		
+		$query = "select l.idLote, l.noLinea, e.Nombre, p.Nombre, l.cantidadProducto, l.fecha_elaboracion, l.fecha_caducidad, p.idProducto, e.CURP
+			  from lote l, producto p, empleado e
+			  where l.idProducto=p.idProducto
+			  and l.curpEmpleado=e.CURP and l.idLote='$noLote'";			  
+	
+		$result = $db->executeQuery($query);	
+
+		if (!$result) 
+			die ("Database access failed: " . mysql_error());
+		
+		$row = mysql_fetch_row($result);
+		
+		echo'<script>
+				document.getElementById("noLote").value="'.$row[0].'";
+				document.getElementById("noLoteVisible").value="'.$row[0].'";
+				document.getElementById("lineaProduccion").value="'.$row[1].'";
+				document.getElementById("encargado").value="'.$row[2].'";
+				document.getElementById("producto").value="'.$row[3].'";
+				document.getElementById("selectCantidad").value="'.$row[4].'";
+				document.getElementById("fechaElab").value="'.$row[5].'";
+				document.getElementById("fechaCad").value="'.$row[6].'";
+				document.getElementById("idProducto").value="'.$row[7].'";
+				document.getElementById("curpEmpleado").value="'.$row[8].'";
+		 	</script>';
+		
 	}
-</script>
+	else
+		echo'<script>
+				alert("Acceso incorrecto. IntÈntelo nuevamente");
+				window.location="GestionarLotes.php";
+		 	</script>';
+?>

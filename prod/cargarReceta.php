@@ -1,3 +1,4 @@
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <?php
 	
 	include("../php/DataConnection.class.php");		
@@ -45,7 +46,7 @@
 		$row = mysql_fetch_row($result);
 		//echo '<p>' . $row[0] . '</p>';
 		echo '<tr class="tr-cont">';
-		echo '<td style="width: 180px;" >'. $row[0].'</td>';
+		echo '<td style="width: 180px;" >'. utf8_encode($row[0]).'</td>';
 		
 		echo '<td style="text-align: center;" id="cantReq'.$j.'"><p>'. $row[2].' '.$row[3].'</p>';
 		echo '<input type="hidden" id="cantReqBase'. $j.'" value="'. $row[2].'"/>';

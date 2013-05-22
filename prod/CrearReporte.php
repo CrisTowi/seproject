@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>Modulo de Producción</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <title>Modulo de Producci&oacute;n</title>
         <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
         <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
         <script src="../js/jquery-1.9.1.js"></script>
@@ -24,9 +24,9 @@
 				'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
 				monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 
 				'Oct','Nov','Dic'],
-				dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-				dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
-				dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+				dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi�rcoles', 'Jueves', 'Viernes', 'S�bado'],
+				dayNamesShort: ['Dom','Lun','Mar','Mi�','Juv','Vie','S�b'],
+				dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S�'],
 				defaultDate: "+1w",
 				changeMonth: true,
 				changeYear: true,
@@ -48,41 +48,7 @@
 		
 	});
 	</script>
-    <!--
-    	SCRIPT PARA VALIDAR
-    -->
-	<script>
-	function valida( str, target, validate ){
-		if ( validate == "criteriosLotes" ){
-			if ( str == 0 ){
-				document.getElementById(target).innerHTML = "<img src='../img/error.png' />" + 
-				"Debes elegir un filtro.";	
-			}
-			else{
-				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
-			}
-		}//criteriosLotes
-		else if(validate == 'fechaInicio'){
-			if(str == ''){
-				document.getElementById(target).innerHTML = "<img src='../img/error.png' />" + 
-				"La fecha de inicio no puede estar vacia!";					
-			}
-			else{
-				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
-			}
-		}//fechaInicio
-		else if(validate == 'fechaFin'){
-			if(str == ''){
-				document.getElementById(target).innerHTML = "<img src='../img/error.png' />" + 
-				"La fecha final no puede estar vacia!";					
-			}
-			else{
-				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
-			}
-		}//fechafin	
-	}
-	</script>     			        		
-        			        
+     
     </head>    
     <body>
     	 <?php include("header.php"); ?>
@@ -90,33 +56,21 @@
         <center>
         <div id="mainDiv">
             <nav>
-<!--            
-                <div class="button" onclick="redirect('GestionarLineas.php');">
-                	<img src="../img/way.png"  alt="Icono" class="img-icon" />
-                    	Gestión de Líneas
-				</div>                
--->                
                 <div class="button" onclick="redirect('GestionarLotes.php');">
                 	<img src="../img/note.png"  alt="Icono" class="img-icon" />
-                    	Gestión de Lotes
+                    	Gesti&oacute;n de Lotes
 				</div>      
                 <div class="button" onclick="redirect('ConsultarPedidos.php');">
                 	<img src="../img/clock.png"  alt="Icono" class="img-icon"/>
-                    	Gestión de Pedidos
+                    	Gesti&oacute;n de Pedidos
 				</div>                                                                   			          
-<!--                
-                <div class="button" onclick="redirect('ConsultarIngredientes.php');">
-                	<img src="../img/search.png" alt="Icono" class="img-icon" />
-                    	Consultar Disponibilidad de Ingredientes
-				</div>
--->                
                 <div class="selected-button" onclick="redirect('CrearReporte.php');" style="height:30px;">
                 	<img src="../img/notepad.png"  alt="Icono" class="img-icon" />
                     	Crear Reporte
 				</div>
             </nav>
             <div id="all-content">
-                <h2 id="titulo">Creación de Reportes de Producción</h2>
+                <h2 id="titulo">Creaci&oacute;n de Reportes de Producci&oacute;n</h2>
 				<form id="formReporte" action="procesarReporte.php" method ="POST" onSubmit="return validar();">
 					<div id="content">
                     	<div class="box">
@@ -147,8 +101,8 @@
                     					<select name="ordenamientoLotes" id="criteriosLotes" class="entrada" 
                                         onblur="valida(this.value, 'msgFiltro', 'criteriosLotes');">
                                         	<option value="0">Seleccionar criterio</option>                    	
-                    						<option value="fecha_elaboracion">Fecha de Producción</option>                    	
-                    						<option value="linea">Línea de Producción</option>
+                    						<option value="fecha_elaboracion">Fecha de Producci&oacute;n</option>                    	
+                    						<option value="linea">L&iacute;nea de Producci&oacute;n</option>
 											<option value="Nombre">Producto</option>                        
                         				</select>
                                     </td>
@@ -169,30 +123,59 @@
 
         </div><!--main-->
         </center>
-        <!--<footer>Elaborado por nosotros(C) 2013</footer>-->
-        <?php include("../php/footer.php"); ?>
+        <footer>Elaborado por nosotros(C) 2013</footer>
     </body>   
 </html>
 <?php include("scripts.php"); ?>
 <script>
-	function validar(){
-		var inicio = document.getElementById('fechaInicio').value;
-		var fin = document.getElementById('fechaFin').value;
-		var criterio = document.getElementById('criteriosLotes').value;
-		if(inicio == ''){
-			alert("La fecha de inicio es un campo obligatorio.");
-			return false;
-		}
-		else if(fin == ''){
-			alert("La fecha de fin es un campo obligatorio.");
-			return false;			
-		}
-		else if(criterio == '0'){
-			alert("El criterio de ordenamiento es un campo obligatorio.");
-			return false;				
-		}
-		else{
-			return true;
-		}
+
+function validar(){
+	var inicio = document.getElementById('fechaInicio').value;
+	var fin = document.getElementById('fechaFin').value;
+	var criterio = document.getElementById('criteriosLotes').value;
+	if(inicio == ''){
+		alert("La fecha de inicio es un campo obligatorio.");
+		return false;
 	}
+	else if(fin == ''){
+		alert("La fecha de fin es un campo obligatorio.");
+		return false;
+	}
+	else if(criterio == '0'){
+		alert("El criterio de ordenamiento es un campo obligatorio.");
+		return false;
+	}
+	else{
+		return true;
+	}
+}
 </script>
+	<script>
+	function valida( str, target, validate ){
+		if ( validate == "criteriosLotes" ){
+			if ( str == 0 ){
+				document.getElementById(target).innerHTML = "<img src='../img/error.png' />" + 
+				"Debes elegir un filtro.";	
+			}
+			else{
+				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
+			}
+		}//criteriosLotes
+		else if(validate == 'fechaInicio'){
+			if(str == ''){
+				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
+			}
+			else{
+				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
+			}
+		}//fechaInicio
+		else if(validate == 'fechaFin'){
+			if(str == ''){
+				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
+			}
+			else{
+				document.getElementById(target).innerHTML = "<img src='../img/ok.png' />";
+			}
+		}//fechafin	
+	}
+	</script>   

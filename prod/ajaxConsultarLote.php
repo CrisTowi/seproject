@@ -1,6 +1,6 @@
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>		
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <title>Modulo de Producción</title>
         <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
 		<link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
@@ -58,10 +58,11 @@
 		  
 	echo '<strong style="font-family: \'PT Sans\'; font-size: 13px;">Lotes de Materia Prima utilizados</strong>';
 	
-	$query = "select u.idLoteProduccion, m.nombre, u.idLoteMP, u.cantidadUsada, m.Unidad
-			  from uso_mp u, materiaprima m, inventario_mp i
+	$query = "select u.idLoteProduccion, m.nombre, u.idLoteMP, u.cantidadUsada, m.Unidad, p.Nombre
+			  from uso_mp u, materiaprima m, inventario_mp i, proveedor p
 			  where u.idLoteMP=i.idLote
 			  and i.idMateriaPrima=m.idMateriaPrima
+			  and i.RFC=p.RFC
 			  and idLoteProduccion='$noLote'";			  
 	
 	$result = $db->executeQuery($query);	
@@ -76,15 +77,17 @@
 				<td>Ingrediente</td>
 				<td>Lote de MP utilizado</td>
 				<td>Cantidad</td>
+				<td>Proveedor</td>
 			</tr>';
 
 	for ($j = 0 ; $j < $rows ; ++$j)
 	{
 		$row = mysql_fetch_row($result);
 		echo '<tr class="tr-cont">
-				<td>'.$row[1].'</td>
+				<td>'.utf8_encode($row[1]).'</td>
 				<td>'.$row[2].'</td>
 				<td>'.$row[3].' '.$row[4].'</td>
+				<td>'.$row[5].'</td>
 			</tr>';
 	}
 	
