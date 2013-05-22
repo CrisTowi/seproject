@@ -43,9 +43,9 @@ include("../php/DataConnection.class.php");
 				$result = $db-> executeQuery($qry);
 
 				$pdf->SetFont('Arial','b',11);
-					$pdf->Cell(70,5,'Nombre',1,0,'L',0);
+					$pdf->Cell(50,5,'Nombre',1,0,'L',0);
 					$pdf->Cell(40,5,'Precio',1,0,'L',0);
-					$pdf->Cell(30,5,'Clave',1,0,'L',0);
+					$pdf->Cell(20,5,'Clave',1,0,'L',0);
 					
 					$pdf->SetFont('Arial','',11);
 
@@ -56,12 +56,9 @@ include("../php/DataConnection.class.php");
 
 				for($j=0; $j < $rows; ++$j){
 					$row = mysql_fetch_row($result);
-					$query2 = "Select Nombre from producto where idProducto='".$row[0]."'";
-							$result2=$db->executeQuery($query2);	
-							$nombrep=mysql_fetch_row($result2);
-							$pdf->Cell(70,5,$nombrep[0],1,1,'L',0);	
-							$pdf->Cell(40,5,$row[1],1,1,'L',0);
-							$pdf->Cell(30,5,$row[2],1,1,'L',0);
+							$pdf->Cell(50,5,$row[1],1,1,'L',0);	
+							$pdf->Cell(40,5,$row[2],1,1,'L',0);
+							$pdf->Cell(20,5,$row[3],1,1,'L',0);
 				}
 					
 			}
@@ -90,7 +87,7 @@ include("../php/DataConnection.class.php");
 							$query2 = "Select Nombre from materiaprima where idMateriaPrima='".$row[0]."'";
 							$result2=$db->executeQuery($query2);	
 							$nombreM=mysql_fetch_row($result2);	
-							$pdf->Cell(75,5,$nombreM[0],1,1,'L',0);
+							$pdf->Cell(50,5,$nombreM[0],1,1,'L',0);
 							$pdf->Cell(40,5,$row[2],1,1,'L',0);
 							$pdf->Cell(40,5,$row[3],1,1,'L',0);
 				}
