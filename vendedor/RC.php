@@ -127,11 +127,7 @@
 			alert ("Error desconocido D:");
 		}
 	}
-	
-	/*function showCURPHelp(){
-		alert("Fomato del CURP:\nPosición 1-4: La letra inicial y la primera vocal interna del primer apellido, la letra inicial del segundo apellido y la primera letra del nombre.\nPosición 5-10: La fecha de nacimiento en el orden año, mes y día. Para el año se tomarán los últimos dos digitos, cuando el día sea menor a diez, se antepondrá un cero.\nPosición 11: Sexo M para mujer o H para hombre.\nPosición 12-13: La letra inicial y ultima consonante del nombre de estado de nacimiento.\nPosición 14-16: Integradas por las primeras consonantes internas del primer apellido, segundo apellido y nombre.\nPosición 17: Diferenciador de homonimia. 1-9 para fechas de nacimiento hasta 1999, A-Z para fechas de nacimiento a partir de 2000.\nPosición 18: Digito verificador asignado por la Secretaría de Gobernación.");
-	}*/
-	
+
 	function valida( str, target, validate ){
 		if ( validate == "nombre" ){
 			str = str.trim();
