@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>Crear Reporte de Producción</title>
         <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
         <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
@@ -86,11 +86,13 @@
 			$pdf->SetFont('Arial','bi',14);
 			$pdf->Cell(40,10,'',0,1); //Linea vacia
 			$pdf->Cell(80,6,'Cookies & System S.A. De C.V.',0,1,'L');
-			$pdf->Cell(80,6,'México, D.F.',0,1,'L');
+			$aux1 = "México, D.F.";
+			$pdf->Cell(80,6, utf8_encode($aux1) ,0,1,'L');
 			$pdf->Cell(80,6,$fechaActual,0,1,'L');
 			$pdf->Cell(40,10,'',0,1); //Linea vacia
 			$pdf->SetFont('Arial','b',14);
-			$pdf->Cell(80,6,'Reporte de Producción',0,1,'L');
+			$aux2 = "Reporte de Producción";
+			$pdf->Cell(80,6, utf8_encode($aux2) ,0,1,'L');
 			$pdf->SetFont('Arial','',13);
 			$pdf->Cell(40,4,'',0,1); //Linea vacia
 			$pdf->Cell(120,6,'Periodo:    De    '.$fechaInicio.'    A    '.$fechaFin,0,1,'L');
@@ -101,7 +103,8 @@
 			$pdf->Cell(18,5,'No. Lote',1,0,'L',0);
 			$pdf->Cell(60,5,'Producto',1,0,'L',0);
 			$pdf->Cell(15,5,'Cant.',1,0,'L',0);
-			$pdf->Cell(15,5,'Línea',1,0,'L',0);
+			$aux3 = "Línea";
+			$pdf->Cell(15,5, utf8_encode($aux3) ,1,0,'L',0);
 			$pdf->Cell(35,5,'Encargado',1,0,'L',0);						
 			$pdf->Cell(25,5,'Fecha Elab.',1,0,'L',0);			
 			$pdf->Cell(25,5,'Fecha Cad.',1,1,'L',0);
