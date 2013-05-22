@@ -160,7 +160,11 @@
 		}
 		else if ( returnedValue == "INPUT_PROBLEM"){
 			alert("Datos con formato inválido");
-		} else {
+		} 
+		else if ( returnedValue == "INPUT_DESB"){
+			alert("Lo siento las unidades no son suficientes");
+		}
+		else {
 			//alert (returnedValue);
 		}
 	}

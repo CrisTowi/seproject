@@ -54,11 +54,15 @@ if ( !defined("__VENTA__") ){
 			return false;
 		}
 		
-		public static function Modificar($Fentrega){
+		public static function Modificar($Fentrega,$Folio){
 		    $db = new DataConnection();
-			$qry = "UPDATE Venta SET Fentrega='".$Fentrega."'";
+			
+			$qry = "UPDATE Venta SET Fentrega='".$Fentrega."' where Folio=".$Folio;
 			if($result = $db->executeQuery($qry))
-				{return true;}
+				{
+				$res= $db->executeQuery("Update articuloventa  set Estado='En Espera' where Folio=".$Folio);
+				return true;
+				}
 			return false;
 		}
 			

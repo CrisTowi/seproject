@@ -22,10 +22,13 @@
             <!--<div id="mainDiv">
 			<!-- Divisor del contenido de la pagina -->
            <div id="all-content">
+           	<br/>
+           	    <div id="ti" class="titulo">GESTIÓN DE CLIENTES</div>
 				<div class="box">
 				<div id="AC" class="form-button" onClick="window.location ='RC.php'">Registar Cliente</div>
 			        <input type="text" id="buscar" name="buscar" placeholder = "Buscar Cliente(RFC,Nombre)" class="searchBar" onChange="onClickBusqueda();" style="width:250px;"/>
 				</div>
+				
 				<div id="tablaCliente"><?php include("TablaClientes.php"); ?></div>
          </div>  
          </div>

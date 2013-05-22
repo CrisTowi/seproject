@@ -486,14 +486,14 @@
 							</td>
 						</tr>
                         <?
-							/*
 							if(isset($_GET["nolote"])){
 								$lote = $_GET["nolote"];
-								*/
+								echo "PRUEBA";
 						?>
+                        	
                         	<!--<input type="hidden" name="nolote" id="nolote" value="<? //echo $lote; ?>" />-->
                         <?
-							//}
+							}
 						?>
 					</table>
 					</form>
@@ -526,10 +526,8 @@
 	include("../php/DataConnection.class.php");		
 	function obtenerProducto($producto){
 		$db = new DataConnection();
-		$qry = "SELECT *
-				FROM producto
-				WHERE idProducto = $producto;";
-		$res = $db->executeQuery($qry);
+		$qry = "SELECT * FROM producto 	WHERE idProducto = $producto;";
+		//$res = $db->executeQuery($qry);
 		if(mysql_num_rows($res) < 1){
 			return "Producto Inexistente";
 		}

@@ -24,7 +24,7 @@
             <div id="all-content" >
 				<br/>
                 <div id="ti" class="titulo">MODIFICAR VENTA</div>
-                 <div id="tip" class="texto1">Todos los campos son obligatorios.</div>
+                 <div id="tip" class="texto1"></div>
         	    <div style="display: block">
                 <table id="Tablap">
                 	<tbody>
@@ -77,6 +77,7 @@
 		$cliente=Venta::NombreClie($encontrado->getCliente());
 ?>
 
+
 <script type="text/javascript">
         var eliminar = new Array();
         var i=0;
@@ -86,12 +87,12 @@
 			rePaint();
 		}
 		function cancelarArticulo(idlote)
-		{ 	
+		{ 	if ( confirm("¿Seguro que desea cancelar de la venta articulo con lote " + idlote +"?") ){
 			eliminar[i]=idlote;
 			var el=document.getElementById(idlote);
 			var padre = el.parentNode;
 			padre.removeChild(el);
-			i+=1;
+			i+=1;}
 		}	
 		document.getElementById('Folios').innerHTML = "<?php echo $encontrado->getFolio(); ?>";
 		document.getElementById('cliente').innerHTML = "<?php echo $cliente; ?>";

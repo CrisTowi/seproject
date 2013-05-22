@@ -24,7 +24,7 @@
 		$filtro = Validations::cleanString($_GET["search"]); // Limpia la entrada
 		$qry.= " WHERE Folio LIKE '%".$filtro."%' OR RFC LIKE '%".$filtro."%'";
 	}
-	$ry= $qry." ORDER BY Folio LIMIT $RegistrosAEmpezar, $RegistrosAMostrar";
+	$ry= $qry." ORDER BY Folio DESC LIMIT $RegistrosAEmpezar, $RegistrosAMostrar";
 	
 	// A�ade parametros de b�squeda
 	$result = $db->executeQuery($ry);	
