@@ -24,8 +24,8 @@
 			echo "INPUT_PROBLEM";
 			return;
 		}
-			if( stripos($_GET['Articulo'.$i],'Pedido') == FALSE)
-							{
+			if(!(stripos($_GET['Articulo'.$i],'Pedido')!== FALSE))
+			{
 			$canto=(int)Validations::cleanString($_GET['cantidad'.$i]);
 			$qry="Select cantidadProducto from lote where idlote='".$_GET['Articulo'.$i]."'";
 			$result=$db->executeQuery($qry);
@@ -36,7 +36,6 @@
 				echo "INPUT_DESB";
 				return;
 			}}
-			
 	}
 	
 	$accept=venta::Agregar($Cliente);

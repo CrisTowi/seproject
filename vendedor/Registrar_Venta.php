@@ -29,8 +29,8 @@
                 <input id="idVenta" name="idVenta" type="hidden"/>
                 <table id="Tablap">
 					<tr>
-						<td></td>
-						<td colspan="4"><!-- <?php include("GenrFolio.php"); ?>--></td>
+						
+						<td colspan="5"></td>
 						<td class="texto">Fecha</td>
 						<td><script type="text/javascript">
 						var date = new Date();
@@ -42,17 +42,16 @@
 						var year = (yy < 1000) ? yy + 1900 : yy;
 						document.write(day + "/" + month+ "/" + year);
 						</script></td>
+						<td cospan="3"></td>
 					</tr>
 					<tr>
 						<td class="texto">Cliente:</td>
 						<td> <?php include("SelectClie.php"); ?></td>
-						<td colspan="5"></td>
+						<td colspan="8"></td>
 					</tr>
-					<!--<tr>
-						<td colspan='4'><div id="BotonVenta" class="form-button"   onClick="agregarVenta()">Abrir Venta</div></td>
-					</tr>-->
 					<tr>
-						<td class="texto" colspan='7'>Articulos</td>
+						<td class="texto">Articulos</td>
+						<td colspan="9"><hr size="5"/></td>
 					</tr>
 					<tr>
 						<td class="texto">Producto:</td>
@@ -61,7 +60,8 @@
 						<td id="exi"></td>
 						<td class="texto">Lotes:</td>
 						<td><select id='cant' disabled></select></td>
-						<td><img src="../img/busc.png" class="img-buscar"  alt="Buscar" onClick="ex();"/></td>						
+						<td><img src="../img/busc.png" class="img-buscar"  alt="Buscar" onClick="ex();"/></td>
+						<td colspan="3"></td>						
 					</tr>
 					<tr>
 						<td id="exss" class="texto"></td>
@@ -71,6 +71,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
+						<td colspan="3"></td>
 					</tr>
 				</table> 
 				<div id="Articulotab" class="box">

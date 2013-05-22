@@ -108,7 +108,7 @@ function AddArt()
 			divIMG.setAttribute( "onclick","quitarIngrediente('Pedido"+actual+"');");	
 			}
 			else
-			{divIMG.setAttribute( "onclick","quitarIngrediente("+selector.value+");");}
+			{divIMG.setAttribute( "onclick","quitarIngrediente('"+selector.value+"');");}
 			
 			celda3.className='opc';
 			celda3.appendChild(divIMG);	
