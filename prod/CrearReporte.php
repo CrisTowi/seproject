@@ -117,7 +117,7 @@
             </nav>
             <div id="all-content">
                 <h2 id="titulo">Creación de Reportes de Producción</h2>
-				<form id="formReporte" action="procesarReporte.php" method ="POST">
+				<form id="formReporte" action="procesarReporte.php" method ="POST" onSubmit="return validar();">
 					<div id="content">
                     	<div class="box">
 							<table>	
@@ -169,7 +169,30 @@
 
         </div><!--main-->
         </center>
-        <footer>Elaborado por nosotros(C) 2013</footer>
+        <!--<footer>Elaborado por nosotros(C) 2013</footer>-->
+        <?php include("../php/footer.php"); ?>
     </body>   
 </html>
 <?php include("scripts.php"); ?>
+<script>
+	function validar(){
+		var inicio = document.getElementById('fechaInicio').value;
+		var fin = document.getElementById('fechaFin').value;
+		var criterio = document.getElementById('criteriosLotes').value;
+		if(inicio == ''){
+			alert("La fecha de inicio es un campo obligatorio.");
+			return false;
+		}
+		else if(fin == ''){
+			alert("La fecha de fin es un campo obligatorio.");
+			return false;			
+		}
+		else if(criterio == '0'){
+			alert("El criterio de ordenamiento es un campo obligatorio.");
+			return false;				
+		}
+		else{
+			return true;
+		}
+	}
+</script>
