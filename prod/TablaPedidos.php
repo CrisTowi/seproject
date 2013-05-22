@@ -31,9 +31,14 @@
 			FROM articuloventa a, producto p, lote l
 			WHERE a.Estado != 'Cancelado' AND a.idLote = l.idLote AND l.idProducto = p.idProducto";
 */
+	/*
 	$qry = "SELECT a.folio, p.Nombre, a.cantidad, a.estado
 			FROM articuloventa a, producto p
 			WHERE a.estado = 'pendiente' and a.idProducto = p.idProducto";			
+	*/
+	$qry = "SELECT * 
+		FROM articuloventa a
+		WHERE a.estado = 'pendiente';";
 	// Añade parametros de búsqueda
 	if ( isset($_GET["search"] ) ){ 
 		$filtro = Validations::cleanString($_GET["search"]); // Limpia la entrada
