@@ -105,10 +105,10 @@
 	$bandera = $row[0];
 	
 	if($bandera > 0){
-		echo '<script>
-				alert("La línea de producción '.$noLinea.' ya tiene un lote registrado en la fecha seleccionada.");
+		echo "<script>
+				alert('La línea de producción $noLinea ya tiene un lote registrado en la fecha seleccionada.');
 				window.history.back();
-		 	</script>';
+		 	</script>";
 	}
 	else{
 		$query = "SELECT clave 
