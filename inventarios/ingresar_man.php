@@ -162,7 +162,7 @@ function loadTable()
 }
 
     function agregarMA(){
-
+		
         parametros = "idm=" + document.getElementById('selectProductos').value + "&";
         parametros+= "idp=" + document.getElementById('proveedor').value + "&";
         parametros+= "cantidad=" + document.getElementById('cantidad').value + "&";
@@ -175,7 +175,6 @@ function loadTable()
         }
 
         parametros+= "&fecha_c=" + document.getElementById('to').value;
-
         parametros = parametros.replace("#","%23");
 
         sendPetitionQuery("AgregarMA.php?" + encodeURI(parametros));
@@ -193,7 +192,7 @@ function loadTable()
         else if ( returnedValue == "INPUT_PROBLEM"){
             alert("Datos con formato inválido");
         } else {
-            alert("Error desconocido");
+            alert("Error desconocido" + returnedValue);
         }
     }
     

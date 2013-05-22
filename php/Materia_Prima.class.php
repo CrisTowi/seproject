@@ -60,9 +60,9 @@ if ( !defined("__MATERIA__") ){
 		{
 			$connection = new DataConnection();
 
-			$idlote = $idMateria.substr($idProveedor, 0, 4).$cantidad;
+			$idlote = $idMateria.substr($idProveedor, 0, 2).$cantidad;
 			$qry = "INSERT into inventario_mp(idLote,idMateriaPrima,RFC,Cantidad,Fecha_Llegada,Fecha_Caducidad) VALUES('".$idlote."',".$idMateria.",'".$idProveedor."',".$cantidad.", '".$fecha_l."', '".$fecha_c."');";
-
+			//echo $qry;
 			if($result = $connection->executeQuery($qry))
 				return true;
 			return false;
@@ -86,7 +86,7 @@ if ( !defined("__MATERIA__") ){
 				$result = $connection->executeQuery($qry);	
 			}
 
-			$idlote = $idMateria.substr($idProveedor, 0, 4).$idc;
+			$idlote = $idMateria.substr($idProveedor, 0, 2).$idc;
 			$qry = "INSERT into inventario_mp(idLote,idMateriaPrima,RFC,Cantidad,Fecha_Llegada,Fecha_Caducidad) VALUES('".$idlote."',".$idMateria.",'".$idProveedor."',".$cantidad.", '".$fecha_l."', '".$fecha_c."');";
 			if($result = $connection->executeQuery($qry))
 			{
