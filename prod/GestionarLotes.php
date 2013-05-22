@@ -2,10 +2,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>		
         <title>Modulo de Producción</title>
         <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
         <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
+		<script src="../js/jquery-1.9.1.js"></script>		
+		<link rel="stylesheet" type="text/css" href="datepickers/zebra_dialog.css">
+		<script src="datepickers/zebra_dialog.js"></script>
     </head>    
     <body>
     	 <?php include("header.php"); ?>
@@ -88,7 +91,7 @@
 	
 	/*Redirige a la pagina de modificar empleado*/
 	function modificarLote(nolote){
-		redirect("AgregarLote.php?nolote=" + nolote);
+		redirect("RegistrarLote.php?nolote=" + nolote);
 	}
 
 	/*Carga la tabla de empleado de acuerdo al filtro de busqueda*/
@@ -99,13 +102,29 @@
 	}	
 	
 	function detalleLote(nolote, producto, cantidad, linea, encargado, elaboracion, caducidad){
-		alert("DESCRIPCIÓN DEL LOTE\n\n" + 
+			
+			var parametros = {
+				"noLote" : nolote
+			};
+			
+			new $.Zebra_Dialog('', {   // El primer argumento es código html extra que se quiera agregar
+			'source':  {'ajax': {
+			'url': 'ajaxConsultarLote.php',
+			'data': parametros,
+			'type': 'post'
+			}},
+			width: 500,
+			position: ['center', 'top + 20'],
+			max_height: 400,
+			'title': 'Detalles del Lote'
+		});
+		/*alert("DESCRIPCIÓN DEL LOTE\n\n" + 
 		"Numero de lote:\t\t\t\t\t\t\t" + "LOTE No. " + nolote + 
 		"\nProducto Asociado:\t\t\t\t\t\t" + producto + 
 		"\nCantidad de Producto:\t\t\t\t\t" + cantidad + " Unidades" +
 		"\nLínea de Producción:\t\t\t\t\t\t" + "Línea " + linea + 
 		"\nEncargado de Producción:\t\t\t\t" + encargado + 
 		"\nFecha de Elaboración [AAAA/MM/DD]:\t\t" + elaboracion +
-		"\nFecha de Caducidad[AAAA/MM/DD]:\t\t" + caducidad);
+		"\nFecha de Caducidad[AAAA/MM/DD]:\t\t" + caducidad);*/
 	}	
 </script>

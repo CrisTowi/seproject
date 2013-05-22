@@ -135,8 +135,8 @@
 	}		
 	
 	/*modificar la producción*/
-	function enviarProduccion(folio){
-		redirect("AsignarLinea.php?folio=" + folio);
+	function enviarProduccion(folio, producto, cantidad){
+		redirect("RegistrarLote.php?folio=" + folio + "&producto=" + producto + "&cantidad=" + cantidad);
 		//alert("Se enviara a producción");
 	}
 	

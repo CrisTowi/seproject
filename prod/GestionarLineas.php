@@ -94,7 +94,7 @@
 		}
 	}		
 	/*modificar la producción*/
-	function modificarProduccion(numprod){
-		redirect("AsignarLinea.php?numprod=" + numprod);
+	function enviarProduccion(numprod){
+		redirect("RegistrarLote.php?numprod=" + numprod);
 	}
 </script>

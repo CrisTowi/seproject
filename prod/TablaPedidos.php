@@ -4,8 +4,8 @@
 <table id='table-content'>
 	<tr class='tr-header'>
 		<td>Folio del Pedido</td>   
-		<td>Identificador de Lote</td>                
-		<td>Producto Asociado</td>   
+		<td>Producto Asociado</td>  
+        <td>Cantidad Requerida</td> 
 		<td>Estado</td>
 		<td colspan="2">Opciones</td>
 	</tr>
@@ -26,13 +26,18 @@
 	FROM articuloventa a, venta v, lote l, producto cp 
 	WHERE a.folio = v.folio AND v.estado != 'cancelada' AND a.idLote = l.idLote AND l.idProducto = cp.idProducto ";
 */
+/*	
 	$qry = "SELECT a.folio, a.idLote, p.Nombre, a.Estado
 			FROM articuloventa a, producto p, lote l
 			WHERE a.Estado != 'Cancelado' AND a.idLote = l.idLote AND l.idProducto = p.idProducto";
+*/
+	$qry = "SELECT a.folio, p.Nombre, a.cantidad, a.estado
+			FROM articuloventa a, producto p
+			WHERE a.estado = 'pendiente' and a.idProducto = p.idProducto";			
 	// Añade parametros de búsqueda
 	if ( isset($_GET["search"] ) ){ 
 		$filtro = Validations::cleanString($_GET["search"]); // Limpia la entrada
-		$qry .= " AND v.folio LIKE '%".$filtro."%'";
+		$qry .= " AND a.folio LIKE '%".$filtro."%'";
 	}	
 	
 	$result = $db->executeQuery($qry);	
@@ -44,9 +49,9 @@
 	}else{
 		while($fila = mysql_fetch_array($result)){		
 			$folio = $fila["folio"];
-			$idlote = $fila['idLote'];	
-			$prod = utf8_encode($fila['Nombre']);				
-			$edo = $fila['Estado'];
+			$prod = $fila['Nombre'];	
+			$cant = utf8_encode($fila['cantidad']);				
+			$edo = $fila['estado'];
 		
 /*			
 			if($edo == "NULL"){
@@ -58,25 +63,26 @@
 */			
 			echo ("<tr class='tr-cont' id='".$folio."' name='".$folio."'>
 				<td>VE-".$folio."</td>
-				<td>LO-".$idlote."</td>
-				<td>".$prod."</td>												
+				<td>".$prod."</td>
+				<td>".$cant."</td>												
 				<td>".$edo."</td>");
 			//if($edo != "produccion"){
 				echo ("<td>
 					<img src='../img/notepad.png' 
-					onclick='enviarProduccion(\"".$folio."\")' alt='Producir' class='clickable'/></td>");
+					onclick='enviarProduccion(\"".$folio."\",\"".$prod."\",\"".$cant."\")' 
+					alt='Producir' class='clickable'/></td>");
 			//}
-			$milote = Lote::findById($idlote);
-			echo ("<td>
+			//$milote = Lote::findById($idlote);
+/*			echo ("<td>
 					<img src='../img/search.png'
 					onclick='detalleLote(\"".$idlote."\", 
-					\"".getCookieById($milote->getProducto())."\", 
+					\"".$milote->getProducto()."\", 
 					\"".$milote->getCantidad()."\",
 					\"".$milote->getElaboracion()."\",
 					\"".$milote->getCaducidad()."\")' 
 					alt'Detalle de Lote' class='clickable' />
 				</td>
-			</tr>");				
+			</tr>");				*/
 		}		
 	}
 /*	

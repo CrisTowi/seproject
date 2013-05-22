@@ -393,7 +393,7 @@
             <div id="all-content">				
 				<div id="content">
                 	<h2>Registrar Lote</h2>
-					<form id="formRegistrar" action="procesarLote.php" method="POST" >
+					<form id="formRegistrar" action="procesarLote.php" method="POST" onSubmit="return validar();">
 					<table style="float: left; margin-left: 10px; width:750px" >	
 						<tr>
 							<td style="width: 220px; text-align:right;">
@@ -485,6 +485,14 @@
 								</a>                                
 							</td>
 						</tr>
+                        <?
+							if(isset($_GET["nolote"])){
+								$lote = $_GET["nolote"];
+						?>
+                        	<input type="hidden" name="nolote" id="nolote" value="<? echo $lote; ?>" />
+                        <?
+							}
+						?>
 					</table>
 					</form>
                 </div><!--content-->
@@ -495,9 +503,120 @@
     </body>   
 </html>
 <?php include("scripts.php"); ?>
+<?
+	if(isset($_GET["folio"])){
+		$producto = $_GET["producto"];
+		$cantidad = $_GET["cantidad"];
+?>
+		<script>
+			document.getElementById('producto').value = "<? echo $producto; ?>";
+			document.getElementById('selectCantidad').value = "<? echo $cantidad; ?>";
+        </script>
+<?
+	}//issetfolio
+?>
+<?
+	include("../php/DataConnection.class.php");		
+	function obtenerProducto($producto){
+		$db = new DataConnection();
+		$qry = "SELECT *
+				FROM producto
+				WHERE idProducto = $producto;";
+		$res = $db->executeQuery($qry);
+		if(mysql_num_rows($res) < 1){
+			return "Producto Inexistente";
+		}
+		else{
+			while($fila = mysql_fetch_array($res)){
+				$nombre = $fila["Nombre"];
+			}
+			return $nombre;
+		}
+		return 0;
+	}
+	
+	function getNombre($CURP){
+		$db = new DataConnection();
+		$qry = "SELECT *
+				FROM empleado
+				WHERE CURP = '$CURP';";
+		$res = $db->executeQuery($qry);
+		if(mysql_num_rows($res) < 1){
+			return "Empleado Inexistente";
+		}
+		else{
+			while($fila = mysql_fetch_array($res)){
+				$nombre = $fila["Nombre"];
+			}
+			return $nombre;
+		}
+		return 0;		
+	}
+	
+?>
+<?
+	include("clases/Lote.class.php");	
+	if(isset($_GET["nolote"])){
+		$lote = $_GET["nolote"];
+		$encontrado = Lote::findById($lote);
+?>
+		<script>
+			document.getElementById('lineaProduccion').value = "<? echo $encontrado->getLinea(); ?>";
+			document.getElementById('producto').value = "<? echo obtenerProducto($encontrado->getProducto()); ?>";
+			document.getElementById('selectCantidad').value = "<? echo $encontrado->getCantidad(); ?>";
+			//document.getElementById('encargado').value = "<? echo getNombre($encontrado->getEncargado()); ?>";
+			document.getElementById('fechaElab').value = "<? echo $encontrado->getElaboracion(); ?>";
+			document.getElementById('fechaCad').value = "<? echo $encontrado->getCaducidad(); ?>";
+			
+			document.getElementById('titulo').innerHTML = "Modificar Lote";
+			document.getElementById('buttonOK').innerHTML = "Modificar";
+			modify = true;		
+        </script>
+<?
+	}//issetfolio
+?>
+
 
 <script>
 	function ayudaAutocompletado(){
 		alert("Este campo cuenta con autocompletado, \nsolo debes ingresar uno o más caracteres y el sistema hará el resto.");
+	}
+</script>
+<script>
+	function validar(){
+		var linea = document.getElementById('lineaProduccion').value;
+		var producto = document.getElementById('producto').value;
+		var cantidad = document.getElementById('selectCantidad').value;
+		var encargado = document.getElementById('encargado').value;
+		var elaboracion = document.getElementById('fechaElab').value;
+		var caducidad = document.getElementById('fechaCad').value;
+
+		if(linea == '0'){
+			alert("La Línea de Producción es un campo obligatorio.");
+			return false;
+		}
+		else if(producto == ''){
+			alert("El producto es un campo obligatorio.");
+			return false;			
+		}
+		else if(cantidad < 1000 || cantidad > 5000){
+			alert("La cantidad de producto es un campo obligatorio.");
+			return false;			
+		}
+		else if(encargado == ''){
+			alert("El encargado de producción es un campo obligatorio.");
+			return false;			
+		}				
+		else if(elaboracion == ''){
+			alert("La fecha de elaboración es un campo obligatorio.");
+			return false;					
+		}
+		else if(caducidad == ''){
+			alert("La fecha de caducidad es un campo obligatorio.");
+			return false;								
+		}		
+		else{
+			return true;
+		}
 	}
 </script>

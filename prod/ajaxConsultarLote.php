@@ -1,7 +1,7 @@
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>  	
-        <title>Modulo de ProducciÃ³n</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>		
+        <title>Modulo de Producción</title>
         <link rel="stylesheet" type="text/css" href="../css/mainStyle.css" />
 		<link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
 	</head>
