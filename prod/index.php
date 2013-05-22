@@ -1,4 +1,4 @@
-﻿<?php include("../php/AccessControl.php"); ?>
+<?php include("../php/AccessControl.php"); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -43,7 +43,8 @@
 			</div>
         </div>
         </center>
-        <footer>Elaborado por nosotros(C) 2013</footer>
+        <!--<footer>Elaborado por nosotros(C) 2013</footer>-->
+        <?php include("../php/footer.php"); ?>
     </body>   
 </html>
 <?php include("scripts.php"); ?>
