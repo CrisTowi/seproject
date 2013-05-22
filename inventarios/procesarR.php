@@ -26,7 +26,7 @@ include("../php/DataConnection.class.php");
 			$pdf->SetFont('Arial','bi',14);
 			$pdf->Cell(40,10,'',0,1); //Linea vacia
 			$pdf->Cell(80,6,'Cookies & System S.A. De C.V.',0,1,'L');
-			$pdf->Cell(80,6,'México, D.F.',0,1,'L');
+			$pdf->Cell(80,6,'Mexico, D.F.',0,1,'L');
 			$pdf->Cell(80,6,$fechaActual,0,1,'L');
 			$pdf->Cell(40,10,'',0,1); //Linea vacia
 			$pdf->SetFont('Arial','b',14);
@@ -83,7 +83,6 @@ include("../php/DataConnection.class.php");
 
 				for($j=0; $j<$rows; ++$j){
 					$row = mysql_fetch_row($result);
-						$pdf->Cell(70,5,$row[5],1,0,'L',0);
 							$query2 = "Select Nombre from materiaprima where idMateriaPrima='".$row[0]."'";
 							$result2=$db->executeQuery($query2);	
 							$nombreM=mysql_fetch_row($result2);	
