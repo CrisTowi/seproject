@@ -486,14 +486,14 @@
 							</td>
 						</tr>
                         <?
-							/*
 							if(isset($_GET["nolote"])){
 								$lote = $_GET["nolote"];
-								*/
+								echo "PRUEBA";
 						?>
+                        	
                         	<!--<input type="hidden" name="nolote" id="nolote" value="<? //echo $lote; ?>" />-->
                         <?
-							//}
+							}
 						?>
 					</table>
 					</form>
