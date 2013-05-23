@@ -76,7 +76,7 @@
 								$db->executeQuery($query2);*/
 							}else{
 							//$db = new DataConnection();
-							$query="insert into articuloventa values(".$Fol.",'".$_GET['Articulo'.$i]."',".$_GET['cantidad'.$i].",'En Espera')";
+							$query="insert into articuloventa values(".$Fol.",'".$_GET['Articulo'.$i]."',".$_GET['cantidad'.$i].",'Preparado')";
 							$db->executeQuery($query);
 							$res=$db->executeQuery("Select cantidadProducto from lote where idlote='".$_GET['Articulo'.$i]."'");
 							$datos=mysql_fetch_assoc($res);
