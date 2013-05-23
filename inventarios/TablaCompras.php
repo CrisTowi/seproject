@@ -55,7 +55,7 @@
 				<td>".utf8_encode($Productos)."</td>
 				<td>".$Cantidades."</td>
 				<td>".$Total."</td>
-				<td class='opc'><img src='../img/ok.png' onclick='AgregarCompra(\"".$id."\")' alt='Modificar' class='clickable'/></td>
+				<td class='opc'><img src='../img/add.png' onclick='AgregarCompra(\"".$id."\")' alt='Modificar' class='clickable'/></td>
 			</tr>");
 		}
 		

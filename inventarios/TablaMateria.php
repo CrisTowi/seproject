@@ -62,8 +62,8 @@
 			echo "<tr class='tr-cont' id='".$idm."' name='".$idm."'>
 				<td>".$idl."</td>
 				<td>".$idm."</td>
-				<td>".utf8_encode($nombre)."</td>
-				<td>".utf8_encode($proveedor)."</td>
+				<td>".$nombre."</td>
+				<td>".$proveedor."</td>
 				<td>".$unidad."</td>
 				<td>".$cantidad."</td>
 				<td>".$fecha_L."</td>

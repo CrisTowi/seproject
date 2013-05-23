@@ -177,22 +177,28 @@
 
         parametros = parametros.replace("#","%23");
 
-
-        sendPetitionQuery("AgregarMA.php?" + encodeURI(parametros));
-        console.log("AgregarMA.php?" + encodeURI(parametros));
-        /* returnedValue almacena el valor que devolvio el archivo PHP */
-        if (returnedValue == "OK" ){
-            if ( modify ){
-                alert("Materia prima comprada y agregada correctamente");
-            }else{
-                alert("Materia Prima agregada correctamente");
-            }
-            window.location = "gestion_ma.php";
+        if(document.getElementById('from').value.length == 0 || document.getElementById('to').value.length == 0)
+        {
+            alert("Campos vacios");
         }
-        else if ( returnedValue == "INPUT_PROBLEM"){
-            alert("Datos con formato inválido");
-        } else {
-            alert("Error desconocido");
+        else
+        {
+            sendPetitionQuery("AgregarMA.php?" + encodeURI(parametros));
+            console.log("AgregarMA.php?" + encodeURI(parametros));
+            /* returnedValue almacena el valor que devolvio el archivo PHP */
+            if (returnedValue == "OK" ){
+                if ( modify ){
+                    alert("Materia prima comprada y agregada correctamente");
+                }else{
+                    alert("Materia Prima agregada correctamente");
+                }
+                window.location = "gestion_ma.php";
+            }
+            else if ( returnedValue == "INPUT_PROBLEM"){
+                alert("Datos con formato inválido");
+            } else {
+                alert("Error desconocido");
+            }
         }
     }
     

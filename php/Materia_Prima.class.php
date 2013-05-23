@@ -60,7 +60,7 @@ if ( !defined("__MATERIA__") ){
 		{
 			$connection = new DataConnection();
 
-			$idlote = $idMateria.substr($idProveedor, 0, 2).$cantidad;
+			$idlote = ($idMateriasubstr, 0, 2).substr($idProveedor, 0, 2).substr($cantidad, 0, 2);
 			$qry = "INSERT into inventario_mp(idLote,idMateriaPrima,RFC,Cantidad,Fecha_Llegada,Fecha_Caducidad) VALUES('".$idlote."',".$idMateria.",'".$idProveedor."',".$cantidad.", '".$fecha_l."', '".$fecha_c."');";
 			//echo $qry;
 			if($result = $connection->executeQuery($qry))
