@@ -49,7 +49,7 @@
 				
 				switch ($estado)
 				{
-					 case "Cancelada":
+					 case "Cancelado":
 				        echo ("<td colspan='2' ><center><img src='../img/cancelar.png' alt='Cancelar' title='Cancelado'/></center></td>
 						</tr>");
 				        break;

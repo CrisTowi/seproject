@@ -8,6 +8,7 @@
 		$name = Validations::cleanString($_GET["name"]);
 	}
 	echo "<select id='prod' name='".$name."'>";
+	echo "<option value='0'>Selecciona un Producto</option>";
 	while( $dato = mysql_fetch_assoc($result) ){
 		echo "<option value='".$dato["idProducto"]."'>".$dato["Nombre"]."</option>";
 	}

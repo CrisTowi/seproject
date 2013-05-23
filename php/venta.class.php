@@ -60,7 +60,7 @@ if ( !defined("__VENTA__") ){
 			$qry = "UPDATE Venta SET Fentrega='".$Fentrega."' where Folio=".$Folio;
 			if($result = $db->executeQuery($qry))
 				{
-				$res= $db->executeQuery("Update articuloventa  set Estado='En Espera' where Folio=".$Folio);
+				$res= $db->executeQuery("Update articuloventa  set Estado='Aplazado' where Folio=".$Folio."and estado not like '%cancelado%'");
 				return true;
 				}
 			return false;
@@ -90,7 +90,7 @@ if ( !defined("__VENTA__") ){
 				
 		public static function Eliminar($Folio){
 			$db = new DataConnection();			
-			$result = $db->executeQuery("Update Venta set Estado='Cancelada' where Folio=".$Folio);
+			$result = $db->executeQuery("Update Venta set Estado='Cancelado' where Folio=".$Folio);
 			$datos= $db->executeQuery("Update ArticuloVenta set Estado='Cancelado' where Folio=".$Folio);
 			$qry="Select l.cantidadProducto,l.idlote from lote l, articuloventa a where a.idlote=l.idlote and folio=".$Folio;
 			$result=$db->executeQuery($qry);
