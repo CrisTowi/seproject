@@ -27,7 +27,8 @@ function valida( str, target,target2, target3,validate ){
 function AddArt()
 {
 	selector=document.getElementById('cant');
-	
+	if(document.getElementById('prod').value!=0)
+	{
 	if(selector.value=='nuevo')
 	{
 		window.location='GestionV.php'
@@ -159,7 +160,12 @@ function AddArt()
 		{
 			alert("El lote ya está en la lista");
 		}
-	}	
+	}
+	}
+	else
+		{
+			alert("Esta opcion no se puede agregar");
+		}	
 }
 
 function quitarIngrediente(obj)
