@@ -43,7 +43,7 @@ include("../php/DataConnection.class.php");
 				$result = $db-> executeQuery($qry);
 
 				$pdf->SetFont('Arial','b',11);
-					$pdf->Cell(50,5,'Nombre',1,0,'L',0);
+					$pdf->Cell(70,5,'Nombre',1,0,'L',0);
 					$pdf->Cell(40,5,'Precio',1,0,'L',0);
 					$pdf->Cell(20,5,'Clave',1,1,'L',0);
 					
@@ -56,7 +56,7 @@ include("../php/DataConnection.class.php");
 
 				for($j=0; $j < $rows; ++$j){
 					$row = mysql_fetch_row($result);
-							$pdf->Cell(50,5,$row[1],1,0,'L',0);	
+							$pdf->Cell(70,5,$row[1],1,0,'L',0);	
 							$pdf->Cell(40,5,$row[2],1,0,'L',0);
 							$pdf->Cell(20,5,$row[3],1,1,'L',0);
 				}
