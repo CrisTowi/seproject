@@ -53,7 +53,7 @@
 			$filas=$_GET['numeroFilas'];
 						for ($i=1; $i <= $filas; $i++) 
 						{
-							if( stripos($_GET['Articulo'.$i],'Pedido') !== FALSE)
+							if(stripos($_GET['Articulo'.$i],'Pedido') !== FALSE)
 							{
 								$query = "SELECT clave FROM producto
 											WHERE idProducto =".$_GET['Producto'.$i];	
