@@ -30,7 +30,10 @@
 		$query="update Venta set Estado='Cancelado' where folio=".$id;
 		$accept=$db->executeQuery($query);
 	}		
-	
-	if(!$accept){echo "DATABASE_PROBLEM";
-	}else{echo "OK";}	
+	if($accept){
+		include("actua.php");
+			echo "OK";
+	}else {
+		echo "DATABASE_PROBLEM";
+	}	
 ?>

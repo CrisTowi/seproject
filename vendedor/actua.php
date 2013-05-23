@@ -5,5 +5,6 @@
 	
 	while( $dato = mysql_fetch_assoc($result) ){
 		$db->executeQuery("Update venta set Estado='Entregado' WHERE  folio=".$dato["folio"]);
+		$db->executeQuery("Update articuloventa set Estado='Entregado' WHERE estado not like '%Cancelado%' and folio=".$dato["folio"]);
 	}
 ?>

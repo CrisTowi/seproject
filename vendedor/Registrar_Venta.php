@@ -166,7 +166,7 @@
 			alert("Lo siento las unidades no son suficientes");
 		}
 		else {
-			//alert (returnedValue);
+			alert (returnedValue);
 		}
 	}
 		

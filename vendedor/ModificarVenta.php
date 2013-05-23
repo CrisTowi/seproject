@@ -133,7 +133,10 @@
 		}
 		else if ( returnedValue == "INPUT_PROBLEM"){
 			alert("Datos con formato inválido");
-		} else {
+		} 
+		else if ( returnedValue == "INPUT_agreg"){
+			alert("La fecha de entrega tiene que ser mayor a la de realizacion de la venta");
+		}else {
 			alert ("Error desconocido D:");
 		}
 		}

@@ -38,14 +38,22 @@ if ( !defined("__VENTA__") ){
 			$aux= $db->executeQuery("Select MAX(Fentrega) as 'Fentrega' from venta");
 			$aux1= $db->executeQuery("SELECT DATEDIFF(CURDATE( ),MAX( Fentrega )) as 'Fecha' FROM venta");
 			$dato = mysql_fetch_assoc($aux1);
+			$fech=mysql_fetch_assoc($aux);
 			$row=mysql_fetch_row($aux);
+			$auxx= $db->executeQuery("Select count(*) as 'cuenta' from venta where Fentrega like '%".$fech['Fentrega']."%'");
+			
 			if($aux!=0 and $dato["Fecha"]<0 )
 			{
+				$nw=mysql_fetch_assoc($auxx);
+				if($nw['cuenta']>2)  
 				$qry = "INSERT INTO Venta (Fecha,RFC,Fentrega,Estado) VALUES((SELECT CURDATE( )),'".$Cliente."',(SELECT DATE_ADD(MAX(v.Fentrega),INTERVAL 2 Day) FROM venta v ),'En Espera');";
+				else
+					$qry = "INSERT INTO Venta (Fecha,RFC,Fentrega,Estado) VALUES((SELECT CURDATE( )),'".$Cliente."',(SELECT MAX(v.Fentrega) FROM venta v where estado not like '%Cancelado%'),'En Espera');";
 			}
 			else
 			{
 				$qry = "INSERT INTO Venta (Fecha,RFC,Fentrega,Estado) VALUES((SELECT CURDATE( )),'".$Cliente."',(SELECT DATE_ADD(curdate(),INTERVAL 2 Day)),'En Espera')";
+				
 			} 
 			if($result = $db->executeQuery($qry))
 			{
@@ -56,14 +64,21 @@ if ( !defined("__VENTA__") ){
 		
 		public static function Modificar($Fentrega,$Folio){
 		    $db = new DataConnection();
+			$auxi= "SELECT DATEDIFF(v.fecha,'".$Fentrega."') as 'Fecha' FROM venta v where folio=".$Folio;
+			$aux1= $db->executeQuery($auxi);
+			$dato = mysql_fetch_assoc($aux1);
 			
-			$qry = "UPDATE Venta SET Fentrega='".$Fentrega."' where Folio=".$Folio;
-			if($result = $db->executeQuery($qry))
-				{
-				$res= $db->executeQuery("Update articuloventa  set Estado='Aplazado' where Folio=".$Folio."and estado not like '%cancelado%'");
-				return true;
-				}
-			return false;
+			if((int)$dato['Fecha']<=0)
+			{
+					$qry = "UPDATE Venta SET Fentrega='".$Fentrega."',estado='En espera' where Folio=".$Folio;
+					if($result = $db->executeQuery($qry))
+						{
+						$res= $db->executeQuery("Update articuloventa  set Estado='Aplazado' where Folio=".$Folio." and estado not like '%cancelado%'");
+						return true;
+						}
+					return false;
+			}
+			else {return false;}
 		}
 			
 		public static function findById($Folio)

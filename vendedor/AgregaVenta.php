@@ -13,7 +13,6 @@
 					return;
 	}
 	$filas=$_GET['numeroFilas'];
-
 	include("../php/DataConnection.class.php");
 	$db = new DataConnection();
 	for ($i=1; $i <= $filas; $i++) 
