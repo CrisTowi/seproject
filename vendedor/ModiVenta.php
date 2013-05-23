@@ -21,15 +21,15 @@
 										'".$_GET['Eliminar'.$i]."'");
 	}
 					
-	/*$query=("select count(*) as 'cuenta' from articuloventa where estado not like 'cancelado' and Folio=".$id);
-	$resulta=$db->executeQuery($query);
+	$q=("select count(*) as 'cuenta' from articuloventa where estado not like '%cancelado%' and Folio=".$id);
+	$resulta=$db->executeQuery($q);
 	$dato=mysql_fetch_assoc($resulta);
 	$cuenta=(int)$dato['cuenta'];
 	if($cuenta==0)
 	{
 		$query="update Venta set Estado='Cancelado' where folio=".$id;
-		$db->executeQuery($query);
-	}	*/			
+		$accept=$db->executeQuery($query);
+	}		
 	
 	if(!$accept){echo "DATABASE_PROBLEM";
 	}else{echo "OK";}	

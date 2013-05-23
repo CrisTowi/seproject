@@ -61,9 +61,9 @@
 				</table>	
 				</div>
 				<div  id="botones" style="display: block">
-					<div id="buttonOK" class="form-button" onclick="modificarVenta();">Aceptar</div>                   
+					<div id="buttonOK" class="form-button" onclick="modificarVenta();">Aceptar</div>                
                 	<div id="buttonCancel" class="form-button" onClick="window.location='GestionV.php'">Cancelar</div>
-				</div>
+				 </div>  
             </div>   
             </center> 
     </body>   
@@ -105,7 +105,9 @@
 		document.getElementById('tip').innerHTML="Informacion detallada de la venta.";
 		document.getElementById('fentr').innerHTML="";
 		document.getElementById('fentr').innerHTML="<?php echo $encontrado->getFentrega(); ?>";
-		document.getElementById('botones').innerHTML="";
+		var el=document.getElementById('buttonOK');
+		var padre = el.parentNode;
+		padre.removeChild(el);
 		loadTable(1);
 		<?php }
 		else {?>
